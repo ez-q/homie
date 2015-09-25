@@ -16,7 +16,20 @@ tar xvzf node-v4.1.1-linux-armv7l.tar.gz
 sudo cp -r node-v4.1.1-linux-armv7l/* DESTINATION_PATH      //(destination path will be your nodejs (and npm) install directory,
                                                                 in this readme the path will be /opt/node))
 
+now add the node and npm binaries to the PATH variable:
 
+sudo nano /etc/profile
+
+    add these lines to the file (prior to "export PATH")
+
+        NODE_JS_HOME="/opt/node"
+        PATH="$PATH:$NODE_JS_HOME/bin"
+
+add node and npm command to sudo
+
+    sudo nano /etc/sudoers
+        
+        concat to secure path between "" :/opt/node/bin:/opt/npm/bin
 
 
 GPIO library:
