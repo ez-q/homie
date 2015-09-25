@@ -1,0 +1,29 @@
+IMPORTANT NOTES
+
+This installation guide might not work with other Raspberry Pi models.
+
+Raspberry Pi model used:
+    Raspberry Pi 2 Model B
+
+    
+INSTALLATION
+
+
+install newest nodejs version (at the time of this guide 4.1.1):
+
+wget http://nodejs.org/dist/v4.1.1/node-v4.1.1-linux-armv7l.tar.gz 
+tar xvzf node-v4.1.1-linux-armv7l.tar.gz 
+sudo cp -r node-v4.1.1-linux-armv7l/* DESTINATION_PATH      //(destination path will be your nodejs (and npm) install directory,
+                                                                in this readme the path will be /opt/node))
+
+
+
+
+GPIO library:
+    pi-gpio:
+
+    https://www.npmjs.com/package/pi-gpio
+
+    The guide will ask you to install gpio-admin. It did not work with my Raspberry Pi but this fix worked:
+        https://github.com/quick2wire/quick2wire-gpio-admin/pull/6
+                       
