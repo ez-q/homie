@@ -2,7 +2,6 @@
 #include <WebSocketClient.h>
 
 
-//WiFi constants
 const char* ssid     = ""; //name of your WiFi network
 const char* password = ""; //password of your WiFi network, leave blank if no passwort
 
