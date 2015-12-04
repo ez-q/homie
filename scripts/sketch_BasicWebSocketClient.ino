@@ -1,8 +1,11 @@
 #include <ESP8266WiFi.h>
 #include <WebSocketClient.h>
 
+
+//WiFi constants
 const char* ssid     = ""; //name of your WiFi network
 const char* password = ""; //password of your WiFi network, leave blank if no passwort
+
 //path is the directory for your WebSocket, in this case (a WebSocketServer with Java EE)
 //the Endpoint ('/') and the project name ('WSDemoESP8266') is put front of it -- MIND THE FRONTSLASHES!!
 char path[] = "/WSDemoESP8266/";
@@ -10,7 +13,7 @@ char path[] = "/WSDemoESP8266/";
 //host is the ip of the host computer ('172.16.6.110') with the port ('8080'), on which 
 //the WebSocketServer runs, concatinated after ':' -- NO FRONTSLASHES HERE!!
 char host[] = "172.16.6.110:8080";
-  
+
 WebSocketClient webSocketClient;
 
 // Use WiFiClient class to create TCP connections
