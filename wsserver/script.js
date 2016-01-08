@@ -2,7 +2,13 @@
 var WebSocketServer = require('ws').Server
   , wss = new WebSocketServer({ port: 50555 });
 
+var Command = require('Command');
+var Condition = require('Condition');
+var Configuration = require('Configuration');
+var Target = require('Target');
 
+/*var parser = require(__dirname + '\\commandparser.js');
+var model = require(__dirname + '\\model.js');*/
 
 
 wss.on('connection', function connection(ws) {
@@ -29,31 +35,7 @@ var configurations = [];
 var conditions = [];
 conditions.push(new Condition("time", "10:00", "lesser"));
 conditions.push(new Condition("signal", true, "button"));
-configurations.push(new Configuration(new Target("test", "127.0.0.1"), conditions));
-
-//console.log(configurations.conditions.length);
-
-function Command(from, type, data){
-    this.from = from;
-    this.data = data;
-    this.type = type;
-}
-
-function Condition(type, value, mod){
-    this.type = type;
-    this.value = value;
-    this.mod = mod;
-}
-
-function Target(name, ip){
-    this.name = name;
-    this.ip = ip;
-}
-
-function Configuration(target, conditions){
-    this.target = target;
-    this.conditions = conditions;
-}
+configurations.push(new Configuration(new Target("led1", "172.16.4.72"), conditions, "AND"));
 
 var parseMessage = function (msg){
     var tmp = JSON.parse(msg);
@@ -87,6 +69,15 @@ var checkTime = function (cnd){
         return checkDate <= currDate;
 };
 
+var applyLogicalOperator = function (value, flag, operator){
+    if(operator === "AND")
+        return value && flag;
+    if(operator === "OR")
+        return value || flag;
+    else
+        return false;
+};
+
 var checkConfigurations = function (cmd){
 
     var flag = false;
@@ -94,6 +85,7 @@ var checkConfigurations = function (cmd){
 
     for(var i = 0; i < configurations.length; i++){
         console.log("configurations length: " + configurations.length);
+        var config = configurations[i];
         for(var j = 0; j < configurations[i].conditions.length; j++) {
             console.log("conditions length: " + configurations[i].conditions.length);
             var cnd = configurations[i].conditions[j];
@@ -101,12 +93,12 @@ var checkConfigurations = function (cmd){
             if(cnd.type === "time")
                 flag = checkTime(cnd);
             if(cnd.type === "button")
-                flag = cmd.data && flag;
+                flag = applyLogicalOperator(cmd.data, flag, config.logicaloperator);
 
             console.log("loop count (%d,%d): flag value: %s", i, j, flag);
         }
 
-        var config = configurations[i];
+
 
         if(flag){
             wss.sendToClient(config.target.ip, "ACTIVATE YE BOY");
