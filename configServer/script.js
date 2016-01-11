@@ -35,7 +35,7 @@ var configurations = [];
 var conditions = [];
 conditions.push(new Condition("time", "10:00", "lesser"));
 conditions.push(new Condition("signal", true, "button"));
-configurations.push(new Configuration(new Target("led1", "172.16.4.72", "on"), conditions, "AND"));
+configurations.push(new Configuration(new Target("led1", "127.0.0.1", "on"), conditions, "AND"));
 
 var parseMessage = function (msg){
     var tmp = JSON.parse(msg);
@@ -101,7 +101,9 @@ var checkConfigurations = function (cmd){
 
 
         if(flag){
-            wss.sendToClient(config.target.ip, "ACTIVATE YE BOY");
+           // wss.sendToClient(config.target.ip, "ACTIVATE YE BOY");
+            wss.sendToClient(config.target.ip, '{"event":"message","data":"activate"}');
+
         }
 
         flag = false;

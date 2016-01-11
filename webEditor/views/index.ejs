@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <!--<script src="bower_components/angular/angular.js"></script>-->
+    <script src="/javascripts/ng-websocket.js"></script>
+    <script src="/javascripts/angularApp.js"></script>
+  </head>
+  <body ng-app="webEditor" ng-controller="MainCtrl">
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+    <p>
+      {{test}}
+    </p>
+    <p>
+      {{x}}
+    </p>
+  </body>
+</html>
