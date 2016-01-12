@@ -29,10 +29,17 @@ app.run(function ($rootScope, $websocket){
         console.log('onMessage called with: ' + JSON.stringify(data));
         $rootScope.x = "received message: " + JSON.stringify(data);
         $rootScope.$apply();
+        var jdata = JSON.parse(data);
+
+        if(jdata.hasOwnProperty("devices")){
+            $rootScope.devices = jdata.devices;
+            $rootScope.$apply();
+        }
+
     });
 
-    $rootScope.sendToServer = function(toSend){
-        ws.$emit("setDataType", toSend);
+    $rootScope.sendToServer = function(event, toSend){
+        ws.$emit(event, toSend);
     }
 
 
@@ -42,6 +49,8 @@ app.run(function ($rootScope, $websocket){
 
 app.controller('MainCtrl', ['$scope', function ($scope){
 
+    //$scope.devices=[];
+
 
     //$scope.toSend = "test to send";
     $scope.dataType = "button";
@@ -50,7 +59,12 @@ app.controller('MainCtrl', ['$scope', function ($scope){
         console.log('called setDataType');
 
 
-        $scope.sendToServer($scope.dataType);
+        $scope.sendToServer("setDataType", $scope.dataType);
+    };
+
+    $scope.getDevices = function() {
+        console.log("called getDevices");
+        $scope.sendToServer("getDevices","");
     }
 
     //$scope.test='not connected...';

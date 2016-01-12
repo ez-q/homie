@@ -17,6 +17,15 @@
     <p>
       {{x}}
     </p>
-    <button ng-click="setDataType()">Set Data</button>
+    <button ng-click="setDataType()">SetDataType (Button)</button></br>
+    <button ng-click="getDevices()">GetDevices</button>
+    <div ng-repeat="device in devices">
+      <p>Device type: {{device.type}}</p>
+      <p>Device name: {{device.name}}</p>
+      Device values:
+      <div ng-repeat="v in device.values">
+        <p>{{v}}</p>
+      </div>
+    </div>
   </body>
 </html>
