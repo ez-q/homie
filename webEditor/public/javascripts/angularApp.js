@@ -11,7 +11,7 @@ app.run(function ($rootScope, $websocket){
     $rootScope.x = "bla";
 
     var ws = $websocket.$new({
-        url: 'ws://localhost:50555',
+        url: 'ws://localhost:50556',
         reconnect: true // it will reconnect after 2 seconds
     });
 
@@ -31,6 +31,9 @@ app.run(function ($rootScope, $websocket){
         $rootScope.$apply();
     });
 
+    $rootScope.sendToServer = function(toSend){
+        ws.$emit("setDataType", toSend);
+    }
 
 
 });
@@ -40,7 +43,18 @@ app.run(function ($rootScope, $websocket){
 app.controller('MainCtrl', ['$scope', function ($scope){
 
 
+    //$scope.toSend = "test to send";
+    $scope.dataType = "button";
+
+    $scope.setDataType = function(){
+        console.log('called setDataType');
+
+
+        $scope.sendToServer($scope.dataType);
+    }
 
     //$scope.test='not connected...';
+
+
 
 }]);

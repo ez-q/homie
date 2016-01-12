@@ -1,35 +1,120 @@
 
 var WebSocketServer = require('ws').Server
-  , wss = new WebSocketServer({ port: 50555 });
+    , controllerWSS = new WebSocketServer({ port: 50555 })
+    , dataWSS = new WebSocketServer({ port : 50556});
+
 
 var Command = require('Command');
 var Condition = require('Condition');
 var Configuration = require('Configuration');
 var Target = require('Target');
+var DataDictEntry = require('DataDictEntry');
 
 /*var parser = require(__dirname + '\\commandparser.js');
-var model = require(__dirname + '\\model.js');*/
+ var model = require(__dirname + '\\model.js');*/
 
 
-wss.on('connection', function connection(ws) {
+controllerWSS.on('connection', function connection(ws) {
   console.log('connected: %s', ws._socket.remoteAddress);
   ws.on('message', function incoming(message) {
 	console.log('received message: %s', message);
     //wss.sendToClient(ip, action);
       processCommand(parseMessage(message));
+      checkAndSendData(message);
   });
 
   ws.send('connected');
 });
 
-wss.sendToClient = function sendToClient(address, data){
-	wss.clients.forEach(function each(client){
+controllerWSS.sendToClient = function sendToClient(address, data){
+	controllerWSS.clients.forEach(function each(client){
 		if(client._socket.remoteAddress === address){
 			client.send(data);
 		}
 	});
 };
 
+
+
+var userDict = [];
+var dataDict = {};
+
+
+var findUserEntry = function (ip){
+   for(var i = 0; i < userDict.length; i++){
+     if(userDict[i].to === ip) return i;
+   }
+    return -1;
+};
+
+var findIpsForDataType = function (dataType){
+
+  var res = [];
+
+  for(var i = 0; i < userDict.length; i++){
+      if(userDict[i].type === dataType){
+          console.log(JSON.stringify(userDict[i]));
+          res[res.length] = userDict[i].to;
+          console.log("found matching ip for type: " + res[res.length-1]);
+      }
+  }
+
+    return res;
+};
+
+dataWSS.on('connection', function connection(ws) {
+    console.log('connected: %s', ws._socket.remoteAddress);
+
+    ws.on('message', function incoming(message) {
+        //console.log('received message: %s', message);
+        //wss.sendToClient(ip, action);
+        console.log('WSSDATA RECEIVED: ' + message);
+
+        msg = JSON.parse(message);
+
+        if(msg.event === "setDataType"){
+            if(findUserEntry(ws._socket.remoteAddress) != -1)
+                userDict = userDict.splice(findUserEntry(ws._socket.remoteAddress),1);
+
+            userDict.push(new DataDictEntry(ws._socket.remoteAddress, msg.data));
+            console.log("added new userDict entry: " + JSON.stringify(userDict[userDict.length-1]));
+        }
+
+
+
+
+    });
+
+    ws.send('connected');
+});
+
+dataWSS.sendToClient = function sendToClient(address, data){
+    dataWSS.clients.forEach(function each(client){
+        if(client._socket.remoteAddress === address){
+            client.send(data);
+        }
+    });
+};
+
+
+
+var checkAndSendData = function (message) {
+
+    console.log("checkAndSendData called with message: " + message);
+    var tmp = JSON.parse(message);
+    console.log("parsed json: " + tmp.type + " " + tmp.data);
+
+    var ips = findIpsForDataType(tmp.type);
+
+    
+
+    for(var i = 0; i < ips.length; i++){
+
+        dataWSS.sendToClient(ips[i], JSON.stringify(tmp));
+        console.log("sent data: " + tmp.data + " to ip: " + ips[i]);
+    }
+
+};
 
 var configurations = [];
 var conditions = [];
@@ -39,7 +124,7 @@ configurations.push(new Configuration(new Target("led1", "127.0.0.1", "on"), con
 
 var parseMessage = function (msg){
     var tmp = JSON.parse(msg);
-    console.log("called parseMessage - from: " + tmp.from + " data: " + tmp.data + " type: " + tmp.type);
+    console.log("called parseMessage from: " + tmp.from + " data: " + tmp.data + " type: " + tmp.type);
     return new Command(tmp.from, tmp.type, tmp.data);
 };
 
@@ -101,8 +186,7 @@ var checkConfigurations = function (cmd){
 
 
         if(flag){
-           // wss.sendToClient(config.target.ip, "ACTIVATE YE BOY");
-            wss.sendToClient(config.target.ip, '{"event":"message","data":"activate"}');
+            controllerWSS.sendToClient(config.target.ip, '{"event":"message","data":"activate"}');
 
         }
 
