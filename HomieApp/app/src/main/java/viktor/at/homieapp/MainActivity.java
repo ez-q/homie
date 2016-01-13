@@ -24,77 +24,24 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import de.tavendo.autobahn.WebSocketConnection;
 import de.tavendo.autobahn.WebSocketException;
 import de.tavendo.autobahn.WebSocketHandler;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements Observer {
 
     private static final String TAG = "at.viktor.WSClientTest";
 
-    private final WebSocketConnection mConnection = new WebSocketConnection();
 
     List<Device> devices;
 
     LinearLayout fragContainer;
     List<DeviceFragment> fragments;
 
-    private void start() {
 
-        final String wsuri = "ws://10.0.2.2:50555";
-        Log.d(TAG, "attempt to start ws");
-
-        try {
-            mConnection.connect(wsuri, new WebSocketHandler() {
-
-                @Override
-                public void onOpen() {
-                    Log.d(TAG, "Status: Connected to " + wsuri);
-                    //HashMap<String,Object> map = new HashMap<String, Object>();
-                    //JSONObject connectObject = new JSONObject(map);
-                }
-
-                @Override
-                public void onTextMessage(String payload) {
-                    try {
-                        JSONObject message = new JSONObject(payload);
-                        switch(message.getString("type").toLowerCase()){
-                            case "device":
-                                Device d = new Device();
-                                d.setAddress(message.getString("address"));
-                                d.setName(message.getString("name"));
-                                devices.add(d);
-                                addNewDevice(d);
-                                Log.d(TAG, "Device added: " + d.getName());
-                                //Log.d(TAG,"" + fragments.get(fragments.size()-1).appendValue(12));
-                                break;
-                            case "value":
-                                for(Device dev : devices){
-                                    if(message.getString("name").equals(dev.getName())){
-                                        dev.getValues().add(message.getInt("value"));
-                                        Log.d(TAG, "Value " + message.getInt("value") + " for device " + dev.getName());
-                                        addValueForDevice(dev, message.getInt("value"));
-                                        break;
-                                    }
-                                }
-                                break;
-                        }
-                    } catch (JSONException e) {
-                        Log.d(TAG,"not a JSON string");
-                    }
-                }
-
-                @Override
-                public void onClose(int code, String reason) {
-                    Log.d(TAG, "Connection lost. "+reason);
-                }
-            });
-        } catch (WebSocketException e) {
-
-            Log.d(TAG, e.toString());
-        }
-    }
 
         @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,22 +51,11 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         devices = new LinkedList<>();
         fragments = new LinkedList<>();
-        start();
-
         fragContainer = (LinearLayout) findViewById(R.id.fragContainer);
-
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
+        WSClient.getInstance().addObserver(this);
     }
 
     private void addNewDevice(Device d){
-
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         DeviceFragment fragment = new DeviceFragment();
@@ -127,28 +63,6 @@ public class MainActivity extends AppCompatActivity {
         fragments.add(fragment);
         transaction.add(R.id.fragContainer, fragment);
         transaction.commit();
-
-        /*
-        // Find the ScrollView
-        ScrollView sv = (ScrollView) findViewById(R.id.scrollView);
-
-        // Create a LinearLayout element
-        LinearLayout ll = new LinearLayout(this);
-        ll.setOrientation(LinearLayout.VERTICAL);
-
-        // Add text
-        TextView tv = new TextView(this);
-        tv.setText(d.getName());
-        ll.addView(tv);
-
-        EditText et = new EditText(this);
-
-
-        // Add the LinearLayout element to the ScrollView
-        sv.addView(ll);
-
-        // Display the view
-        //setContentView(v);*/
     }
 
     public void addValueForDevice(Device d, int i){
@@ -187,5 +101,35 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void update(Observable observable, Object data) {
+        JSONObject message = (JSONObject)data;
+        try {
+            switch(message.getString("type").toLowerCase()){
+                case "device":
+                    Device d = new Device();
+                    d.setAddress(message.getString("address"));
+                    d.setName(message.getString("name"));
+                    devices.add(d);
+                    addNewDevice(d);
+                    Log.d(TAG, "Device added: " + d.getName());
+                    //Log.d(TAG,"" + fragments.get(fragments.size()-1).appendValue(12));
+                    break;
+                case "value":
+                    for(Device dev : devices){
+                        if(message.getString("name").equals(dev.getName())){
+                            dev.getValues().add(message.getInt("value"));
+                            Log.d(TAG, "Value " + message.getInt("value") + " for device " + dev.getName());
+                            addValueForDevice(dev, message.getInt("value"));
+                            break;
+                        }
+                    }
+                    break;
+            }
+        } catch (JSONException e) {
+
+        }
     }
 }
