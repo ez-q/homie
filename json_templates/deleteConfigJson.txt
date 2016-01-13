@@ -1,0 +1,6 @@
+{
+    "event":"deleteConfiguration",
+    "data":{
+        "cname":"name to delete"
+    }
+}

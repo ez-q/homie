@@ -1,9 +1,7 @@
 [{
-  "target": {
-    "name":"wstestclient",
-    "to":"127.0.0.1",
-    "action":"on"
-  },
+  "cname":"config1",
+  "dname":"wstestclient1",
+  "action":"on",
   "conditions": [
       {
         "type":"time",
@@ -19,11 +17,9 @@
   "logicalOperator":"and"
 },
 {
-  "target": {
-    "name":"wstestclient2",
-    "to":"127.0.0.1",
-    "action":"on"
-  },
+  "cname":"config2",
+  "dname":"wstestclient2",
+  "action":"on",
   "conditions": [
       {
         "type":"time",

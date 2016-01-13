@@ -1,0 +1,23 @@
+{
+    "event":"newConfiguration",
+    "data":{
+      "cname":"name for the new config",
+      "targetDevice": {
+        "dname":"wstestclient3",
+        "action":"on"
+      },
+      "conditions": [
+          {
+            "type":"time",
+            "value":"10:00",
+            "mod":"greater"
+          },
+          {
+            "type":"button",
+            "value":true,
+            "mod":null
+          }
+      ],
+      "logicalOperator":"and"
+    }
+}

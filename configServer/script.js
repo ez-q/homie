@@ -19,17 +19,67 @@ var devices = [];
 
 var configurations = [];
 var conditions = [];
-conditions.push(new Condition("time", "10:00", "lesser"));
+/*conditions.push(new Condition("time", "10:00", "lesser"));
 conditions.push(new Condition("signal", true, "button"));
-configurations.push(new Configuration(new Target("led1", "127.0.0.1", "on"), conditions, "and"));
+configurations.push(new Configuration(new Target("led1", "127.0.0.1", "on"), conditions, "and"));*/
 
 
 
 fs.readFile( __dirname + "/" + "configurations.json", 'utf8', function (err, data) {
     console.log("read configuration data: " + data);
-    configurations = JSON.parse(data);
+
+    //configurations = JSON.stringify(data);
+    try{
+        configurations = JSON.parse(data);
+        console.log("valid json file: " + configurations);
+    }
+    catch(e){
+        console.log("invalid or empty configurations file");
+        return;
+    }
+    //console.log(JSON.stringify(configurations[0]));
+    console.log("end of readFile");
 });
 
+var writeConfigsToFile = function (){
+    fs.writeFile(__dirname + "/" + "configurations.json", JSON.stringify(configurations), function(err) {
+        if(err) {
+            return console.log(err);
+        }
+
+        console.log("changed config");
+        console.log("current config: " + JSON.stringify(configurations));
+    });
+};
+
+
+var addConfiguration = function (newConfig){
+    configurations.push(newConfig);
+
+    writeConfigsToFile();
+
+};
+
+
+
+var deleteConfiguration = function (toDelete){
+    for(var i = 0; i < configurations.length; i++){
+        if(configurations[i].cname === toDelete)
+            configurations.splice(i, 1);
+    }
+
+    writeConfigsToFile();
+};
+
+
+var getIpForDeviceName = function (dname){
+
+    for(var i = 0; i < devices.length; i++){
+        if(devices[i].dname === dname)
+            return device[i].ip;
+    }
+    return -1;
+};
 
 controllerWSS.on('connection', function connection(ws) {
   console.log('connected: %s', ws._socket.remoteAddress);
@@ -82,14 +132,14 @@ var findUserEntry = function (ip){
     return -1;
 };
 
-var findIpsForDataType = function (dataType){
+var findIpsForDeviceName = function (dname){
 
   var res = [];
 
   for(var i = 0; i < userDict.length; i++){
-      if(userDict[i].type === dataType){
+      if(userDict[i].dname === dname){
           console.log(JSON.stringify(userDict[i]));
-          res[res.length] = userDict[i].to;
+          res.push(userDict[i].to);
           console.log("found matching ip for type: " + res[res.length-1]);
       }
   }
@@ -116,7 +166,10 @@ dataWSS.on('connection', function connection(ws) {
                 console.log("removed previous userDict (length: %d) entry for: " + ws._socket.remoteAddress, userDict.length);
             }
 
-            userDict.push(new DataDictEntry(ws._socket.remoteAddress, msg.data));
+            userDict.push({
+                to:ws._socket.remoteAddress,
+                dname:msg.data
+            });
             console.log("added new userDict entry: " + JSON.stringify(userDict[userDict.length-1]));
         }
 
@@ -127,9 +180,18 @@ dataWSS.on('connection', function connection(ws) {
 
 
         if(msg.event === "newConfiguration"){
+            console.log("newConfiguration called with data: ");
+            console.log(JSON.stringify(msg.data));
 
+            addConfiguration(msg.data);
 
+        }
 
+        if(msg.event === "deleteConfiguration"){
+            console.log("deleteConfiguration called with data: ");
+            console.log(JSON.stringify(msg.data));
+
+            deleteConfiguration(msg.data.cname);
         }
 
 
@@ -153,14 +215,14 @@ var checkAndSendData = function (message) {
 
     var tmp = JSON.parse(message);
 
-    if(tmp.type === "regDevice") return;
+    if(tmp.event === "regDevice") return;
 
 
     console.log("checkAndSendData called with message: " + message);
-    console.log("parsed json: " + tmp.type + " " + tmp.data);
+    console.log("parsed json: " + tmp.dname + " " + tmp.data);
 
 
-    var ips = findIpsForDataType(tmp.type);
+    var ips = findIpsForDeviceName(tmp.dname);
 
 
 
@@ -187,8 +249,9 @@ var processCommand = function (cmd){
 
     if(cmd.type === "regDevice"){
         devices.push({
-            type:cmd.actType,
-            name:cmd.name,
+            type:cmd.type,
+            category:cmd.category,
+            dname:cmd.dname,
             values:cmd.values,
             ip:cmd.from
         });
