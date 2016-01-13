@@ -34,7 +34,7 @@ public class Connect extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(wsClient.start(etHost.getText().toString())){
-                    Intent i = new Intent(getApplicationContext(),MainActivity.class);
+                    Intent i = new Intent(getApplicationContext(),DeviceListActivity.class);
                     startActivity(i);
                 }
             }

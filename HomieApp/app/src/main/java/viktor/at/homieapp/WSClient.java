@@ -11,9 +11,7 @@ import de.tavendo.autobahn.WebSocketConnection;
 import de.tavendo.autobahn.WebSocketException;
 import de.tavendo.autobahn.WebSocketHandler;
 
-/**
- * Created by Viktor on 13.01.2016.
- */
+
 public class WSClient extends Observable {
 
     private static final String TAG = "at.viktor.WSClientTest";

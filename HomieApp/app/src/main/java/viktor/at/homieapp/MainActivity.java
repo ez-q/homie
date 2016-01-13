@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -42,7 +43,6 @@ public class MainActivity extends AppCompatActivity implements Observer {
     List<DeviceFragment> fragments;
 
 
-
         @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
         WSClient.getInstance().addObserver(this);
     }
 
-    private void addNewDevice(Device d){
+    void addNewDevice(Device d){
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         DeviceFragment fragment = new DeviceFragment();

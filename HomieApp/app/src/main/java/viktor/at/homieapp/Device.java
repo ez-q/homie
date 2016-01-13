@@ -6,7 +6,7 @@ import java.util.List;
 public class Device {
     private String address;
     private String name;
-    private List<Integer> values;
+    private List<Object> values;
 
     public Device(String address, String name){
         this.address = address;
@@ -33,12 +33,16 @@ public class Device {
         this.name = name;
     }
 
-    public List<Integer> getValues() {
+    public List<Object> getValues() {
         return values;
     }
 
-    public void setValues(List<Integer> values) {
+    public void setValues(List<Object> values) {
         this.values = values;
     }
 
+    @Override
+    public String toString() {
+        return getName();
+    }
 }

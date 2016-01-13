@@ -11,4 +11,5 @@
     <string name="hostAddress">Host-Adresse:</string>
     <string name="connect">Connect</string>
     <string name="exit">Beenden</string>
+    <string name="title_activity_device_list">DeviceListActivity</string>
 </resources>

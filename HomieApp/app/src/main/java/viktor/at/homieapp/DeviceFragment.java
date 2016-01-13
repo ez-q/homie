@@ -51,22 +51,25 @@ public class DeviceFragment extends Fragment implements IAppendFragmentValues {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_device, container, false);
-    }
+        View view = inflater.inflate(R.layout.fragment_device, container, false);
 
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        tv = (TextView) getView().findViewById(R.id.tvName);
+        tv = (TextView) view.findViewById(R.id.tvName);
         tv.setText(deviceName);
 
-        etValues = (EditText) getView().findViewById(R.id.etValues);
+        etValues = (EditText) view.findViewById(R.id.etValues);
         for(int i : valuesToBeAdded){
             appendValue(i);
         }
         viewCreated = true;
         Log.d("Fragment","View is created");
         Log.d("Fragment", "Values to be added: "+valuesToBeAdded.size());
+
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
     }
 
     @Override
