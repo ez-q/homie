@@ -1,0 +1,7 @@
+{
+  "type":"regDevice",
+  "actType":"button/temperature",
+  "name":"button1/buttonLivingRoom/TemperatureOutside",
+  "values":"true/false/Celcius",
+  "from":"devices own ip"
+}

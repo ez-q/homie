@@ -3,6 +3,7 @@ var WebSocketServer = require('ws').Server
     , controllerWSS = new WebSocketServer({ port: 50555 })
     , dataWSS = new WebSocketServer({ port : 50556});
 
+var fs = require('fs');
 
 var Command = require('Command');
 var Condition = require('Condition');
@@ -14,6 +15,20 @@ var DataDictEntry = require('DataDictEntry');
  var model = require(__dirname + '\\model.js');*/
 
 var devices = [];
+
+
+var configurations = [];
+var conditions = [];
+conditions.push(new Condition("time", "10:00", "lesser"));
+conditions.push(new Condition("signal", true, "button"));
+configurations.push(new Configuration(new Target("led1", "127.0.0.1", "on"), conditions, "and"));
+
+
+
+fs.readFile( __dirname + "/" + "configurations.json", 'utf8', function (err, data) {
+    console.log("read configuration data: " + data);
+    configurations = JSON.parse(data);
+});
 
 
 controllerWSS.on('connection', function connection(ws) {
@@ -157,11 +172,7 @@ var checkAndSendData = function (message) {
 
 };
 
-var configurations = [];
-var conditions = [];
-conditions.push(new Condition("time", "10:00", "lesser"));
-conditions.push(new Condition("signal", true, "button"));
-configurations.push(new Configuration(new Target("led1", "127.0.0.1", "on"), conditions, "and"));
+
 
 var parseMessage = function (msg){
     var tmp = JSON.parse(msg);

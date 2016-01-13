@@ -1,0 +1,41 @@
+[{
+  "target": {
+    "name":"wstestclient",
+    "to":"127.0.0.1",
+    "action":"on"
+  },
+  "conditions": [
+      {
+        "type":"time",
+        "value":"10:00",
+        "mod":"greater"
+      },
+      {
+        "type":"button",
+        "value":true,
+        "mod":null
+      }
+  ],
+  "logicalOperator":"and"
+},
+{
+  "target": {
+    "name":"wstestclient2",
+    "to":"127.0.0.1",
+    "action":"on"
+  },
+  "conditions": [
+      {
+        "type":"time",
+        "value":"10:00",
+        "mod":"greater"
+      },
+      {
+        "type":"button",
+        "value":true,
+        "mod":null
+      }
+  ],
+  "logicalOperator":"and"
+}
+]
