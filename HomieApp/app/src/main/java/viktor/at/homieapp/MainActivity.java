@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     List<Device> devices;
 
     LinearLayout fragContainer;
-    List<IAppendFragmentValues> fragments;
+    List<DeviceFragment> fragments;
 
     private void start() {
 
@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
                                 devices.add(d);
                                 addNewDevice(d);
                                 Log.d(TAG, "Device added: " + d.getName());
+                                //Log.d(TAG,"" + fragments.get(fragments.size()-1).appendValue(12));
                                 break;
                             case "value":
                                 for(Device dev : devices){
@@ -121,8 +122,9 @@ public class MainActivity extends AppCompatActivity {
 
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        DeviceFragment fragment = DeviceFragment.newInstance(d.getName(), "");
-        fragments.add((IAppendFragmentValues)fragment);
+        DeviceFragment fragment = new DeviceFragment();
+        fragment.setDeviceName(d.getName());
+        fragments.add(fragment);
         transaction.add(R.id.fragContainer, fragment);
         transaction.commit();
 
@@ -150,14 +152,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addValueForDevice(Device d, int i){
-        /*for(DeviceFragment frag : fragments){
-            if(frag != null && frag.tv != null)
-                if(frag.tv.getText().equals(d.getName())){
-                    frag.etValues.append(String.valueOf(i));
-                    break;
+        for(DeviceFragment frag : fragments) {
+            if (frag.getDeviceName().equals(d.getName())) {
+                if (frag.viewCreated) {
+                    frag.appendValue(i);
+                } else {
+                    Log.d(TAG, "value " + i + " added");
+                    frag.valuesToBeAdded.add(i);
                 }
-        }*/
-        fragments.get(0).appendValue(i);
+                break;
+            }
+        }
     }
 
 
