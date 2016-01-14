@@ -17,7 +17,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-public class DeviceFragment extends Fragment implements IAppendFragmentValues {
+public class DeviceFragment extends Fragment{
 
     public String getDeviceName() {
         return deviceName;
@@ -30,13 +30,13 @@ public class DeviceFragment extends Fragment implements IAppendFragmentValues {
     // TODO: Rename and change types of parameters
     private String deviceName;
 
-    private EditText etValues;
+    private TextView tvValues;
     private TextView tv;
+
 
     public boolean viewCreated = false;
     public List<Integer> valuesToBeAdded;
 
-    private OnFragmentInteractionListener mListener;
 
     public DeviceFragment() {
         valuesToBeAdded = new LinkedList<>();
@@ -56,14 +56,13 @@ public class DeviceFragment extends Fragment implements IAppendFragmentValues {
         tv = (TextView) view.findViewById(R.id.tvName);
         tv.setText(deviceName);
 
-        etValues = (EditText) view.findViewById(R.id.etValues);
-        for(int i : valuesToBeAdded){
+        tvValues = (TextView) view.findViewById(R.id.tvValues);
+        /*for(int i : valuesToBeAdded){
             appendValue(i);
-        }
+        }*/
+        tvValues.setText(DeviceRepository.getInstance().getDevice(deviceName).getValue().toString());
         viewCreated = true;
         Log.d("Fragment","View is created");
-        Log.d("Fragment", "Values to be added: "+valuesToBeAdded.size());
-
         return view;
     }
 
@@ -75,40 +74,15 @@ public class DeviceFragment extends Fragment implements IAppendFragmentValues {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
     }
 
-    @Override
-    public void appendValue(int i) {
-        if(etValues == null)
-            Log.d("Fragment","ET is null");
-        else
-            etValues.append(String.valueOf(i)+" ");
-    }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+    public void updateValue() {
+        tvValues.setText(DeviceRepository.getInstance().getDevice(deviceName).getValue().toString());
     }
 }

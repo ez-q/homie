@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
         transaction.commit();
     }
 
-    public void addValueForDevice(Device d, int i){
+    /*public void addValueForDevice(Device d, int i){
         for(DeviceFragment frag : fragments) {
             if (frag.getDeviceName().equals(d.getName())) {
                 if (frag.viewCreated) {
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
                 break;
             }
         }
-    }
+    }*/
 
 
 
@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
             switch(message.getString("type").toLowerCase()){
                 case "device":
                     Device d = new Device();
-                    d.setAddress(message.getString("address"));
+                    d.setType(message.getString("type"));
                     d.setName(message.getString("name"));
                     devices.add(d);
                     addNewDevice(d);
@@ -120,9 +120,16 @@ public class MainActivity extends AppCompatActivity implements Observer {
                 case "value":
                     for(Device dev : devices){
                         if(message.getString("name").equals(dev.getName())){
-                            dev.getValues().add(message.getInt("value"));
-                            Log.d(TAG, "Value " + message.getInt("value") + " for device " + dev.getName());
-                            addValueForDevice(dev, message.getInt("value"));
+                            switch(dev.getType()){
+                                case "integer":
+                                    dev.setValue(message.getInt("value"));
+                                    break;
+                                case "boolean":
+                                    dev.setValue(message.getBoolean("value"));
+                                    break;
+                            }
+                            //Log.d(TAG, "Value " + message.getInt("value") + " for device " + dev.getName());
+                            //addValueForDevice(dev, message.getInt("value"));
                             break;
                         }
                     }

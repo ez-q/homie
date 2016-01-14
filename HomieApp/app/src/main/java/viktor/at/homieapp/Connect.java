@@ -33,7 +33,7 @@ public class Connect extends AppCompatActivity {
         btConnect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(wsClient.start(etHost.getText().toString())){
+                if(wsClient.start(etHost.getText().toString()) || wsClient.getmConnection().isConnected()){
                     Intent i = new Intent(getApplicationContext(),DeviceListActivity.class);
                     startActivity(i);
                 }

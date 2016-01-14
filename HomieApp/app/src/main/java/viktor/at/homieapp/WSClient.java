@@ -5,6 +5,7 @@ import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.Observable;
 
 import de.tavendo.autobahn.WebSocketConnection;
@@ -18,8 +19,15 @@ public class WSClient extends Observable {
     private final WebSocketConnection mConnection = new WebSocketConnection();
     private static WSClient INSTANCE = null;
 
+    public WebSocketConnection getmConnection() {
+        return mConnection;
+    }
+
     public static WSClient getInstance(){
-        return INSTANCE == null ? INSTANCE = new WSClient() : INSTANCE;
+        if(INSTANCE == null){
+            INSTANCE = new WSClient();
+        }
+        return INSTANCE;
     }
 
     private WSClient(){}
@@ -32,11 +40,18 @@ public class WSClient extends Observable {
         try {
             mConnection.connect(wsuri, new WebSocketHandler() {
 
+
                 @Override
                 public void onOpen() {
                     Log.d(TAG, "Status: Connected to " + wsuri);
-                    //HashMap<String,Object> map = new HashMap<String, Object>();
-                    //JSONObject connectObject = new JSONObject(map);
+                    HashMap<String,Object> map = new HashMap<String, Object>();
+                    map.put("event","regDevice");
+                    map.put("category","sensor");
+                    map.put("type","button");
+                    map.put("name","androidDevice");
+                    //map.put("values","boolean");
+                    JSONObject connectObject = new JSONObject(map);
+                    mConnection.sendTextMessage(connectObject.toString());
                 }
 
                 @Override
@@ -53,6 +68,8 @@ public class WSClient extends Observable {
 
                 @Override
                 public void onClose(int code, String reason) {
+                    if(mConnection.isConnected())
+                        mConnection.disconnect();
                     Log.d(TAG, "Connection lost. "+reason);
                 }
             });
@@ -62,4 +79,6 @@ public class WSClient extends Observable {
             return false;
         }
     }
+
+
 }

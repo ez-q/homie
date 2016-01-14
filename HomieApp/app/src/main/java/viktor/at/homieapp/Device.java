@@ -4,26 +4,17 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Device {
-    private String address;
     private String name;
-    private List<Object> values;
+    private Object value;
+    private String type;
 
-    public Device(String address, String name){
-        this.address = address;
+    public Device(String name, Object value){
         this.name = name;
-        values = new LinkedList<>();
     }
 
-    public Device(){values = new LinkedList();}
+    public Device(){}
 
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
 
     public String getName() {
         return name;
@@ -33,12 +24,20 @@ public class Device {
         this.name = name;
     }
 
-    public List<Object> getValues() {
-        return values;
+    public Object getValue() {
+        return value;
     }
 
-    public void setValues(List<Object> values) {
-        this.values = values;
+    public void setValue(Object value) {
+        this.value = value;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     @Override
