@@ -1,3 +1,7 @@
 {"devices": [
-
-]}
+    "type":"button/temperature",
+    "category":"actor/sensor",
+    "dname":"button1/tempOutside",
+    "values":"[true,false]/celcius"
+],
+...}
