@@ -2,18 +2,16 @@
     "event":"newConfiguration",
     "data":{
       "cname":"name for the new config",
-      "targetDevice": {
-        "dname":"wstestclient3",
-        "action":"on"
-      },
+      "dname":"wstestclient3",
+      "action":"on",
       "conditions": [
           {
-            "type":"time",
+            "dname":"time",
             "value":"10:00",
             "mod":"greater"
           },
           {
-            "type":"button",
+            "dname":"button1",
             "value":true,
             "mod":null
           }

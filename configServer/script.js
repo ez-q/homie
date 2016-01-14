@@ -34,7 +34,7 @@ fs.readFile( __dirname + "/" + "configurations.json", 'utf8', function (err, dat
         console.log("valid json file: " + configurations);
     }
     catch(e){
-        console.log("invalid or empty configurations file");
+        console.log("invalid or empty configurations.json file");
         return;
     }
     //console.log(JSON.stringify(configurations[0]));
@@ -84,12 +84,12 @@ var getIpForDeviceName = function (dname){
 controllerWSS.on('connection', function connection(ws) {
   console.log('connected: %s', ws._socket.remoteAddress);
   ws.on('message', function incoming(message) {
-	console.log('received message: %s', message);
+      console.log("controllerWSS.onMessage: " + message);
       var pkg = JSON.parse(message);
       pkg.from = ws._socket.remoteAddress;
       pkg = JSON.stringify(pkg);
     //wss.sendToClient(ip, action);
-      processCommand(parseMessage(pkg));
+      processCommand(JSON.parse(pkg));
       checkAndSendData(pkg);
   });
 
@@ -125,6 +125,22 @@ var dataDict = {};
 
 
 
+var findConfigurationByName = function (cname){
+    for(var i = 0; i < configurations.length; i++){
+        if(configurations[i].cname === cname) return i;
+    }
+
+};
+
+var editConfiguration = function (cname, newConfig) {
+
+    configurations[findConfigurationByName(cname)] = newConfig;
+
+
+    writeConfigsToFile();
+
+};
+
 var findUserEntry = function (ip){
    for(var i = 0; i < userDict.length; i++){
      if(userDict[i].to === ip) return i;
@@ -147,18 +163,28 @@ var findIpsForDeviceName = function (dname){
     return res;
 };
 
+var configNameAlreadyExists = function (cname){
+    for(var i = 0; i < configurations.length; i++){
+        if(configurations[i].cname === cname)
+            return true;
+    }
+    return false;
+};
+
 dataWSS.on('connection', function connection(ws) {
     console.log('connected: %s', ws._socket.remoteAddress);
 
     ws.on('message', function incoming(message) {
         //console.log('received message: %s', message);
         //wss.sendToClient(ip, action);
-        console.log('WSSDATA RECEIVED: ' + message);
+        //console.log('WSSDATA RECEIVED: ' + message);
 
         msg = JSON.parse(message);
 
 
-        if(msg.event === "setDataType"){
+        console.log("dataWSS.onMessage: " + message);
+
+        if(msg.event === "setDevice"){
 
 
             if(findUserEntry(ws._socket.remoteAddress) != -1){
@@ -183,6 +209,15 @@ dataWSS.on('connection', function connection(ws) {
             console.log("newConfiguration called with data: ");
             console.log(JSON.stringify(msg.data));
 
+            if(configNameAlreadyExists(msg.data.cname)){
+                dataWSS.sendToClient(ws._socket.remoteAddress, JSON.stringify({
+                    event:"error",
+                    data:"configuration name already exists"
+                }));
+                return;
+            }
+
+
             addConfiguration(msg.data);
 
         }
@@ -194,6 +229,21 @@ dataWSS.on('connection', function connection(ws) {
             deleteConfiguration(msg.data.cname);
         }
 
+        if(msg.event === "getConfigurations"){
+            console.log("getConfiguration called with data: ");
+            console.log(JSON.stringify(msg.data));
+
+
+            dataWSS.sendToClient(ws._socket.remoteAddress, "{\"configurations\":" + JSON.stringify(configurations) + "}");
+        }
+
+
+        if(msg.event === "editConfiguration"){
+            console.log("editConfiguration called with data: ");
+            console.log(JSON.stringify(msg.data))
+
+            editConfiguration(msg.data);
+        }
 
 
     });
@@ -235,19 +285,26 @@ var checkAndSendData = function (message) {
 };
 
 
-
+/*
 var parseMessage = function (msg){
     var tmp = JSON.parse(msg);
     console.log("called parseMessage from: " + tmp.from + " data: " + tmp.data + " type: " + tmp.type);
-    return new Command(tmp.from, tmp.type, tmp.data);
-};
+    //return new Command(tmp.from, tmp.type, tmp.data);
+    return {
+        from:tmp.from,
+        type:tmp.type,
+        data:tmp.data,
+        event:tmp.event,
 
+    };
+};
+*/
 
 
 var processCommand = function (cmd){
     console.log("processCommand called");
 
-    if(cmd.type === "regDevice"){
+    if(cmd.event === "regDevice"){
         devices.push({
             type:cmd.type,
             category:cmd.category,
@@ -256,6 +313,8 @@ var processCommand = function (cmd){
             ip:cmd.from
         });
         console.log("device registered: " + JSON.stringify(devices[devices.length-1]));
+        dataWSS.sendToClient(cmd.from, "{\"devices\": " + JSON.stringify(devices) + "}");
+
     }
     else {
         checkConfigurations(cmd);
@@ -302,9 +361,9 @@ var checkConfigurations = function (cmd){
             console.log("conditions length: " + configurations[i].conditions.length);
             var cnd = configurations[i].conditions[j];
 
-            if(cnd.type === "time")
+            if(cnd.dname === "time")
                 flag = checkTime(cnd);
-            if(cnd.type === "button")
+            if(cnd.dname === "button")
                 flag = applyLogicalOperator(cmd.data, flag, config.logicaloperator);
 
             console.log("loop count (%d,%d): flag value: %s", i, j, flag);

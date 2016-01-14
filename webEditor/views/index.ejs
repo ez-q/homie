@@ -7,25 +7,112 @@
     <!--<script src="bower_components/angular/angular.js"></script>-->
     <script src="/javascripts/ng-websocket.js"></script>
     <script src="/javascripts/angularApp.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   </head>
   <body ng-app="webEditor" ng-controller="MainCtrl">
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+  <div class="col-sm-4">
+    <h1>Debug</h1>
+    <h2>Errorlog</h2>
+    <h1>{{errorLog}}</h1>
+    <h2>Datalog</h2>
     <p>
       {{test}}
     </p>
     <p>
       {{x}}
     </p>
-    <button ng-click="setDataType()">SetDataType (Button)</button></br>
-    <button ng-click="getDevices()">GetDevices</button>
+    <button ng-click="setDevice()">SetDevice (button1)</button></br>
     <div ng-repeat="device in devices">
       <p>Device type: {{device.type}}</p>
-      <p>Device name: {{device.name}}</p>
+      <p>Device name: {{device.dname}}</p>
       Device values:
       <div ng-repeat="v in device.values">
         <p>{{v}}</p>
       </div>
     </div>
+  </div>
+  <div class="col-sm-4">
+    <h1>Configurations</h1>
+    <div ng-repeat="config in configurations">
+      <label>
+        Configuration name:
+        {{config.cname}}
+        Number of conditions:
+        {{config.conditions.length}}
+        <button ng-click="editConfiguration(config)">Edit</button>
+      </label>
+      </br>
+    </div>
+    <button ng-click="setNewConfig()">New Configuration</button>
+  </div>
+  <div ng-hide="editMode" class="col-sm-4">
+    <h1>another one</h1>
+    <h2>New Configuration</h2>
+    <label>
+      Configuration name:
+      <input type="text" name="cname" ng-model="newConfig.cname" required>
+    </label></br>
+    <label>
+      Target device:
+      <select name="dnameSelect" ng-model="newConfig.dname">
+        <option ng-repeat="device in actors" value="{{device.dname}}">{{device.dname}}</option>
+      </select>
+    </label></br>
+    <label>
+      Action:
+      <input type="text" name="action" ng-model="newConfig.action" required>
+    </label></br>
+    <label>
+      Select logical Operator:
+      <select name="lpSelect" ng-model="newConfig.logicalOperator">
+        <option value="and">and</option>
+        <option value="or">or</option>
+      </select>
+    </label></br>
+    <label>Current condition count: {{newConfig.conditions.length}}</label>
+    <h3>Conditions for Current Configuration</h3>
+    <div ng-repeat="cnd in newConfig.conditions">
+      <label>
+        Device name:
+        <input type="text" ng-model="cnd.dname">
+      </label></br>
+      <label>
+        Value:
+        <input type="text" ng-model="cnd.value">
+      </label></br>
+      <label>
+        Mod:
+        <input type="text" ng-model="cnd.mod">
+      </label></br>
+    </div>
+    <h2>Conditions</h2>
+    <label>
+      Select Sensor:
+      <select name="dnameSelect" ng-model="newCondition.dname">
+        <option ng-repeat="device in sensors" value="{{device.dname}}">{{device.dname}}</option>
+      </select>
+    </label></br>
+    <label>
+      Value:
+      <input type="text" name="value" ng-model="newCondition.value" required>
+    </label></br>
+    <label>
+      Mod:
+      <input type="text" name="mod" ng-model="newCondition.mod" required>
+    </label></br>
+    <button ng-click="saveCurrConditionToConfiguration()">Save condition for current Configuration</button>
+    <h2>Save Configuration</h2>
+    <button ng-click="saveConfiguration()">Save</button>
+  </div>
+
+
+
   </body>
 </html>

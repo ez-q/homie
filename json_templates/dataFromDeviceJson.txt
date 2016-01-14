@@ -1,1 +1,1 @@
-{"type":"button", "data":true, "from":"localhost"}
+{"dname":"button1", "data":true}

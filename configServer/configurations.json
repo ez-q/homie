@@ -4,12 +4,12 @@
   "action":"on",
   "conditions": [
       {
-        "type":"time",
+        "dname":"time",
         "value":"10:00",
         "mod":"greater"
       },
       {
-        "type":"button",
+        "dname":"button1",
         "value":true,
         "mod":null
       }
@@ -22,12 +22,12 @@
   "action":"on",
   "conditions": [
       {
-        "type":"time",
+        "dname":"time",
         "value":"10:00",
         "mod":"greater"
       },
       {
-        "type":"button",
+        "dname":"button1",
         "value":true,
         "mod":null
       }
