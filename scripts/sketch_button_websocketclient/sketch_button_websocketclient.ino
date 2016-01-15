@@ -92,7 +92,7 @@ void loop() {
   if (client.connected()) {
     if(!flag){
       String regString;
-      regString = "{\"event\":\"regDevice\",\"category\":\"actor\",\"type\":\"button\",\"dname\":\"button1\",\"values\":\"[true,false]\"}";
+      regString = "{\"event\":\"regDevice\",\"category\":\"sensor\",\"type\":\"button\",\"dname\":\"button1\",\"values\":\"[true,false]\"}";
       webSocketClient.sendData(regString);
       flag = true;
     }

@@ -92,7 +92,7 @@ controllerWSS.on('connection', function connection(ws) {
       console.log("controllerWSS.onMessage: " + message);
       var pkg = JSON.parse(message);
       pkg.from = ws._socket.remoteAddress;
-      pkg.from = pkg.dname;
+      pkg.dname = pkg.dname;
       pkg = JSON.stringify(pkg);
 
     //wss.sendToClient(ip, action);
@@ -368,10 +368,16 @@ var applyLogicalOperator = function (value, flag, operator){
         return false;
 };
 
+var getTypeForDevice = function(dname){
+      for(var i = 0; i < devices.length; i++){
+          if(devices[i].dname === dname) return devices[i].type;
+      }
+};
+
 var checkConfigurations = function (cmd){
 
     var flag = false;
-    console.log("checkConfigurations called:" + cmd);
+    console.log("checkConfigurations called:" + JSON.stringify(cmd));
 
     for(var i = 0; i < configurations.length; i++){
         console.log("configurations length: " + configurations.length);
@@ -382,7 +388,7 @@ var checkConfigurations = function (cmd){
 
             if(cnd.dname === "time")
                 flag = checkTime(cnd);
-            if(cnd.dname === "button")
+            if(getTypeForDevice(cnd.dname) === "button")
                 flag = applyLogicalOperator(cmd.data, flag, config.logicaloperator);
 
             console.log("loop count (%d,%d): flag value: %s", i, j, flag);
