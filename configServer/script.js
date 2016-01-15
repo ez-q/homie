@@ -5,11 +5,12 @@ var WebSocketServer = require('ws').Server
 
 var fs = require('fs');
 
+/*
 var Command = require('Command');
 var Condition = require('Condition');
 var Configuration = require('Configuration');
 var Target = require('Target');
-var DataDictEntry = require('DataDictEntry');
+var DataDictEntry = require('DataDictEntry');*/
 
 /*var parser = require(__dirname + '\\commandparser.js');
  var model = require(__dirname + '\\model.js');*/
@@ -42,6 +43,10 @@ fs.readFile( __dirname + "/" + "configurations.json", 'utf8', function (err, dat
 });
 
 var writeConfigsToFile = function (){
+
+
+
+
     fs.writeFile(__dirname + "/" + "configurations.json", JSON.stringify(configurations), function(err) {
         if(err) {
             return console.log(err);
@@ -55,7 +60,7 @@ var writeConfigsToFile = function (){
 
 var addConfiguration = function (newConfig){
     configurations.push(newConfig);
-
+    cleanupConfigurations();
     writeConfigsToFile();
 
 };
@@ -87,7 +92,9 @@ controllerWSS.on('connection', function connection(ws) {
       console.log("controllerWSS.onMessage: " + message);
       var pkg = JSON.parse(message);
       pkg.from = ws._socket.remoteAddress;
+      pkg.from = pkg.dname;
       pkg = JSON.stringify(pkg);
+
     //wss.sendToClient(ip, action);
       processCommand(JSON.parse(pkg));
       checkAndSendData(pkg);
@@ -109,19 +116,7 @@ controllerWSS.sendToClient = function sendToClient(address, data){
 var userDict = [];
 var dataDict = {};
 
-/*var devices = [
-    {
-        type:"button",
-        name:"button1",
-        values:[true, false]
-    },
-    {
-        type:"button",
-        name:"button2",
-        values:[true,false]
-    }
 
-];*/
 
 
 
@@ -135,6 +130,7 @@ var findConfigurationByName = function (cname){
 var editConfiguration = function (cname, newConfig) {
 
     configurations[findConfigurationByName(cname)] = newConfig;
+    cleanupConfigurations();
 
 
     writeConfigsToFile();
@@ -146,6 +142,18 @@ var findUserEntry = function (ip){
      if(userDict[i].to === ip) return i;
    }
     return -1;
+};
+
+var cleanupConfigurations = function(){
+    //deletes the generated $$hashKey from configs
+    for(var i = 0; i < configurations.length; i++){
+        for(var j = 0; j < configurations[i].conditions.length; j++){
+            delete configurations[i].conditions[j].$$hashKey;
+        }
+
+    }
+
+    console.log("cleanup config called, current configs: " + JSON.stringify(configurations));
 };
 
 var findIpsForDeviceName = function (dname){
@@ -209,6 +217,7 @@ dataWSS.on('connection', function connection(ws) {
             console.log("newConfiguration called with data: ");
             console.log(JSON.stringify(msg.data));
 
+
             if(configNameAlreadyExists(msg.data.cname)){
                 dataWSS.sendToClient(ws._socket.remoteAddress, JSON.stringify({
                     event:"error",
@@ -217,8 +226,12 @@ dataWSS.on('connection', function connection(ws) {
                 return;
             }
 
+            var obj = msg.data;
+            console.log("saving this to configurations (new): " + JSON.stringify(obj));
 
             addConfiguration(msg.data);
+            dataWSS.sendToClient(ws._socket.remoteAddress, "{\"configurations\":" + JSON.stringify(configurations) + "}");
+
 
         }
 
@@ -239,10 +252,16 @@ dataWSS.on('connection', function connection(ws) {
 
 
         if(msg.event === "editConfiguration"){
-            console.log("editConfiguration called with data: ");
-            console.log(JSON.stringify(msg.data))
+            console.log("editConfiguration called with data: " + msg.data);
+            var obj = msg.data;
+            delete obj.$$hashKey;
+            console.log("saving this to configurations (edit): " + JSON.stringify(obj));
 
-            editConfiguration(msg.data);
+            editConfiguration(obj.cname, obj);
+
+
+
+            dataWSS.sendToClient(ws._socket.remoteAddress, "{\"configurations\":" + JSON.stringify(configurations) + "}");
         }
 
 
@@ -352,7 +371,7 @@ var applyLogicalOperator = function (value, flag, operator){
 var checkConfigurations = function (cmd){
 
     var flag = false;
-    console.log("checkConfigurations called");
+    console.log("checkConfigurations called:" + cmd);
 
     for(var i = 0; i < configurations.length; i++){
         console.log("configurations length: " + configurations.length);

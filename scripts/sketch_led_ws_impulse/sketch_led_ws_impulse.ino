@@ -72,6 +72,7 @@ void setup() {
   
   if (webSocketClient.handshake(client)) {
     Serial.println("Handshake successful");
+    
     digitalWrite(BUILTIN_LED, LOW);
   } else {
     Serial.println("Handshake failed.");
@@ -86,12 +87,14 @@ void setup() {
 void loop() {
   String data;
   String toSend;
+  
 
 
   
   //run as long as the client is connected
+  
   if (client.connected()) {
-
+   
 
     //check if data is received, if yes: display it on the serial monitor
     webSocketClient.getData(data);

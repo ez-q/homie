@@ -33,14 +33,14 @@
       <p>Device type: {{device.type}}</p>
       <p>Device name: {{device.dname}}</p>
       Device values:
-      <div ng-repeat="v in device.values">
+      <div ng-repeat="v in device.values track by $index">
         <p>{{v}}</p>
       </div>
     </div>
   </div>
   <div class="col-sm-4">
     <h1>Configurations</h1>
-    <div ng-repeat="config in configurations">
+    <div ng-repeat="config in configurations track by $index">
       <label>
         Configuration name:
         {{config.cname}}
@@ -62,7 +62,7 @@
     <label>
       Target device:
       <select name="dnameSelect" ng-model="newConfig.dname">
-        <option ng-repeat="device in actors" value="{{device.dname}}">{{device.dname}}</option>
+        <option ng-repeat="device in actors track by $index" value="{{device.dname}}">{{device.dname}}</option>
       </select>
     </label></br>
     <label>

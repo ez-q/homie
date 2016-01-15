@@ -50,6 +50,7 @@ app.run(function ($rootScope, $websocket){
             }
         }
 
+
         if('configurations' in jdata){
 
 
@@ -96,7 +97,7 @@ app.controller('MainCtrl', ['$scope', function ($scope){
 
     $scope.dname = "button1";
     $scope.editMode = true;
-    $scope.newConfig = true;
+    $scope.newMode = true;
 
     $scope.saveCurrConditionToConfiguration = function(){
         $scope.newConfig.conditions.push($scope.newCondition);
@@ -105,8 +106,15 @@ app.controller('MainCtrl', ['$scope', function ($scope){
 
     $scope.saveConfiguration = function(){
         if($scope.newConfig.conditions.length <= 0)  return;
-        $scope.sendToServer("newConfiguration", $scope.newConfig);
-        $scope.newConfig = {};
+        if($scope.newMode){
+            $scope.sendToServer("newConfiguration", $scope.newConfig);
+            $scope.newConfig = {};
+        }
+        if(!$scope.newMode){
+            $scope.sendToServer("editConfiguration", $scope.newConfig);
+            $scope.newConfig = {};
+        }
+
     };
 
     $scope.setDevice = function(){
@@ -121,12 +129,13 @@ app.controller('MainCtrl', ['$scope', function ($scope){
         console.log(config);
         $scope.newConfig = config;
         $scope.editMode = false;
-        $scope.newConfig = false;
+        $scope.newMode = false;
     };
 
     $scope.setNewConfig = function(){
+        $scope.newConfig = {};
         $scope.editMode = false;
-        $scope.newConfig = true;
+        $scope.newMode = true;
     };
 
 
