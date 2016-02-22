@@ -90,7 +90,7 @@ app.controller('MainCtrl', ['$scope', function ($scope){
 
     //$scope.toSend = "test to send";
 
-
+    //alert('jaja');
 
     $scope.newConfig;
     $scope.newCondition;
@@ -100,12 +100,20 @@ app.controller('MainCtrl', ['$scope', function ($scope){
     $scope.newMode = true;
 
     $scope.saveCurrConditionToConfiguration = function(){
+        $scope.x = 'saveCurrConditionToConfiguration called';
+        alert('saveCurrConditionToConfiguration called');
+
+        if($scope.newCondition.value === "true" || $scope.newCondition.value === "on") $scope.newCondition.value = true;
+        if($scope.newCondition.value === "false" || $scope.newCondition.value === "off") $scope.newCondition.value = false;
+
         $scope.newConfig.conditions.push($scope.newCondition);
         $scope.newCondition = {};
     };
 
     $scope.saveConfiguration = function(){
         if($scope.newConfig.conditions.length <= 0)  return;
+        if($scope.newConfig.action === "true" || $scope.newConfig.action === "on") $scope.newCondition.value = true;
+        if($scope.newConfig.action === "false" || $scope.newConfig.action === "off") $scope.newCondition.value = false;
         if($scope.newMode){
             $scope.sendToServer("newConfiguration", $scope.newConfig);
             $scope.newConfig = {};
@@ -133,7 +141,7 @@ app.controller('MainCtrl', ['$scope', function ($scope){
     };
 
     $scope.setNewConfig = function(){
-        $scope.newConfig = {};
+        $scope.newConfig = { conditions: []};
         $scope.editMode = false;
         $scope.newMode = true;
     };
