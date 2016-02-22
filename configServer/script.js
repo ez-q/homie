@@ -1,3 +1,5 @@
+'use strict';
+
 var CONTROLLER_PORT = 50555;
 var DATA_PORT = 50556;
 var CONFIGURATIONS_PATH = __dirname + "/" + "configurations.json";
@@ -17,6 +19,14 @@ var sqlite3 = require("sqlite3").verbose();
 
 var db = new sqlite3.Database(file);
 
+
+db.serialize(function() {
+  if(!exists){
+      db.run("CREATE TABLE DATA (DNAME TEXT NOT NULL, VALUE TEXT, DATE TEXT NOT NULL);");
+    }
+});
+
+/*
 db.serialize(function() {
   if(!exists){
     db.run("CREATE TABLE DATA (DNAME TEXT NOT NULL, VALUE TEXT, DATE TEXT NOT NULL);");
@@ -28,21 +38,83 @@ db.serialize(function() {
 
   stmt.finalize();
 
-  db.all("SELECT dname, value, date from DATA", function(err, rows){
+  db.all("SE.forLECT dname, value, date from DATA", function(err, rows){
     console.log(rows);
     rows.forEach(function(row){
       console.log(row);
-      console.log("stringified: " + JSON.stringify(row));
-      parsed = JSON.parse(JSON.stringify(row));
-      console.log(parsed.dname);
-      console.log("dname: %s - value: %s - date: %s", row.dname, row.value, row.date);
+      console.log("dname: %s - value: %s - date: %s", row.DNAME, row.VALUE, row.DATE);
     })
 
   });
 
-});
+});*/
 
-db.close();
+var writeDataToDb = function (dname, value) {
+
+  db.serialize(function() {
+
+
+    var stmt = db.prepare("INSERT INTO DATA VALUES(?,?,?);");
+
+    stmt.run(dname, value, new Date().getTime());
+
+    stmt.finalize();
+  });
+};
+
+
+
+var getDataFromDbByDname = function (dname){
+  var res = [];
+
+
+
+  db.serialize(function() {
+
+    /*if(!exists){
+      console.log('db doesnt exist cant read data');
+      return;
+    }*/
+
+
+
+
+    //console.log(srch);
+
+
+    db.all('SELECT dname, value, date from DATA where DNAME = \'' + dname + '\';', function(err, rows){
+      //console.log(rows);
+
+      rows.forEach(function(row){
+
+        //console.log(row);
+        var tmp = row;
+        delete tmp.DNAME;
+        if(tmp.VALUE == 1){
+          tmp.value = true;
+        }else{
+          tmp.value = false;
+        }
+        delete tmp.VALUE;
+
+        tmp.date = tmp.DATE;
+        delete tmp.DATE;
+
+        //console.log(tmp.value);
+        res.push(tmp);
+        console.log(JSON.stringify(res));
+        return res;
+      })
+
+    });
+
+
+  });
+  //console.log('res: ' + JSON.stringify(res));
+
+};
+
+
 /*
 var Command = require('Command');
 var Condition = require('Condition');
@@ -230,7 +302,7 @@ dataWSS.on('connection', function connection(ws) {
         //wss.sendToClient(ip, action);
         //console.log('WSSDATA RECEIVED: ' + message);
 
-        msg = JSON.parse(message);
+        var msg = JSON.parse(message);
 
 
         console.log("dataWSS.onMessage: " + message);
@@ -283,6 +355,9 @@ dataWSS.on('connection', function connection(ws) {
             console.log(JSON.stringify(msg.data));
 
             deleteConfiguration(msg.data.cname);
+
+            dataWSS.sendToClient(ws._socket.remoteAddress, "{\"configurations\":" + JSON.stringify(configurations) + "}");
+
         }
 
         if(msg.event === "getConfigurations"){
@@ -305,6 +380,20 @@ dataWSS.on('connection', function connection(ws) {
 
 
             dataWSS.sendToClient(ws._socket.remoteAddress, "{\"configurations\":" + JSON.stringify(configurations) + "}");
+        }
+
+        if(msg.event === "getPastDataByDname"){
+          console.log("getPastDataByDname called with data: " + JSON.stringify(msg.data));
+
+          var res = getDataFromDbByDname(msg.data.dname);
+
+
+          var obj = {
+            dname:msg.data.dname,
+            historyData:res
+          }
+
+          dataWSS.sendToClient(ws._socket.remoteAddress, JSON.stringify(obj));
         }
 
 
@@ -381,6 +470,8 @@ var processCommand = function (cmd){
 
     }
     else {
+        //put the received data into the database
+        writeDataToDb(cmd.dname, cmd.data);
         //checks if a device has registered this data source and sends data to it
         checkAndSendData(cmd);
         //checks configurations and sends possible execute commands
@@ -452,7 +543,7 @@ var checkConfigurations = function (cmd){
                 var val = false;
               }
               console.log('val: ' + val);
-              console.log('config.logicaloperator: ' + config.logicalOperator);
+              console.log('config.logicalOperator: ' + config.logicalOperator);
               flag = applyLogicalOperator(val, flag, config.logicalOperator);
 
             }
@@ -461,7 +552,7 @@ var checkConfigurations = function (cmd){
         }
 
 
-      //if the flag is true, an activate command will be sent to the target device
+      //if the flag is true, the configurated action will be sent to the target device
       if(flag){
 
           if(getIpForDeviceName(config.dname) === -1){
