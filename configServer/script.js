@@ -1,5 +1,6 @@
 var CONTROLLER_PORT = 50555;
 var DATA_PORT = 50556;
+var CONFIGURATIONS_PATH = __dirname + "/" + "configurations.json";
 
 
 var WebSocketServer = require('ws').Server
@@ -8,6 +9,40 @@ var WebSocketServer = require('ws').Server
 
 var fs = require('fs');
 
+//database stuff
+var file = "DataLog.db";
+var exists = fs.existsSync(file);
+
+var sqlite3 = require("sqlite3").verbose();
+
+var db = new sqlite3.Database(file);
+
+db.serialize(function() {
+  if(!exists){
+    db.run("CREATE TABLE DATA (DNAME TEXT NOT NULL, VALUE TEXT, DATE TEXT NOT NULL);");
+  }
+
+  var stmt = db.prepare("INSERT INTO DATA VALUES(?,?,?);");
+
+  stmt.run("button1", "true", new Date().getTime());
+
+  stmt.finalize();
+
+  db.all("SELECT dname, value, date from DATA", function(err, rows){
+    console.log(rows);
+    rows.forEach(function(row){
+      console.log(row);
+      console.log("stringified: " + JSON.stringify(row));
+      parsed = JSON.parse(JSON.stringify(row));
+      console.log(parsed.dname);
+      console.log("dname: %s - value: %s - date: %s", row.dname, row.value, row.date);
+    })
+
+  });
+
+});
+
+db.close();
 /*
 var Command = require('Command');
 var Condition = require('Condition');
@@ -28,8 +63,8 @@ conditions.push(new Condition("signal", true, "button"));
 configurations.push(new Configuration(new Target("led1", "127.0.0.1", "on"), conditions, "and"));*/
 
 
-
-fs.readFile( __dirname + "/" + "configurations.json", 'utf8', function (err, data) {
+//loads all configurtaions from the configurations.json file
+fs.readFile(CONFIGURATIONS_PATH, 'utf8', function (err, data) {
     console.log("read configuration data: " + data);
 
     //configurations = JSON.stringify(data);
