@@ -1,0 +1,13 @@
+From: Client
+To: Server
+Invoked By: user input
+Action: forces a specified device to send data as soon as possible
+Returns: ForwardDataJson
+Note: for this to work the client first has to register in the user dictionary via setDevice
+
+{
+    "event":"forceDeviceToSendData",
+    "data":{
+        "dname":"device to send data"
+    }
+}

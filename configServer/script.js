@@ -195,7 +195,8 @@ var deleteConfiguration = function (toDelete){
     writeConfigsToFile();
 };
 
-
+//param: device for which the ip should be found
+//returns: found: ip from that device, not found -1
 var getIpForDeviceName = function (dname){
 
     for(var i = 0; i < devices.length; i++){
@@ -278,6 +279,7 @@ var cleanupConfigurations = function(){
     console.log("cleanup config called, current configs: " + JSON.stringify(configurations));
 };
 
+//searches the userDict registered devices' ip addresses
 var findIpsForDeviceName = function (dname){
 
   var res = [];
@@ -286,7 +288,7 @@ var findIpsForDeviceName = function (dname){
       if(userDict[i].dname === dname){
           console.log(JSON.stringify(userDict[i]));
           res.push(userDict[i].to);
-          console.log("found matching ip for type: " + res[res.length-1]);
+          console.log("found matching ip for dname: " + res[res.length-1]);
       }
   }
 
@@ -395,6 +397,21 @@ dataWSS.on('connection', function connection(ws) {
 
           sendHistoryDataToClientByDname(msg.data.dname, ws._socket.remoteAddress);
 
+
+        }
+
+        //the client has to have the device registered in the userDict for this to work
+        //that means first call setDataType then call forceDeviceToSendData for the client to receive the current data
+        if(msg.event === "forceDeviceToSendData"){
+          var dname = msg.data.dname;
+
+          var ip = getIpForDeviceName(dnameToForceDataFrom);
+
+          var obj = {
+            event:"send_data",
+            data:{}
+          };
+          controllerWSS.sendToClient(ip, JSON.stringify(obj));
 
         }
 
