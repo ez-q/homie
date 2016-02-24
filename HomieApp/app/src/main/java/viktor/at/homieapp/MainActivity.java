@@ -1,36 +1,23 @@
 package viktor.at.homieapp;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.support.v4.app.*;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.ScrollView;
-import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import de.tavendo.autobahn.WebSocketConnection;
-import de.tavendo.autobahn.WebSocketException;
-import de.tavendo.autobahn.WebSocketHandler;
+import viktor.at.homieapp.Fragments.TemperatureFragment;
 
 public class MainActivity extends AppCompatActivity implements Observer {
 
@@ -40,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
     List<Device> devices;
 
     LinearLayout fragContainer;
-    List<DeviceFragment> fragments;
+    List<TemperatureFragment> fragments;
 
 
         @Override
@@ -56,9 +43,9 @@ public class MainActivity extends AppCompatActivity implements Observer {
     }
 
     void addNewDevice(Device d){
-        FragmentManager fragmentManager = getFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        DeviceFragment fragment = new DeviceFragment();
+        TemperatureFragment fragment = new TemperatureFragment();
         fragment.setDeviceName(d.getName());
         fragments.add(fragment);
         transaction.add(R.id.fragContainer, fragment);
@@ -113,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
                     d.setType(message.getString("type"));
                     d.setName(message.getString("name"));
                     devices.add(d);
-                    addNewDevice(d);
+                    //addNewDevice(d);
                     Log.d(TAG, "Device added: " + d.getName());
                     //Log.d(TAG,"" + fragments.get(fragments.size()-1).appendValue(12));
                     break;

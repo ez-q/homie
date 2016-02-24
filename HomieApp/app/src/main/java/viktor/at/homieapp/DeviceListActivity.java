@@ -41,7 +41,7 @@ public class DeviceListActivity extends ListActivity implements Observer {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i = new Intent(getApplicationContext(), DeviceDetailActivity.class);
-                i.putExtra(DEVICENAME,((Device)getListView().getItemAtPosition(position)).getName());
+                i.putExtra(DEVICENAME,(((Device)getListView().getItemAtPosition(position)).getName()));
                 startActivity(i);
             }
         });

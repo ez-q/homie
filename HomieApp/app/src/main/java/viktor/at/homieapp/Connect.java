@@ -40,6 +40,13 @@ public class Connect extends AppCompatActivity {
             }
         });
 
+        btExit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
     }
 
 }

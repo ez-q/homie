@@ -80,5 +80,11 @@ public class WSClient extends Observable {
         }
     }
 
+    public void sendMessage(String message){
+        if(mConnection.isConnected()) {
+            mConnection.sendTextMessage(message);
+        }
+    }
+
 
 }
