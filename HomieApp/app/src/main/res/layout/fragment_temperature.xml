@@ -20,12 +20,14 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
                 android:layout_weight="1"
+                android:textSize="18dp"
                 android:text="@string/devicename" />
             <TextView
                 android:id="@+id/tvName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textSize="18dp"
                 android:layout_gravity="right" />
             </LinearLayout>
         <LinearLayout
@@ -38,6 +40,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="30dp"
+                android:textSize="18dp"
                 android:layout_gravity="left"
                 android:layout_weight="1"
                 android:text="@string/values" />
@@ -45,10 +48,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
+                android:textSize="18dp"
                 android:layout_weight="1"
-                android:id="@+id/tvValues"/>
+                android:id="@+id/tvValuesTemp"/>
 
         </LinearLayout>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/getCurrentState"
+            android:id="@+id/btCurrentStateTemp"/>
+
     </LinearLayout>
 
 </FrameLayout>

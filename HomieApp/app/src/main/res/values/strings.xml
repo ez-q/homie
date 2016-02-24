@@ -16,4 +16,6 @@
     <string name="title_item_detail">Item Detail</string>
     <string name="title_activity_device_detail">DeviceDetailActivity</string>
     <string name="getBack">return</string>
+    <string name="getCurrentState">Get current State</string>
+    <string name="toggleState">Toggle State</string>
 </resources>

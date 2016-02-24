@@ -2,10 +2,14 @@ package viktor.at.homieapp;
 
 import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 
 import de.tavendo.autobahn.WebSocketConnection;
@@ -86,5 +90,78 @@ public class WSClient extends Observable {
         }
     }
 
+    public void sendMessage(HashMap<String,Object> map){
+        if(mConnection.isConnected()) {
+            mConnection.sendTextMessage(new JSONObject(map).toString());
+        }
+    }
+
+    public void forceDeviceSendData(String deviceName){
+        if(mConnection.isConnected()) {
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("event", "forceDeviceToSendData");
+            HashMap<String, String> innerMap = new HashMap<>();
+            innerMap.put("dname", deviceName);
+            map.put("data", innerMap);
+            JSONObject object = new JSONObject(map);
+            mConnection.sendTextMessage(object.toString());
+        }
+    }
+
+    public void registerDevice(String dname, String category, String type){
+        if(mConnection.isConnected()){
+            HashMap<String,String> map = new HashMap<>();
+            map.put("event","regDevice");
+            map.put("category", category);
+            map.put("type",type);
+            map.put("dname",dname);
+            JSONObject object = new JSONObject(map);
+            mConnection.sendTextMessage(object.toString());
+        }
+    }
+
+    public void createConfigForButton(String dname){
+        if(mConnection.isConnected()){
+            HashMap<String,Object> map = new HashMap<>();
+            HashMap<String,Object> dataMap = new HashMap<>();
+            HashMap<String, Object> conditionMap = new HashMap<>();
+
+            dataMap.put("cname", dname + "ButtonOffCondition");
+            map.put("event", "deleteConfiguration");
+            map.put("data", dataMap);
+            JSONObject object = new JSONObject(map);
+            mConnection.sendTextMessage(object.toString());
+            dataMap.put("cname", dname + "ButtonOnCondition");
+            map.put("event", "deleteConfiguration");
+            map.put("data",dataMap);
+            object = new JSONObject(map);
+            mConnection.sendTextMessage(object.toString());
+
+            conditionMap = new HashMap<String, Object>();
+            conditionMap.put("dname", dname + "Button");
+            conditionMap.put("value", true);
+            conditionMap.put("mod", null);
+
+            dataMap = new HashMap<>();
+            dataMap.put("cname", dname + "ButtonOnCondition");
+            dataMap.put("dname",dname);
+            dataMap.put("action","on");
+            List<HashMap<String,Object>> tempList = new LinkedList<>();
+            tempList.add(conditionMap);
+            dataMap.put("conditions", tempList);
+
+            map = new HashMap<>();
+            map.put("event","newConfiguration");
+            map.put("data", dataMap);
+            object = new JSONObject(map);
+            mConnection.sendTextMessage(object.toString());
+
+            dataMap.put("cname", dname + "ButtonOffCondition");
+            dataMap.put("action", "off");
+            conditionMap.put("value", false);
+            object = new JSONObject(map);
+            mConnection.sendTextMessage(object.toString());
+        }
+    }
 
 }

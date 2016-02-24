@@ -47,13 +47,13 @@ public class DeviceDetailActivity extends FragmentActivity implements Observer {
             FragmentTransaction transaction = fragmentManager.beginTransaction();
 
             switch (d.getType().toLowerCase()) {
-                case "boolean":
+                case "button":
                     fragment = new ButtonFragment();
                     fragment.setDeviceName(d.getName());
                     break;
-                case "integer":
+                case "temperature":
                     fragment = new TemperatureFragment();
-                    fragment.setDeviceName(d.getName());
+                    fragment.setDeviceName(d.getName()+"Button");
                     break;
             }
 

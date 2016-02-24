@@ -66,6 +66,10 @@ public class DeviceRepository extends Observable implements Observer {
                         d.setType(object.getString("type"));
                         d.setName(object.getString("dname"));
                         deviceList.add(d);
+                        if(d.getType().equals("button")){
+                            WSClient.getInstance().registerDevice(d.getName()+"Button","sensor","button");
+                            WSClient.getInstance().createConfigForButton(d.getName());
+                        }
                         Log.d(TAG, "Device added: " + d.getName());
                     }
                     setDeviceList(new LinkedList<>(deviceList));
@@ -76,11 +80,11 @@ public class DeviceRepository extends Observable implements Observer {
                     for(Device dev : getDeviceList()){
                         if(message.getString("dname").equals(dev.getName())){
                             switch(dev.getType()){
-                                case "integer":
+                                case "temperature":
                                     dev.setValue(message.getInt("value"));
                                     Log.d(TAG, "Value " + message.getInt("value") + " for device " + dev.getName());
                                     break;
-                                case "boolean":
+                                case "button":
                                     dev.setValue(message.getBoolean("value"));
                                     Log.d(TAG, "Value " + message.getBoolean("value") + " for device " + dev.getName());
                                     break;
