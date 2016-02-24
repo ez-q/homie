@@ -143,6 +143,16 @@ var DataDictEntry = require('DataDictEntry');*/
 var devices = [];
 
 
+//initialize time as a device
+devices.push({
+  type: "time",
+  category: "sensor",
+  dname: "time",
+  values: "date",
+  ip: null,
+  latestValue: null
+
+});
 var configurations = [];
 var conditions = [];
 /*conditions.push(new Condition("time", "10:00", "lesser"));
@@ -562,6 +572,13 @@ var getLatestValueForDevice = function(dname) {
 };
 
 
+var applyMod = function(value1, value2, mod) {
+  if (mod === "greater")
+    return value1 >= value2;
+  if (mod === "lesser")
+    return value1 <= value2;
+};
+
 var checkTime = function(cnd) {
   var currDate = new Date();
   var checkDate = new Date();
@@ -575,10 +592,11 @@ var checkTime = function(cnd) {
 
   console.log("cnd.mod: " + cnd.mod);
 
-  if (cnd.mod === "greater")
+  /*if (cnd.mod === "greater")
     return checkDate >= currDate;
   if (cnd.mod === "lesser")
-    return checkDate <= currDate;
+    return checkDate <= currDate;*/
+  return applyMod(currDate, checkDate, cnd.mod);
 };
 
 var applyLogicalOperator = function(value, flag, operator) {
@@ -625,8 +643,6 @@ var checkConfigurations = function(cmd) {
 
       }
 
-
-
       if (getTypeForDevice(cnd.dname) === "button") {
 
         console.log('cnd.value = ' + cnd.value +
@@ -646,6 +662,18 @@ var checkConfigurations = function(cmd) {
           flag = val;
         }
 
+      }
+
+      if (getTypeForDevice(cnd.dname) === "temperature") {
+
+        var val = applyMod(getLatestValueForDevice(cnd.dname), cnd.value, cnd
+          .mod);
+
+        if (j != 0) {
+          flag = applyLogicalOperator(val, flag, config.logicalOperator);
+        } else {
+          flag = val;
+        }
       }
 
 
