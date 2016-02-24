@@ -5,9 +5,13 @@ var DATA_PORT = 50556;
 var CONFIGURATIONS_PATH = __dirname + "/" + "configurations.json";
 
 
-var WebSocketServer = require('ws').Server
-    , controllerWSS = new WebSocketServer({ port: CONTROLLER_PORT })
-    , dataWSS = new WebSocketServer({ port : DATA_PORT});
+var WebSocketServer = require('ws').Server,
+  controllerWSS = new WebSocketServer({
+    port: CONTROLLER_PORT
+  }),
+  dataWSS = new WebSocketServer({
+    port: DATA_PORT
+  });
 
 var fs = require('fs');
 
@@ -21,9 +25,11 @@ var db = new sqlite3.Database(file);
 
 
 db.serialize(function() {
-  if(!exists){
-      db.run("CREATE TABLE DATA (DNAME TEXT NOT NULL, VALUE TEXT, DATE TEXT NOT NULL);");
-    }
+  if (!exists) {
+    db.run(
+      "CREATE TABLE DATA (DNAME TEXT NOT NULL, VALUE TEXT, DATE TEXT NOT NULL);"
+    );
+  }
 });
 
 /*
@@ -49,7 +55,7 @@ db.serialize(function() {
 
 });*/
 
-var writeDataToDb = function (dname, value) {
+var writeDataToDb = function(dname, value) {
 
   db.serialize(function() {
 
@@ -63,7 +69,7 @@ var writeDataToDb = function (dname, value) {
 };
 
 
-var sendHistoryDataToClientByDname = function (dname, ip){
+var sendHistoryDataToClientByDname = function(dname, ip) {
   var res = [];
 
 
@@ -77,44 +83,45 @@ var sendHistoryDataToClientByDname = function (dname, ip){
 
 
 
-
     //console.log(srch);
 
 
-    db.all('SELECT value, date from DATA where DNAME = \'' + dname + '\';', function(err, rows){
-      //console.log(rows);
+    db.all('SELECT value, date from DATA where DNAME = \'' + dname +
+      '\';',
+      function(err, rows) {
+        //console.log(rows);
 
-      rows.forEach(function(row){
+        rows.forEach(function(row) {
 
-        //console.log(row);
-        var tmp = row;
-        //delete tmp.DNAME;
-        if(tmp.VALUE == 1){
-          tmp.value = true;
-        }else{
-          tmp.value = false;
+          //console.log(row);
+          var tmp = row;
+          //delete tmp.DNAME;
+          if (tmp.VALUE == 1) {
+            tmp.value = true;
+          } else {
+            tmp.value = false;
+          }
+          delete tmp.VALUE;
+
+          tmp.date = tmp.DATE;
+          delete tmp.DATE;
+
+          //console.log(tmp.value);
+          res.push(tmp);
+          console.log(JSON.stringify(res));
+
+          /*  sendHistoryDataToClient(res, ip);
+
+            return res;*/
+        })
+        var obj = {
+          dname: dname,
+          historyData: res
         }
-        delete tmp.VALUE;
 
-        tmp.date = tmp.DATE;
-        delete tmp.DATE;
+        dataWSS.sendToClient(ip, JSON.stringify(obj));
 
-        //console.log(tmp.value);
-        res.push(tmp);
-        console.log(JSON.stringify(res));
-
-      /*  sendHistoryDataToClient(res, ip);
-
-        return res;*/
-      })
-      var obj = {
-        dname:dname,
-        historyData:res
-      }
-
-      dataWSS.sendToClient(ip, JSON.stringify(obj));
-
-    });
+      });
 
 
   });
@@ -144,93 +151,93 @@ configurations.push(new Configuration(new Target("led1", "127.0.0.1", "on"), con
 
 
 //loads all configurtaions from the configurations.json file
-fs.readFile(CONFIGURATIONS_PATH, 'utf8', function (err, data) {
-    console.log("read configuration data: " + data);
+fs.readFile(CONFIGURATIONS_PATH, 'utf8', function(err, data) {
+  console.log("read configuration data: " + data);
 
-    //configurations = JSON.stringify(data);
-    try{
-        configurations = JSON.parse(data);
-        console.log("valid json file: " + configurations);
-    }
-    catch(e){
-        console.log("invalid or empty configurations.json file");
-        return;
-    }
-    //console.log(JSON.stringify(configurations[0]));
-    console.log("end of readFile");
+  //configurations = JSON.stringify(data);
+  try {
+    configurations = JSON.parse(data);
+    console.log("valid json file: " + configurations);
+  } catch (e) {
+    console.log("invalid or empty configurations.json file");
+    return;
+  }
+  //console.log(JSON.stringify(configurations[0]));
+  console.log("end of readFile");
 });
 
-var writeConfigsToFile = function (){
+var writeConfigsToFile = function() {
 
-      cleanupConfigurations();
-
-
-
-    fs.writeFile(__dirname + "/" + "configurations.json", JSON.stringify(configurations), function(err) {
-        if(err) {
-            return console.log(err);
-        }
-
-        console.log("changed config");
-        console.log("current config: " + JSON.stringify(configurations));
-    });
-};
-
-
-var addConfiguration = function (newConfig){
-    configurations.push(newConfig);
-
-    writeConfigsToFile();
-
-};
+  cleanupConfigurations();
 
 
 
-var deleteConfiguration = function (toDelete){
-    for(var i = 0; i < configurations.length; i++){
-        if(configurations[i].cname === toDelete)
-            configurations.splice(i, 1);
+  fs.writeFile(__dirname + "/" + "configurations.json", JSON.stringify(
+    configurations), function(err) {
+    if (err) {
+      return console.log(err);
     }
 
-    writeConfigsToFile();
+    console.log("changed config");
+    console.log("current config: " + JSON.stringify(configurations));
+  });
+};
+
+
+var addConfiguration = function(newConfig) {
+  configurations.push(newConfig);
+
+  writeConfigsToFile();
+
+};
+
+
+
+var deleteConfiguration = function(toDelete) {
+  for (var i = 0; i < configurations.length; i++) {
+    if (configurations[i].cname === toDelete)
+      configurations.splice(i, 1);
+  }
+
+  writeConfigsToFile();
 };
 
 //param: device for which the ip should be found
 //returns: found: ip from that device, not found -1
-var getIpForDeviceName = function (dname){
+var getIpForDeviceName = function(dname) {
 
-    for(var i = 0; i < devices.length; i++){
-        if(devices[i].dname === dname)
-            return devices[i].ip;
-    }
-    return -1;
+  for (var i = 0; i < devices.length; i++) {
+    if (devices[i].dname === dname)
+      return devices[i].ip;
+  }
+  return -1;
 };
 
 controllerWSS.on('connection', function connection(ws) {
   console.log('connected: %s', ws._socket.remoteAddress);
   ws.on('message', function incoming(message) {
-      console.log("controllerWSS.onMessage: " + message);
-      var pkg = JSON.parse(message);
-      pkg.from = ws._socket.remoteAddress;
-      pkg.dname = pkg.dname;
+    console.log("controllerWSS.onMessage: " + message);
+    var pkg = JSON.parse(message);
+    pkg.from = ws._socket.remoteAddress;
+    pkg.dname = pkg.dname;
 
 
-      //processes the command
-      processCommand(pkg);
+    //processes the command
+    processCommand(pkg);
 
-      //checks if a user has registered for data from this device, if yes data will be sent to that device
-      //checkAndSendData(pkg);
+    //checks if a user has registered for data from this device, if yes data will be sent to that device
+    //checkAndSendData(pkg);
   });
 
   ws.send('connected');
 });
 
-controllerWSS.sendToClient = function sendToClient(address, data){
-	controllerWSS.clients.forEach(function each(client){
-		if(client._socket.remoteAddress === address){
-			client.send(data);
-		}
-	});
+controllerWSS.sendToClient = function sendToClient(address, data) {
+  controllerWSS.clients.forEach(function each(client) {
+    if (client._socket.remoteAddress === address) {
+      client.send(data);
+    }
+  });
 };
 
 
@@ -240,217 +247,231 @@ var dataDict = {};
 
 
 
-
-
-var findConfigurationByName = function (cname){
-    for(var i = 0; i < configurations.length; i++){
-        if(configurations[i].cname === cname) return i;
-    }
+var findConfigurationByName = function(cname) {
+  for (var i = 0; i < configurations.length; i++) {
+    if (configurations[i].cname === cname) return i;
+  }
 
 };
 
-var editConfiguration = function (cname, newConfig) {
+var editConfiguration = function(cname, newConfig) {
 
-    configurations[findConfigurationByName(cname)] = newConfig;
-    cleanupConfigurations();
+  configurations[findConfigurationByName(cname)] = newConfig;
+  cleanupConfigurations();
 
 
-    writeConfigsToFile();
+  writeConfigsToFile();
 
 };
 
-var findUserEntry = function (ip){
-   for(var i = 0; i < userDict.length; i++){
-     if(userDict[i].to === ip) return i;
-   }
-    return -1;
+var findUserEntry = function(ip) {
+  for (var i = 0; i < userDict.length; i++) {
+    if (userDict[i].to === ip) return i;
+  }
+  return -1;
 };
 
 //deletes the generated $$hashKey by angular
 //which is generated by using a nested ng-repeat
-var cleanupConfigurations = function(){
-    for(var i = 0; i < configurations.length; i++){
-        for(var j = 0; j < configurations[i].conditions.length; j++){
-            delete configurations[i].conditions[j].$$hashKey;
-        }
-
+var cleanupConfigurations = function() {
+  for (var i = 0; i < configurations.length; i++) {
+    for (var j = 0; j < configurations[i].conditions.length; j++) {
+      delete configurations[i].conditions[j].$$hashKey;
     }
 
-    console.log("cleanup config called, current configs: " + JSON.stringify(configurations));
+  }
+
+  console.log("cleanup config called, current configs: " + JSON.stringify(
+    configurations));
 };
 
 //searches the userDict registered devices' ip addresses
-var findIpsForDeviceName = function (dname){
+var findIpsForDeviceName = function(dname) {
 
   var res = [];
 
-  for(var i = 0; i < userDict.length; i++){
-      if(userDict[i].dname === dname){
-          console.log(JSON.stringify(userDict[i]));
-          res.push(userDict[i].to);
-          console.log("found matching ip for dname: " + res[res.length-1]);
-      }
+  for (var i = 0; i < userDict.length; i++) {
+    if (userDict[i].dname === dname) {
+      console.log(JSON.stringify(userDict[i]));
+      res.push(userDict[i].to);
+      console.log("found matching ip for dname: " + res[res.length - 1]);
+    }
   }
 
-    return res;
+  return res;
 };
 
-var configNameAlreadyExists = function (cname){
-    for(var i = 0; i < configurations.length; i++){
-        if(configurations[i].cname === cname)
-            return true;
-    }
-    return false;
+var configNameAlreadyExists = function(cname) {
+  for (var i = 0; i < configurations.length; i++) {
+    if (configurations[i].cname === cname)
+      return true;
+  }
+  return false;
 };
 
 //this socket controls the data
 dataWSS.on('connection', function connection(ws) {
-    console.log('connected: %s', ws._socket.remoteAddress);
+  console.log('connected: %s', ws._socket.remoteAddress);
 
-    ws.on('message', function incoming(message) {
-        //console.log('received message: %s', message);
-        //wss.sendToClient(ip, action);
-        //console.log('WSSDATA RECEIVED: ' + message);
+  ws.on('message', function incoming(message) {
+    //console.log('received message: %s', message);
+    //wss.sendToClient(ip, action);
+    //console.log('WSSDATA RECEIVED: ' + message);
 
-        var msg = JSON.parse(message);
-
-
-        console.log("dataWSS.onMessage: " + message);
-
-        if(msg.event === "setDevice"){
+    var msg = JSON.parse(message);
 
 
-            if(findUserEntry(ws._socket.remoteAddress) != -1){
-                userDict.splice(findUserEntry(ws._socket.remoteAddress), 1);
-                console.log("removed previous userDict (length: %d) entry for: " + ws._socket.remoteAddress, userDict.length);
-            }
+    console.log("dataWSS.onMessage: " + message);
 
-            userDict.push({
-                to:ws._socket.remoteAddress,
-                dname:msg.data
-            });
-            console.log("added new userDict entry: " + JSON.stringify(userDict[userDict.length-1]));
-        }
+    if (msg.event === "setDevice") {
 
 
-        if(msg.event === "getDevices"){
-            dataWSS.sendToClient(ws._socket.remoteAddress, "{\"devices\": " + JSON.stringify(devices) + "}");
-        }
+      if (findUserEntry(ws._socket.remoteAddress) != -1) {
+        userDict.splice(findUserEntry(ws._socket.remoteAddress), 1);
+        console.log(
+          "removed previous userDict (length: %d) entry for: " + ws._socket
+          .remoteAddress, userDict.length);
+      }
+
+      userDict.push({
+        to: ws._socket.remoteAddress,
+        dname: msg.data
+      });
+      console.log("added new userDict entry: " + JSON.stringify(
+        userDict[userDict.length - 1]));
+    }
 
 
-        if(msg.event === "newConfiguration"){
-            console.log("newConfiguration called with data: ");
-            console.log(JSON.stringify(msg.data));
+    if (msg.event === "getDevices") {
+      dataWSS.sendToClient(ws._socket.remoteAddress, "{\"devices\": " +
+        JSON.stringify(devices) + "}");
+    }
 
 
-            if(configNameAlreadyExists(msg.data.cname)){
-                dataWSS.sendToClient(ws._socket.remoteAddress, JSON.stringify({
-                    event:"error",
-                    data:"configuration name already exists"
-                }));
-                return;
-            }
-
-            var obj = msg.data;
-            console.log("saving this to configurations (new): " + JSON.stringify(obj));
-
-            addConfiguration(msg.data);
-            dataWSS.sendToClient(ws._socket.remoteAddress, "{\"configurations\":" + JSON.stringify(configurations) + "}");
+    if (msg.event === "newConfiguration") {
+      console.log("newConfiguration called with data: ");
+      console.log(JSON.stringify(msg.data));
 
 
-        }
+      if (configNameAlreadyExists(msg.data.cname)) {
+        dataWSS.sendToClient(ws._socket.remoteAddress, JSON.stringify({
+          event: "error",
+          data: "configuration name already exists"
+        }));
+        return;
+      }
 
-        if(msg.event === "deleteConfiguration"){
-            console.log("deleteConfiguration called with data: ");
-            console.log(JSON.stringify(msg.data));
+      var obj = msg.data;
+      console.log("saving this to configurations (new): " + JSON.stringify(
+        obj));
 
-            deleteConfiguration(msg.data.cname);
-
-            dataWSS.sendToClient(ws._socket.remoteAddress, "{\"configurations\":" + JSON.stringify(configurations) + "}");
-
-        }
-
-        if(msg.event === "getConfigurations"){
-            console.log("getConfiguration called with data: ");
-            console.log(JSON.stringify(msg.data));
-
-
-            dataWSS.sendToClient(ws._socket.remoteAddress, "{\"configurations\":" + JSON.stringify(configurations) + "}");
-        }
+      addConfiguration(msg.data);
+      dataWSS.sendToClient(ws._socket.remoteAddress,
+        "{\"configurations\":" + JSON.stringify(configurations) + "}"
+      );
 
 
-        if(msg.event === "editConfiguration"){
-            console.log("editConfiguration called with data: " + msg.data);
-            var obj = msg.data;
-            delete obj.$$hashKey;
-            console.log("saving this to configurations (edit): " + JSON.stringify(obj));
+    }
 
-            editConfiguration(obj.cname, obj);
+    if (msg.event === "deleteConfiguration") {
+      console.log("deleteConfiguration called with data: ");
+      console.log(JSON.stringify(msg.data));
 
+      deleteConfiguration(msg.data.cname);
 
+      dataWSS.sendToClient(ws._socket.remoteAddress,
+        "{\"configurations\":" + JSON.stringify(configurations) + "}"
+      );
 
-            dataWSS.sendToClient(ws._socket.remoteAddress, "{\"configurations\":" + JSON.stringify(configurations) + "}");
-        }
+    }
 
-        if(msg.event === "getHistoryDataByDname"){
-          console.log("getHistoryDataByDname called with data: " + JSON.stringify(msg.data));
-
-          sendHistoryDataToClientByDname(msg.data.dname, ws._socket.remoteAddress);
-
-
-        }
-
-        //the client has to have the device registered in the userDict for this to work
-        //that means first call setDataType then call forceDeviceToSendData for the client to receive the current data
-        if(msg.event === "forceDeviceToSendData"){
-          var dname = msg.data.dname;
-
-          var ip = getIpForDeviceName(dnameToForceDataFrom);
-
-          var obj = {
-            event:"send_data",
-            data:{}
-          };
-          controllerWSS.sendToClient(ip, JSON.stringify(obj));
-
-        }
+    if (msg.event === "getConfigurations") {
+      console.log("getConfiguration called with data: ");
+      console.log(JSON.stringify(msg.data));
 
 
-    });
+      dataWSS.sendToClient(ws._socket.remoteAddress,
+        "{\"configurations\":" + JSON.stringify(configurations) + "}"
+      );
+    }
 
-    ws.send('connected');
+
+    if (msg.event === "editConfiguration") {
+      console.log("editConfiguration called with data: " + msg.data);
+      var obj = msg.data;
+      delete obj.$$hashKey;
+      console.log("saving this to configurations (edit): " + JSON.stringify(
+        obj));
+
+      editConfiguration(obj.cname, obj);
+
+
+
+      dataWSS.sendToClient(ws._socket.remoteAddress,
+        "{\"configurations\":" + JSON.stringify(configurations) + "}"
+      );
+    }
+
+    if (msg.event === "getHistoryDataByDname") {
+      console.log("getHistoryDataByDname called with data: " + JSON.stringify(
+        msg.data));
+
+      sendHistoryDataToClientByDname(msg.data.dname, ws._socket.remoteAddress);
+
+
+    }
+
+    //the client has to have the device registered in the userDict for this to work
+    //that means first call setDataType then call forceDeviceToSendData for the client to receive the current data
+    if (msg.event === "forceDeviceToSendData") {
+      var dname = msg.data.dname;
+
+      var ip = getIpForDeviceName(dname);
+
+      var obj = {
+        event: "sendData",
+        data: {}
+      };
+      controllerWSS.sendToClient(ip, JSON.stringify(obj));
+
+    }
+
+
+  });
+
+  ws.send('connected');
 });
 
-dataWSS.sendToClient = function sendToClient(address, data){
-    dataWSS.clients.forEach(function each(client){
-        if(client._socket.remoteAddress === address){
-            client.send(data);
-        }
-    });
+dataWSS.sendToClient = function sendToClient(address, data) {
+  dataWSS.clients.forEach(function each(client) {
+    if (client._socket.remoteAddress === address) {
+      client.send(data);
+    }
+  });
 };
 
 
 
-var checkAndSendData = function (message) {
+var checkAndSendData = function(message) {
 
-    var tmp = message;
+  var tmp = message;
 
-    //if(tmp.event === "regDevice") return;
-
-
-    console.log("checkAndSendData called with message: " + message);
-    console.log("parsed json: " + tmp.dname + " " + tmp.data);
+  //if(tmp.event === "regDevice") return;
 
 
-    var ips = findIpsForDeviceName(tmp.dname);
+  console.log("checkAndSendData called with message: " + message);
+  console.log("parsed json: " + tmp.dname + " " + tmp.data);
+
+
+  var ips = findIpsForDeviceName(tmp.dname);
 
 
 
-    for(var i = 0; i < ips.length; i++){
+  for (var i = 0; i < ips.length; i++) {
 
-        dataWSS.sendToClient(ips[i], JSON.stringify(tmp));
-        console.log("sent data: " + JSON.stringify(tmp) + " to ip: " + ips[i]);
-    }
+    dataWSS.sendToClient(ips[i], JSON.stringify(tmp));
+    console.log("sent data: " + JSON.stringify(tmp) + " to ip: " + ips[i]);
+  }
 
 };
 
@@ -470,120 +491,182 @@ var parseMessage = function (msg){
 };
 */
 
-
-var processCommand = function (cmd){
-    console.log("processCommand called");
-
-    //if the event is regDevice a new device will be added to the devices array
-    //also sends the new devices to the webclient
-    if(cmd.event === "regDevice"){
-        devices.push({
-            type:cmd.type,
-            category:cmd.category,
-            dname:cmd.dname,
-            values:cmd.values,
-            ip:cmd.from
-        });
-        console.log("device registered: " + JSON.stringify(devices[devices.length-1]));
-        dataWSS.sendToClient(cmd.from, "{\"devices\": " + JSON.stringify(devices) + "}");
-
-    }
-    else {
-        //put the received data into the database
-        writeDataToDb(cmd.dname, cmd.data);
-        //checks if a device has registered this data source and sends data to it
-        checkAndSendData(cmd);
-        //checks configurations and sends possible execute commands
-        checkConfigurations(cmd);
-    }
+var isDeviceAlreadyRegistered = function(dname) {
+  for (var i = 0; i < devices.length; i++) {
+    if (devices[i].dname === dname)
+      return true;
+  }
+  return false;
 };
 
-var checkTime = function (cnd){
-    var currDate = new Date();
-    var checkDate = new Date();
-    checkDate.setHours(cnd.value.split(":")[0]);
-    checkDate.setMinutes(cnd.value.split(":")[1]);
-    checkDate.setSeconds(0);
+var processCommand = function(cmd) {
+  console.log("processCommand called");
 
-    console.log("checkTime called");
-    console.log("currDate: " + currDate);
-    console.log("checkDate: " + checkDate);
+  //if the event is regDevice a new device will be added to the devices array
+  //also sends the new devices to the webclient
+  if (cmd.event === "regDevice") {
 
-    console.log("cnd.mod: " + cnd.mod);
+    if (isDeviceAlreadyRegistered(cmd.dname)) {
+      controllerWSS.sendToClient(cmd.from, JSON.stringify({
+        event: "error",
+        data: "dname already registered"
+      }));
+    } else {
+      devices.push({
+        type: cmd.type,
+        category: cmd.category,
+        dname: cmd.dname,
+        values: cmd.values,
+        ip: cmd.from,
+        latestValue: null
+      });
+      console.log("device registered: " + JSON.stringify(devices[devices.length -
+        1]));
 
-    if(cnd.mod === "greater")
-        return checkDate >= currDate;
-    if(cnd.mod === "lesser")
-        return checkDate <= currDate;
-};
-
-var applyLogicalOperator = function (value, flag, operator){
-    if(operator === "and")
-        return value && flag;
-    if(operator === "or")
-        return value || flag;
-    else
-        return false;
-};
-
-var getTypeForDevice = function(dname){
-      for(var i = 0; i < devices.length; i++){
-          if(devices[i].dname === dname) return devices[i].type;
+      var obj = {
+        devices: devices
       }
+
+      dataWSS.sendToClient(cmd.from, JSON.stringify(obj));
+      //dataWSS.sendToClient(cmd.from, "{\"devices\": " + JSON.stringify(devices) + "}");
+    }
+  } else {
+    //put the received data into the database
+    writeDataToDb(cmd.dname, cmd.data);
+    //save the data as the latest received value
+    saveDataAsLatestReceivedToDevice(cmd.dname, cmd.data);
+    //checks if a device has registered this data source and sends data to it
+    checkAndSendData(cmd);
+    //checks configurations and sends possible execute commands
+    checkConfigurations(cmd);
+  }
 };
 
-var checkConfigurations = function (cmd){
+var saveDataAsLatestReceivedToDevice = function(dname, data) {
+  for (var i = 0; i < devices.length; i++) {
+    if (devices[i].dname === dname) {
+      devices[i].latestValue = data;
+      return;
+    }
+  }
+  return;
+};
 
-    var flag = true;
-    console.log("checkConfigurations called:" + JSON.stringify(cmd));
-
-    //loops through all configurations to check for possible match
-    for(var i = 0; i < configurations.length; i++){
-        console.log("configuration: %s length: $d", configurations[i].cname, configurations.length);
-        var config = configurations[i];
-        for(var j = 0; j < configurations[i].conditions.length; j++) {
-            console.log("conditions length: %d", configurations[i].conditions.length);
-            var cnd = configurations[i].conditions[j];
-
-            console.log(JSON.stringify(cnd));
-
-            if(cnd.dname === "time")
-                flag = checkTime(cnd);
+var getLatestValueForDevice = function(dname) {
+  for (var i = 0; i < devices.length; i++) {
+    if (devices[i].dname === dname) {
+      return devices[i].latestValue;
+    }
+  }
+  return null;
+};
 
 
-            if(getTypeForDevice(cnd.dname) === "button"){
+var checkTime = function(cnd) {
+  var currDate = new Date();
+  var checkDate = new Date();
+  checkDate.setHours(cnd.value.split(":")[0]);
+  checkDate.setMinutes(cnd.value.split(":")[1]);
+  checkDate.setSeconds(0);
 
-              console.log('cnd.value = ' + cnd.value + ' - cmd.data = ' + cmd.data);
+  console.log("checkTime called");
+  console.log("currDate: " + currDate);
+  console.log("checkDate: " + checkDate);
 
-              if(cnd.value === cmd.data){
-                var val = true;
-              }
-              else{
-                var val = false;
-              }
-              console.log('val: ' + val);
-              console.log('config.logicalOperator: ' + config.logicalOperator);
-              flag = applyLogicalOperator(val, flag, config.logicalOperator);
+  console.log("cnd.mod: " + cnd.mod);
 
-            }
+  if (cnd.mod === "greater")
+    return checkDate >= currDate;
+  if (cnd.mod === "lesser")
+    return checkDate <= currDate;
+};
 
-            console.log("(config: %d, condition: %d): flag value: %s", i, j, flag);
+var applyLogicalOperator = function(value, flag, operator) {
+  if (operator === "and")
+    return value && flag;
+  if (operator === "or")
+    return value || flag;
+  else
+    return false;
+};
+
+var getTypeForDevice = function(dname) {
+  for (var i = 0; i < devices.length; i++) {
+    if (devices[i].dname === dname) return devices[i].type;
+  }
+};
+
+var checkConfigurations = function(cmd) {
+
+  var flag = false;
+  console.log("checkConfigurations called:" + JSON.stringify(cmd));
+
+  //loops through all configurations to check for possible match
+  for (var i = 0; i < configurations.length; i++) {
+    console.log("configuration: %s length: $d", configurations[i].cname,
+      configurations.length);
+    var config = configurations[i];
+    for (var j = 0; j < configurations[i].conditions.length; j++) {
+      if (j === 0) {
+        flag = cnd
+
+      }
+      console.log("conditions length: %d", configurations[i].conditions.length);
+      var cnd = configurations[i].conditions[j];
+
+      console.log(JSON.stringify(cnd));
+
+      if (getTypeForDevice(cnd.dname) === "time") {
+        if (j != 0) {
+          flag = applyLogicalOperator(checkTime(cnd), flag, config.logicalOperator);
+        } else {
+          flag = checkTime(cnd);
         }
 
+      }
 
-      //if the flag is true, the configurated action will be sent to the target device
-      if(flag){
 
-          if(getIpForDeviceName(config.dname) === -1){
-            console.log('target device not found');
-          }
-          else{
-            controllerWSS.sendToClient(getIpForDeviceName(config.dname), '{"event":"action","data":"' + config.action + '"}');
-          }
+
+      if (getTypeForDevice(cnd.dname) === "button") {
+
+        console.log('cnd.value = ' + cnd.value +
+          ' - latest recorded value for device = ' +
+          getLatestValueForDevice(cnd.dname));
+
+        if (cnd.value === getLatestValueForDevice(cnd.dname)) {
+          var val = true;
+        } else {
+          var val = false;
+        }
+        console.log('val: ' + val);
+        console.log('config.logicalOperator: ' + config.logicalOperator);
+        if (j != 0) {
+          flag = applyLogicalOperator(val, flag, config.logicalOperator);
+        } else {
+          flag = val;
+        }
 
       }
 
-      flag = false;
+
+      console.log("(config: %d, condition: %d): flag value: %s", i, j,
+        flag);
     }
+
+
+    //if the flag is true, the configurated action will be sent to the target device
+    if (flag) {
+
+      if (getIpForDeviceName(config.dname) === -1) {
+        console.log('target device not found');
+      } else {
+        controllerWSS.sendToClient(getIpForDeviceName(config.dname),
+          '{"event":"action","data":"' + config.action + '"}');
+      }
+
+    }
+
+    flag = false;
+  }
 
 };
