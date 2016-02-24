@@ -1,0 +1,15 @@
+From: Server
+To: Client
+Invoked By: getHistoryData
+Action: sends History Data to Client
+Returns: historyDataJson
+
+{
+  "dname":"button1",
+  "historyData":
+    [
+      {"value":true,"date":"1456176227162.0"},
+      {"value":true,"date":"1456176231889.0"},
+      {"value":true,"date":"1456176234578.0"}
+    ]
+}

@@ -1,0 +1,12 @@
+From: Client
+To: Server
+Invoked By: user input
+Action: sets the wanted datatype on the server.
+        whenever the server receives data from the specified device,
+        the server will forward that data to the client that invoked this event
+Returns: ForwardData
+
+{
+  "event":"setDataType",
+  "data":"button1/temperatureOutside"
+}

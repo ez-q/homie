@@ -1,3 +1,10 @@
+From: Server
+To: Client
+Invoked By: getConfigs, newConfiguration, deleteConfiguration, editConfiguration
+Action: Sends a list of current configurations to the caller
+
+
+{"configurations":{
 [{
   "cname":"config1",
   "dname":"wstestclient1",
@@ -35,3 +42,5 @@
   "logicalOperator":"and"
 }
 ]
+
+}}

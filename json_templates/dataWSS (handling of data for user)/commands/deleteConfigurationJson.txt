@@ -1,0 +1,12 @@
+From: Client
+To: Server
+Invoked By: user input
+Action: deletes a specific configuration on the server
+Returns: ConfigurationListJson
+
+{
+    "event":"deleteConfiguration",
+    "data":{
+        "cname":"name to delete"
+    }
+}

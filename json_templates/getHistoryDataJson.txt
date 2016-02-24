@@ -1,6 +1,0 @@
-{
-    "event":"getPastDataByDname",
-    "data":{
-        "dname":"name to get data from"
-    }
-}

@@ -1,0 +1,12 @@
+From: Client
+To: Server
+Invoked By: user input
+Action: deletes a specific configuration on the server
+Returns: historyDataJson
+
+{
+    "event":"getHistoryDataByDname",
+    "data":{
+        "dname":"name to get data from"
+    }
+}

@@ -1,0 +1,41 @@
+//From: Server
+//To: Client
+//Invoked By: getConfigs
+
+[{
+  "cname":"config1",
+  "dname":"wstestclient1",
+  "action":"on",
+  "conditions": [
+      {
+        "dname":"time",
+        "value":"10:00",
+        "mod":"greater"
+      },
+      {
+        "dname":"button1",
+        "value":true,
+        "mod":null
+      }
+  ],
+  "logicalOperator":"and"
+},
+{
+  "cname":"config2",
+  "dname":"wstestclient2",
+  "action":"on",
+  "conditions": [
+      {
+        "dname":"time",
+        "value":"10:00",
+        "mod":"greater"
+      },
+      {
+        "dname":"button1",
+        "value":true,
+        "mod":null
+      }
+  ],
+  "logicalOperator":"and"
+}
+]

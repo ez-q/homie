@@ -1,0 +1,8 @@
+From: Server
+To: Client
+Invoked By: setDataType, dataFromDevice (controllerWSS)
+
+{
+  "dname":"button1",
+  "data":true
+}

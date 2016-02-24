@@ -63,8 +63,7 @@ var writeDataToDb = function (dname, value) {
 };
 
 
-
-var getDataFromDbByDname = function (dname){
+var sendHistoryDataToClientByDname = function (dname, ip){
   var res = [];
 
 
@@ -82,14 +81,14 @@ var getDataFromDbByDname = function (dname){
     //console.log(srch);
 
 
-    db.all('SELECT dname, value, date from DATA where DNAME = \'' + dname + '\';', function(err, rows){
+    db.all('SELECT value, date from DATA where DNAME = \'' + dname + '\';', function(err, rows){
       //console.log(rows);
 
       rows.forEach(function(row){
 
         //console.log(row);
         var tmp = row;
-        delete tmp.DNAME;
+        //delete tmp.DNAME;
         if(tmp.VALUE == 1){
           tmp.value = true;
         }else{
@@ -103,8 +102,17 @@ var getDataFromDbByDname = function (dname){
         //console.log(tmp.value);
         res.push(tmp);
         console.log(JSON.stringify(res));
-        return res;
+
+      /*  sendHistoryDataToClient(res, ip);
+
+        return res;*/
       })
+      var obj = {
+        dname:dname,
+        historyData:res
+      }
+
+      dataWSS.sendToClient(ip, JSON.stringify(obj));
 
     });
 
@@ -382,18 +390,12 @@ dataWSS.on('connection', function connection(ws) {
             dataWSS.sendToClient(ws._socket.remoteAddress, "{\"configurations\":" + JSON.stringify(configurations) + "}");
         }
 
-        if(msg.event === "getPastDataByDname"){
-          console.log("getPastDataByDname called with data: " + JSON.stringify(msg.data));
+        if(msg.event === "getHistoryDataByDname"){
+          console.log("getHistoryDataByDname called with data: " + JSON.stringify(msg.data));
 
-          var res = getDataFromDbByDname(msg.data.dname);
+          sendHistoryDataToClientByDname(msg.data.dname, ws._socket.remoteAddress);
 
 
-          var obj = {
-            dname:msg.data.dname,
-            historyData:res
-          }
-
-          dataWSS.sendToClient(ws._socket.remoteAddress, JSON.stringify(obj));
         }
 
 
