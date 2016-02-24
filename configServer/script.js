@@ -141,6 +141,7 @@ var DataDictEntry = require('DataDictEntry');*/
  var model = require(__dirname + '\\model.js');*/
 
 var devices = [];
+var timeCheck = devices;
 
 
 //initialize time as a device
@@ -223,6 +224,13 @@ var getIpForDeviceName = function(dname) {
   return -1;
 };
 
+var deleteDeviceByDname = function(dname) {
+  for (var i = 0; i < devices.length; i++) {
+    if (devices[i].dname === dname)
+      devices.splice(i, 1);
+  }
+};
+
 controllerWSS.on('connection', function connection(ws) {
   console.log('connected: %s', ws._socket.remoteAddress);
   ws.on('message', function incoming(message) {
@@ -237,6 +245,13 @@ controllerWSS.on('connection', function connection(ws) {
 
     //checks if a user has registered for data from this device, if yes data will be sent to that device
     //checkAndSendData(pkg);
+  });
+  ws.on('close', function() {
+    console.log("device disconnected: " + getDnameByIp(ws._socket.remoteAddress));
+    deleteDeviceByDname(getDnameByIp(ws._socket.remoteAddress));
+  });
+  ws.on('disconnect', function() {
+    console.log("controllerWSS onDisconnect");
   });
 
   ws.send('connected');
@@ -434,16 +449,8 @@ dataWSS.on('connection', function connection(ws) {
     //the client has to have the device registered in the userDict for this to work
     //that means first call setDataType then call forceDeviceToSendData for the client to receive the current data
     if (msg.event === "forceDeviceToSendData") {
-      var dname = msg.data.dname;
 
-      var ip = getIpForDeviceName(dname);
-
-      var obj = {
-        event: "sendData",
-        data: {}
-      };
-      controllerWSS.sendToClient(ip, JSON.stringify(obj));
-
+      forceDeviceToSendData(msg.data.dname)
     }
 
 
@@ -451,6 +458,18 @@ dataWSS.on('connection', function connection(ws) {
 
   ws.send('connected');
 });
+
+var forceDeviceToSendData = function(dname) {
+
+
+  var ip = getIpForDeviceName(dname);
+
+  var obj = {
+    event: "sendData",
+    data: {}
+  };
+  controllerWSS.sendToClient(ip, JSON.stringify(obj));
+}
 
 dataWSS.sendToClient = function sendToClient(address, data) {
   dataWSS.clients.forEach(function each(client) {
@@ -509,6 +528,14 @@ var isDeviceAlreadyRegistered = function(dname) {
   return false;
 };
 
+var putTimeStampOnDevice = function(dname) {
+  for (var i = 0; i < devices.length; i++) {
+    if (devices[i].dname === dname) {
+      devices[i].timestamp = new Date();
+    }
+  }
+};
+
 var processCommand = function(cmd) {
   console.log("processCommand called");
 
@@ -528,7 +555,8 @@ var processCommand = function(cmd) {
         dname: cmd.dname,
         values: cmd.values,
         ip: cmd.from,
-        latestValue: null
+        latestValue: null,
+        timestamp: new Date()
       });
       console.log("device registered: " + JSON.stringify(devices[devices.length -
         1]));
@@ -541,6 +569,8 @@ var processCommand = function(cmd) {
       //dataWSS.sendToClient(cmd.from, "{\"devices\": " + JSON.stringify(devices) + "}");
     }
   } else {
+    //puts the current timestamp on the device to check if it is disconnected
+    putTimeStampOnDevice(cmd.dname);
     //put the received data into the database
     writeDataToDb(cmd.dname, cmd.data);
     //save the data as the latest received value
@@ -551,6 +581,7 @@ var processCommand = function(cmd) {
     checkConfigurations(cmd);
   }
 };
+
 
 var saveDataAsLatestReceivedToDevice = function(dname, data) {
   for (var i = 0; i < devices.length; i++) {
@@ -599,6 +630,14 @@ var checkTime = function(cnd) {
   return applyMod(currDate, checkDate, cnd.mod);
 };
 
+var getDnameByIp = function(ip) {
+  for (var i = 0; i < devices.length; i++) {
+    if (devices[i].ip === ip)
+      return devices[i].dname;
+  }
+  return -1;
+}
+
 var applyLogicalOperator = function(value, flag, operator) {
   if (operator === "and")
     return value && flag;
@@ -614,10 +653,10 @@ var getTypeForDevice = function(dname) {
   }
 };
 
-var checkConfigurations = function(cmd) {
+var checkConfigurations = function() {
 
   var flag = false;
-  console.log("checkConfigurations called:" + JSON.stringify(cmd));
+  //console.log("checkConfigurations called:" + JSON.stringify(cmd));
 
   //loops through all configurations to check for possible match
   for (var i = 0; i < configurations.length; i++) {
@@ -698,3 +737,24 @@ var checkConfigurations = function(cmd) {
   }
 
 };
+
+var getDateDiffInSeconds = function(d1, d2) {
+  var diff = d1.getTime() - d2.getTime();
+  return diff / 1000;
+};
+
+//checks if all clients are still connected and fires the checkConfigurations for time changes
+setInterval(function() {
+  checkConfigurations();
+  console.log("setInterval called");
+  //starts at 1 because time will not be included
+  for (var i = 1; i < devices.length; i++) {
+    forceDeviceToSendData(devices[i]);
+    if (getDateDiffInSeconds(new Date(), devices[i].timestamp) > 25) {
+      console.log("difference is greater! should delte: " +
+        getDateDiffInSeconds(new Date(), devices[i].timestamp));
+      deleteDeviceByDname(devices[i].dname);
+    }
+  }
+
+}, 5000);

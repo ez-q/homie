@@ -136,7 +136,7 @@ void loop() {
     
     delay(1000);
     String data = String(digitalRead(2));
-    ecaptureAndSendButtonData();
+    captureAndSendButtonData();
     
       
       

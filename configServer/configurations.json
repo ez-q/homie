@@ -1,1 +1,0 @@
-[{"conditions":[{"value":"17:00","dname":"time","mod":"greater"},{"dname":"button1","value":true},{"dname":"temperature1","value":"20","mod":"greater"}],"cname":"config_use_case","dname":"led1","action":"on","logicalOperator":"and"}]
