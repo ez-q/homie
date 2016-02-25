@@ -18,4 +18,6 @@
     <string name="getBack">return</string>
     <string name="getCurrentState">Get current State</string>
     <string name="toggleState">Toggle State</string>
+    <string name="currConnectedDevices">Currently Connected Devices</string>
+    <string name="deviceDetails">Device details</string>
 </resources>

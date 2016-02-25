@@ -9,19 +9,30 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:background="#183643"
     tools:context="viktor.at.homieapp.Connect"
     tools:showIn="@layout/activity_connect">
+
+    <ImageView
+        android:id="@+id/ivSplash"
+        android:layout_width="wrap_content"
+        android:layout_height="300dp"
+        android:layout_marginBottom="25dp"
+        android:src="@drawable/splash"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/llLogin"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/ivSplash"
         android:orientation="vertical">
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hostAddress"
-                android:layout_marginTop="150dp"
                 android:gravity="center"
+                android:textColor="#FFFFFF"
                 android:id="@+id/etHostAddress"/>
         <LinearLayout
             android:layout_width="match_parent"

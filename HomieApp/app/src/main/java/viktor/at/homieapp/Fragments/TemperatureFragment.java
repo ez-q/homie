@@ -32,7 +32,7 @@ public class TemperatureFragment extends BaseFragment{
         tv.setText(getDeviceName());
 
         tvValues = (TextView) view.findViewById(R.id.tvValuesTemp);
-
+        System.out.println(DeviceRepository.getInstance().getDevice(getDeviceName()));
         tvValues.setText(DeviceRepository.getInstance().getDevice(getDeviceName()).getValue().toString());
 
         btCurrentState = (Button) view.findViewById(R.id.btCurrentStateTemp);

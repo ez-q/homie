@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -26,38 +27,52 @@ public class DeviceListActivity extends ListActivity implements Observer {
     public static final String DEVICENAME = "devicename";
 
     ArrayList<Device> devices = new ArrayList<>();
-    ArrayAdapter<Device> adapter;
+    MyAdapter myAdapter;
+    Button btReturn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_list);
 
+        DeviceRepository.getInstance().deleteObserver(this);
         DeviceRepository.getInstance().addObserver(this);
 
-        adapter = new ArrayAdapter<Device>(this, android.R.layout.simple_list_item_1,devices);
-        setListAdapter(adapter);
+        btReturn = (Button)findViewById(R.id.btReturnLv);
+        btReturn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        myAdapter = new MyAdapter(this, devices);
+        setListAdapter(myAdapter);
         getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i = new Intent(getApplicationContext(), DeviceDetailActivity.class);
+                System.out.println((Device)getListView().getItemAtPosition(position));
                 i.putExtra(DEVICENAME,(((Device)getListView().getItemAtPosition(position)).getName()));
                 startActivity(i);
             }
         });
+        if(WSClient.getInstance().getmConnection().isConnected()){
+            updateDevices();
+        }
     }
 
 
 
     public void addItem(Device d){
         devices.add(d);
-        adapter.notifyDataSetChanged();
+        myAdapter.notifyDataSetChanged();
     }
 
     public void updateDevices(){
         this.devices.clear();
         this.devices.addAll(DeviceRepository.getInstance().getDeviceList());
-        adapter.notifyDataSetChanged();
+        myAdapter.notifyDataSetChanged();
     }
 
     @Override

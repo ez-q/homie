@@ -53,12 +53,12 @@ public class DeviceDetailActivity extends FragmentActivity implements Observer {
                     break;
                 case "temperature":
                     fragment = new TemperatureFragment();
-                    fragment.setDeviceName(d.getName()+"Button");
+                    fragment.setDeviceName(d.getName());
                     break;
             }
 
             if(fragment != null) {
-                transaction.add(R.id.mainContainer, fragment);
+                transaction.replace(R.id.mainContainer, fragment);
                 transaction.commit();
             }
         }
