@@ -24,6 +24,7 @@ app.run(function($rootScope, $websocket) {
 
     ws.$emit("getDevices", "");
     ws.$emit("getConfigurations", "");
+    ws.$emit("subscribeLatestData", "");
 
   });
 
@@ -50,6 +51,8 @@ app.run(function($rootScope, $websocket) {
         console.log("actors, sensors: $d $d", $rootScope.actors.length,
           $rootScope.sensors.length);
       }
+
+      $rootScope.$apply();
     }
 
 
@@ -155,7 +158,19 @@ app.controller('MainCtrl', ['$scope', function($scope) {
     $scope.newMode = true;
   };
 
+  $scope.sendOnCommand = function(actor) {
+    $scope.sendToServer("forceDeviceToExecuteCommand", {
+      dname: actor.dname,
+      action: true
+    });
+  };
 
+  $scope.sendOffCommand = function(actor) {
+    $scope.sendToServer("forceDeviceToExecuteCommand", {
+      dname: actor.dname,
+      action: false
+    });
+  };
 
   /*
 

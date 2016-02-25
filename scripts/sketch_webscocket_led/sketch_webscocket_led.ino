@@ -4,8 +4,6 @@
 
 
 
-
-
 const char* ssid     = "Liwest_af772c"; //name of your WiFi network
 const char* password = "scheinecker_w"; //password of your WiFi network, leave blank if no passwort
 
@@ -28,8 +26,10 @@ void setup() {
   Serial.begin(9600);
   delay(10);
   pinMode(BUILTIN_LED, OUTPUT);
+  pinMode(2, OUTPUT);
 
   digitalWrite(BUILTIN_LED, HIGH);
+  digitalWrite(2, LOW);
   // We start by connecting to a WiFi network
 
   Serial.println();
@@ -72,6 +72,7 @@ void setup() {
   
   if (webSocketClient.handshake(client)) {
     Serial.println("Handshake successful");
+    
     digitalWrite(BUILTIN_LED, LOW);
   } else {
     Serial.println("Handshake failed.");
@@ -81,65 +82,54 @@ void setup() {
   }
 
   String regString;
-  regString = "{\"event\":\"regDevice\",\"category\":\"sensor\",\"type\":\"button\",\"dname\":\"button1\",\"values\":\"[true,false]\"}";
+  regString = "{\"event\":\"regDevice\",\"category\":\"actor\",\"type\":\"led\",\"dname\":\"led_red\",\"values\":\"[true,false]\"}";
   webSocketClient.sendData(regString);
 
 }
 
 
-void captureAndSendButtonData(){
-  pinMode(2, INPUT);
-    String data = String(digitalRead(2));
-    String toSend;
-    
-    Serial.println("read data: " + data);
-  
-    if(data == "1"){
-      //send data to the WebSocketServer, in this case the value of analog pin 1
-      toSend = "{\"dname\":\"button1\",\"data\":true}";
-      
-    }
-    else{
-      toSend = "{\"dname\":\"button1\",\"data\":false}";
-    }
-    webSocketClient.sendData(toSend);
-}
-
 void loop() {
   String data;
-
+  String toSend;
+  String action;
   StaticJsonBuffer<200> jsonBuffer;
+
+
   
   //run as long as the client is connected
+  
   if (client.connected()) {
-    
+   
 
     //check if data is received, if yes: display it on the serial monitor
     webSocketClient.getData(data);
     Serial.print("Received data: ");
     Serial.println(data);
-
     JsonObject& root = jsonBuffer.parseObject(data);
+
 
     if(!root.success()){
       Serial.println("parseObject() failed");
     }
     else{
-      String event = root["event"];
-      String data = root["data"];
-
+      String event = root["event"].asString();
+      boolean data = root["data"];
+      
       if(event == "sendData"){
-        captureAndSendButtonData();
+         Serial.println("sendData CALLED!!!!!!!");
+         webSocketClient.sendData("{\"dname\":\"led_red\",\"data\":\"\"}");
+      }
+      
+      if(event == "action"){
+        if(data == true){
+          digitalWrite(2, HIGH);
+        }
+        else{
+          digitalWrite(2, LOW);
+        }
       }
     }
-
     
-    
-    String data = String(digitalRead(2));
-    captureAndSendButtonData();
-    
-      
-      
     
     
   } else {
@@ -150,5 +140,5 @@ void loop() {
   }
   
   // wait to fully let the client disconnect
-  delay(1000);
+  delay(2000);
 } 

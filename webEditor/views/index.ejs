@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
+    <title><Configuration-Editor></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <!--<script src="bower_components/angular/angular.js"></script>-->
@@ -17,7 +17,7 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   </head>
   <body ng-app="webEditor" ng-controller="MainCtrl">
-  <div class="col-sm-4">
+  <!--<div class="col-sm-4">
     <h1>Debug</h1>
     <h2>Errorlog</h2>
     <h1>{{errorLog}}</h1>
@@ -37,7 +37,45 @@
         <p>{{v}}</p>
       </div>
     </div>
-  </div>
+  </div>-->
+  <div class="col-sm-4 panel panel-default">
+    <div class="panel-heading">Connected Actors</div>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Turn On</th>
+        <th>Turn Off</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="actor in actors">
+        <td>{{actor.dname}}</td>
+        <td>{{actor.type}}</td>
+        <td><button ng-click="sendOnCommand(actor)" type="button">On</button></td>
+        <td><button ng-click="sendOffCommand(actor)" type="button">Off</button></td>
+      </tr>
+    </tbody>
+    </table>
+    <div class="panel-heading">Connected Sensors</div>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Latest Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="sensor in sensors">
+        <td>{{sensor.dname}}</td>
+        <td>{{sensor.type}}</td>
+        <td>{{sensor.latestValue}}</td>
+      </tr>
+    </tbody>
+    </table>
+</div>
   <div class="col-sm-4">
     <h1>Configurations</h1>
     <div ng-repeat="config in configurations track by $index">

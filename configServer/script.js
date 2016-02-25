@@ -283,12 +283,22 @@ var getTypeForDevice = function(dname) {
   }
 };
 
+//params - dname: device to be found
+//returns - device type
+//functionality - looks for type of specified dname and returns it
+var getCategoryForDevice = function(dname) {
+  for (var i = 0; i < devices.length; i++) {
+    if (devices[i].dname === dname) return devices[i].category;
+  }
+};
+
 //------------------------- DATAFORWARDING -------------------------
 //initialize dataDict which contains the forwarding data
 //the userDict has attributes "to" and "dname"
 //when data from a device reaches the server it is saved in the userDict
 //which ip wants that data to be forwarded to
 var userDict = [];
+var latestValuesDict = [];
 
 //params - ip: ip to be found
 //returns - index at which it was found
@@ -328,6 +338,19 @@ var checkAndSendData = function(message) {
       'INFO');
   }
 };
+
+//params -
+//returns -
+//functionality - sends the latest devices (with latest values)
+//                to the users who registered in latestValuesDict
+var sendLatestValues = function() {
+  for (var i = 0; i < latestValuesDict.length; i++) {
+    var obj = {
+      devices: devices
+    }
+    dataWSS.sendToClient(latestValuesDict[i], JSON.stringify(obj));
+  }
+}
 
 //------------------------- DATAHISTORY DATABASE -------------------------
 //initializing database
@@ -417,7 +440,7 @@ var checkTime = function(cnd) {
   checkDate.setHours(cnd.value.split(":")[0]);
   checkDate.setMinutes(cnd.value.split(":")[1]);
   checkDate.setSeconds(0);
-  return applyMod(checkDate, currDate, cnd.mod);
+  return applyMod(currDate, checkDate, cnd.mod);
 };
 
 //------------------------- WEBSOCKETS -------------------------
@@ -487,15 +510,18 @@ var processCommand = function(cmd) {
   } else {
     //puts the current timestamp on the device to check if it is disconnected
     putTimeStampOnDevice(cmd.dname);
-    //put the received data into the database
-    writeDataToDb(cmd.dname, cmd.data);
-    //save the data as the latest received value
-    saveDataAsLatestValueToDevice(cmd.dname, cmd.data);
-    //checks if a device has registered this data source (in the userDict)
-    //and sends data to it
-    checkAndSendData(cmd);
-    //checks configurations and sends possible execute commands
-    checkConfigurations(cmd);
+    //only data from sensors will be considered with the next functions
+    if (getCategoryForDevice(cmd.dname) === 'sensor') {
+      //put the received data into the database
+      writeDataToDb(cmd.dname, cmd.data);
+      //save the data as the latest received value
+      saveDataAsLatestValueToDevice(cmd.dname, cmd.data);
+      //checks if a device has registered this data source (in the userDict)
+      //and sends data to it
+      checkAndSendData(cmd);
+      //checks configurations and sends possible execute commands
+      checkConfigurations(cmd);
+    }
   }
 };
 
@@ -588,9 +614,14 @@ var checkConfigurations = function() {
         flog('sent action ' + config.action + ' to ' + getIpForDname(
             config.dname),
           "INFO");
+        var act = config.action;
+        if (act === "on")
+          act = true;
+        if (act === "off")
+          act = false;
         var obj = {
           event: "action",
-          data: config.action
+          data: act
         }
         controllerWSS.sendToClient(getIpForDname(config.dname),
           JSON.stringify(obj));
@@ -633,10 +664,11 @@ dataWSS.on('connection', function connection(ws) {
 
     //sends devices to caller
     if (msg.event === "getDevices") {
-
+      var obj = {
+        devices: devices
+      }
       dataWSS.sendToClient(ws._socket.remoteAddress,
-        "{\"devices\": " +
-        JSON.stringify(devices) + "}");
+        JSON.stringify(obj));
     }
 
     //adds a new configuration and sends it to the caller
@@ -713,6 +745,16 @@ dataWSS.on('connection', function connection(ws) {
       forceDeviceToExecuteCommand(msg.data.dname, msg.data.action);
     }
 
+    if (msg.event === "subscribeLatestData") {
+      //checks if it is already subscribed
+      var flag = false;
+      for (var i = 0; i < latestValuesDict.length; i++) {
+        if (latestValuesDict[i] == ws._socket.remoteAddress)
+          flag = true;
+      }
+      if (!flag)
+        latestValuesDict.push(ws._socket.remoteAddress);
+    }
 
   });
 
@@ -731,12 +773,14 @@ dataWSS.sendToClient = function sendToClient(address, data) {
 };
 
 
+
 //checks if all clients are still connected and fires the checkConfigurations for time changes
 setInterval(function() {
   checkConfigurations();
+  sendLatestValues();
   //starts at 1 because time-"device" will not be included
   for (var i = 1; i < devices.length; i++) {
-    forceDeviceToSendData(devices[i]);
+    forceDeviceToSendData(devices[i].dname);
     if (getDateDiffInSeconds(new Date(), devices[i].timestamp) >
       AUTOMATIC_DISCONNECT_DEVICE_TIME) {
       flog("device " + devices[i].dname +
