@@ -10,7 +10,7 @@ var CONTROLLER_PORT = 50555; //websocketport on which the devices (actors/sensor
 var DATA_PORT = 50556; //websocketport in which the clients (e.g. Webbrowser, Android-Phone) communicate
 var LOGFILE_PATH = __dirname + "/" + "log.txt" //logfile path
 var CONFIGURATIONS_PATH = __dirname + "/" + "configurations.json"; //where the configurations.json file gets saved
-var AUTOMATIC_DISCONNECT_DEVICE_TIME = 25; //time which a device has to reconnect in seconds before being automatically disconnected
+var AUTOMATIC_DISCONNECT_DEVICE_TIME = 1000; //time which a device has to reconnect in seconds before being automatically disconnected
 var TIMER_INTERVAL_FORCE_DATA = 5000; //the interval in milliseconds in which the server forces a device to send data
 var DATABASE_PATH = __dirname + "/" + "DataLog.db"; //database path
 
