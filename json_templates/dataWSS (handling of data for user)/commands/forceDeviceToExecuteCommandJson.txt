@@ -1,0 +1,7 @@
+{
+  "event": "forceDeviceToExecuteCommand",
+  "data": {
+            "dname":"led1",
+            "action":true
+          }
+}

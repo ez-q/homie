@@ -10,8 +10,8 @@ var CONTROLLER_PORT = 50555; //websocketport on which the devices (actors/sensor
 var DATA_PORT = 50556; //websocketport in which the clients (e.g. Webbrowser, Android-Phone) communicate
 var LOGFILE_PATH = __dirname + "/" + "log.txt" //logfile path
 var CONFIGURATIONS_PATH = __dirname + "/" + "configurations.json"; //where the configurations.json file gets saved
-var AUTOMATIC_DISCONNECT_DEVICE_TIME = 1000; //time which a device has to reconnect in seconds before being automatically disconnected
-var TIMER_INTERVAL_FORCE_DATA = 5000; //the interval in which the server forces a device to send data
+var AUTOMATIC_DISCONNECT_DEVICE_TIME = 25; //time which a device has to reconnect in seconds before being automatically disconnected
+var TIMER_INTERVAL_FORCE_DATA = 5000; //the interval in milliseconds in which the server forces a device to send data
 var DATABASE_PATH = __dirname + "/" + "DataLog.db"; //database path
 
 //initializing the webSocketServers
@@ -29,7 +29,7 @@ var devices = [];
 //initialze configurations array
 var configurations = [];
 
-
+var ind = 0;
 //------------------------- LOGGING -------------------------
 //params - text: the logtext to be saved, level: the loglevel [info, error]
 //returns -
@@ -38,36 +38,17 @@ var configurations = [];
 var flog = function(text, level) {
 
   var newLog = '[' + level + ']' + '[' + dateFormat(new Date(),
-    'dd-mm-yyyy hh:MM:ss') + ']' + text;
+    'dd-mm-yyyy hh:MM:ss TT') + ']' + text + '\n';
   var logs;
-  try {
-    logs = fs.readFileSync(LOGFILE_PATH);
-  } catch (e) {
-    fs.writeFile(LOGFILE_PATH, newLog, function(err) {
-      if (err) {
-        return console.log(err);
-      }
-    });
-
-  }
-  return;
-  fs.writeFile(LOGFILE_PATH, logs + '\\n' + newLog, function(err) {
-    if (err) {
-      return console.log(err);
-    }
+  fs.appendFile(LOGFILE_PATH, newLog, function(err, data) {
+    if (err)
+      console.log(err);
   });
-  return;
+
 
 };
 
-flog("logs", "info");
-flog("logs", "info");
-
-flog("logs", "info");
-flog("logs", "info");
-flog("logs", "info");
-flog("logs", "info");
-
+flog('server started', 'INFO');
 
 //------------------------- CONFIGURATIONS -------------------------
 
@@ -78,7 +59,7 @@ fs.readFile(CONFIGURATIONS_PATH, 'utf8', function(err, data) {
     configurations = JSON.parse(data);
     flog("loaded configurations file", "INFO");
   } catch (e) {
-    flog("could not read configurations file", "INFO");
+    flog("could not read configurations file", "ERROR");
     return;
   }
 });
@@ -149,13 +130,9 @@ var findConfigurationByName = function(cname) {
 //returns -
 //functionality - replaces the specified configuration with newConfig
 var editConfiguration = function(cname, newConfig) {
-
-  console.log(JSON.stringify(newConfig));
   configurations[findConfigurationByName(cname)] = newConfig;
-  console.log(JSON.stringify(configurations[findConfigurationByName(cname)]));
-
   writeConfigsToFile();
-
+  flog('configuration edited: ' + cname, 'INFO');
 };
 
 //params - cname: configuration to be checked
@@ -205,7 +182,8 @@ var deleteDeviceByDname = function(dname) {
 
 //params - dname: dname to be sent data to
 //returns -
-//functionality - forces a device to send data to the server, the device has to respond to {"event":"sendData","data":{}}
+//functionality - forces a device to send data to the server,
+//                the device has to respond to {"event":"sendData","data":{}}
 var forceDeviceToSendData = function(dname) {
   var ip = getIpForDname(dname);
 
@@ -214,7 +192,27 @@ var forceDeviceToSendData = function(dname) {
     data: {}
   };
   controllerWSS.sendToClient(ip, JSON.stringify(obj));
+  //flog('forced device ' + dname + ' to send data', 'INFO'); too much log data
 }
+
+//params - dname: device on which the command should be executed
+//         command: the command that should be sent
+//returns -
+//functionality - forces a device to execute a command without a configuration
+var forceDeviceToExecuteCommand = function(dname, command) {
+  var ip = getIpForDname(dname);
+  if (ip === -1) {
+    flog('couldn\'t find device' + dname + ' to force execute command',
+      'ERROR');
+    return;
+  }
+  var obj = {
+    event: "action",
+    data: command
+  }
+  controllerWSS.sendToClient(ip, JSON.stringify(obj));
+  flog('forced device ' + dname + ' to execute command ' + command, 'INFO');
+};
 
 //params - dname: device to be check
 //returns - true if device is already registered, false if it is not registered
@@ -326,6 +324,8 @@ var checkAndSendData = function(message) {
   var ips = findIpsForDeviceName(message.dname);
   for (var i = 0; i < ips.length; i++) {
     dataWSS.sendToClient(ips[i], JSON.stringify(message));
+    flog('forwarded data from device ' + message.dname + ' to ' + ips[i],
+      'INFO');
   }
 };
 
@@ -341,6 +341,7 @@ db.serialize(function() {
     db.run(
       "CREATE TABLE DATA (DNAME TEXT NOT NULL, VALUE TEXT, DATE TEXT NOT NULL);"
     );
+    flog('created database for datahistory', 'INFO');
   }
 });
 
@@ -358,6 +359,8 @@ var writeDataToDb = function(dname, value) {
 
     stmt.finalize();
   });
+
+  //not logging here since the data is in the database anyways
 };
 
 //params - dname: dname to search historyData for, ip: to which ip the historyData gets sent
@@ -404,6 +407,19 @@ var getDateDiffInSeconds = function(d1, d2) {
   return diff / 1000;
 };
 
+//params - cnd: current condition
+//returns - true/false
+//functionality - checks if the current date is lesser or great than the date
+//                specified in the given condition
+var checkTime = function(cnd) {
+  var currDate = new Date();
+  var checkDate = new Date();
+  checkDate.setHours(cnd.value.split(":")[0]);
+  checkDate.setMinutes(cnd.value.split(":")[1]);
+  checkDate.setSeconds(0);
+  return applyMod(checkDate, currDate, cnd.mod);
+};
+
 //------------------------- WEBSOCKETS -------------------------
 
 //------------------------- CONTROLLER-WSS -------------------------
@@ -420,6 +436,9 @@ controllerWSS.on('connection', function connection(ws) {
   });
   //if a device sends a close command it gets deleted from the device list
   ws.on('close', function() {
+    flog("device " + getDnameByIp(ws._socket.remoteAddress) +
+      " was manually disconnected from the server",
+      "ERROR");
     deleteDeviceByDname(getDnameByIp(ws._socket.remoteAddress));
   });
   ws.send('connected');
@@ -449,7 +468,8 @@ var processCommand = function(cmd) {
         event: "error",
         data: "dname already registered"
       }));
-      //otherwise add it to the devices array
+      flog('device ' + cmd.dname +
+        ' could not be registered, dname already registeres', 'ERROR');
     } else {
       devices.push({
         type: cmd.type,
@@ -460,6 +480,7 @@ var processCommand = function(cmd) {
         latestValue: null,
         timestamp: new Date()
       });
+      flog('added new device ' + cmd.dname + ' to devices array', 'INFO');
     }
     //if the event is not regDevice it is regular data from the device and will be
     //handled accordingly
@@ -488,18 +509,6 @@ var applyMod = function(value1, value2, mod) {
     return value1 <= value2;
 };
 
-//params - cnd
-//returns - true/false
-//functionality - checks if the current date is lesser or great than the date
-//                specified in the given condition
-var checkTime = function(cnd) {
-  var currDate = new Date();
-  var checkDate = new Date();
-  checkDate.setHours(cnd.value.split(":")[0]);
-  checkDate.setMinutes(cnd.value.split(":")[1]);
-  checkDate.setSeconds(0);
-  return applyMod(checkDate, currDate, cnd.mod);
-};
 
 //params - value: value which the operators should be applied to
 //         flag: the current flag
@@ -529,14 +538,12 @@ var checkConfigurations = function() {
       var cnd = configurations[i].conditions[j];
 
       if (getTypeForDevice(cnd.dname) === "time") {
-        //if its the first condition the flag is the value
+        //if it's the first condition the flag is the value
         if (j != 0) {
           flag = applyLogicalOperator(checkTime(cnd), flag, config.logicalOperator);
         } else {
           flag = checkTime(cnd);
         }
-        console.log(j + " time, flag: " + flag);
-
       }
 
       if (getTypeForDevice(cnd.dname) === "button") {
@@ -547,13 +554,12 @@ var checkConfigurations = function() {
           var val = false;
         }
 
-        //if its the first condition the flag is the value
+        //if it's the first condition the flag is the value
         if (j != 0) {
           flag = applyLogicalOperator(val, flag, config.logicalOperator);
         } else {
           flag = val;
         }
-        console.log(j + " button, flag: " + flag);
 
       }
 
@@ -563,15 +569,12 @@ var checkConfigurations = function() {
           cnd
           .mod);
 
-        //if its the first condition the flag is the value
+        //if it's the first condition the flag is the value
         if (j != 0) {
           flag = applyLogicalOperator(val, flag, config.logicalOperator);
         } else {
           flag = val;
         }
-
-        console.log(j + " temperature, flag: " + flag);
-
 
       }
     }
@@ -579,10 +582,8 @@ var checkConfigurations = function() {
 
     //if the flag is true, the configurated action will be sent to the target device
     if (flag) {
-      console.log("entered sending stuff");
       if (getIpForDname(config.dname) === -1) {
-        console.log("target device not found");
-        flog('targer device not found ' + config.dname, "ERROR");
+        flog('target device not found ' + config.dname, "ERROR");
       } else {
         flog('sent action ' + config.action + ' to ' + getIpForDname(
             config.dname),
@@ -621,10 +622,6 @@ dataWSS.on('connection', function connection(ws) {
       if (findUserEntry(ws._socket.remoteAddress) != -1) {
         userDict.splice(findUserEntry(ws._socket.remoteAddress),
           1);
-        console.log(
-          "removed previous userDict (length: %d) entry for: " +
-          ws._socket
-          .remoteAddress, userDict.length);
       }
 
       //adds the new forward to the userDict
@@ -659,8 +656,6 @@ dataWSS.on('connection', function connection(ws) {
 
       dataWSS.sendToClient(ws._socket.remoteAddress, JSON.stringify(
         obj));
-
-
     }
 
     //delets a configuration and sends the new list to the caller
@@ -683,11 +678,13 @@ dataWSS.on('connection', function connection(ws) {
       }
       dataWSS.sendToClient(ws._socket.remoteAddress, JSON.stringify(
         obj));
+      flog('sent configurations to ' + ws._socket.remoteAddress, 'INFO');
     }
 
     //edits the configuration and sends configurations to caller
     if (msg.event === "editConfiguration") {
       var obj = msg.data;
+      //delete generated attribute from angular's ng-repeat
       delete obj.$$hashKey;
       editConfiguration(obj.cname, obj);
       var obj2 = {
@@ -710,6 +707,12 @@ dataWSS.on('connection', function connection(ws) {
       forceDeviceToSendData(msg.data.dname)
     }
 
+    //sends the specified command to the specified device
+    //occurs when a user wants to directly command a device
+    if (msg.event === "forceDeviceToExecuteCommand") {
+      forceDeviceToExecuteCommand(msg.data.dname, msg.data.action);
+    }
+
 
   });
 
@@ -728,7 +731,6 @@ dataWSS.sendToClient = function sendToClient(address, data) {
 };
 
 
-
 //checks if all clients are still connected and fires the checkConfigurations for time changes
 setInterval(function() {
   checkConfigurations();
@@ -738,10 +740,9 @@ setInterval(function() {
     if (getDateDiffInSeconds(new Date(), devices[i].timestamp) >
       AUTOMATIC_DISCONNECT_DEVICE_TIME) {
       flog("device " + devices[i].dname +
-        " was automatically time out",
+        " was automatically timed out",
         "ERROR");
       deleteDeviceByDname(devices[i].dname);
-
     }
   }
 

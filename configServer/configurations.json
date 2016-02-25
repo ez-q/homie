@@ -1,1 +1,18 @@
-[{"conditions":[{"dname":"temperature1","value":"20","mod":"greater"},{"dname":"time","value":"22:00","mod":"lesser"},{"dname":"button1","value":true}],"dname":"led1","cname":"config_led_on","action":"on","logicalOperator":"and"}]
+[{
+  "conditions": [{
+    "dname": "temperature1",
+    "value": "20",
+    "mod": "greater"
+  }, {
+    "dname": "time",
+    "value": "22:00",
+    "mod": "lesser"
+  }, {
+    "dname": "button1",
+    "value": true
+  }],
+  "dname": "led1",
+  "cname": "config_led_on",
+  "action": "on",
+  "logicalOperator": "and"
+}]
