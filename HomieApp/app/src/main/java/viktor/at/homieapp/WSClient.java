@@ -107,8 +107,21 @@ public class WSClient extends Observable {
             mConnection.sendTextMessage(object.toString());
         }
     }
+    public void forceDeviceToExecuteCommand(String dName,boolean action){
+        if(mConnection.isConnected()){
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("event", "forceDeviceToExecuteCommand");
+            HashMap<String, Object> innerMap = new HashMap<>();
+            innerMap.put("dname", dName);
+            innerMap.put("action", action);
+            map.put("data", innerMap);
+            JSONObject object = new JSONObject(map);
+            mConnection.sendTextMessage(object.toString());
+        }
+    }
 
-    public void registerDevice(String dname, String category, String type){
+
+   /* public void registerDevice(String dname, String category, String type){
         if(mConnection.isConnected()){
             HashMap<String,String> map = new HashMap<>();
             map.put("event","regDevice");
@@ -118,8 +131,9 @@ public class WSClient extends Observable {
             JSONObject object = new JSONObject(map);
             mConnection.sendTextMessage(object.toString());
         }
-    }
+    }*/
 
+/*
     public void createConfigForButton(String dname){
         if(mConnection.isConnected()){
             HashMap<String,Object> map = new HashMap<>();
@@ -162,6 +176,6 @@ public class WSClient extends Observable {
             object = new JSONObject(map);
             mConnection.sendTextMessage(object.toString());
         }
-    }
+    }*/
 
 }

@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('webEditor', ['ngWebsocket']);
+var app = angular.module('webEditor', ['ngWebsocket', 'ng-fusioncharts']);
 
 
 
@@ -95,7 +95,244 @@ app.controller('MainCtrl', ['$scope', function($scope) {
 
   //$scope.toSend = "test to send";
 
-  //alert('jaja');
+    //alert('jaja');
+
+    /*$scope.chartDataSource = {
+        data: [{
+            value: "10"
+        }, {
+            value: "12"
+        }, {
+            value: "16"
+        }, {
+            value: "2"
+        }, {
+            value: "24"
+        }, {
+            value: "10"
+        }, {
+            value: "12"
+        }, {
+            value: "16"
+        }, {
+            value: "2"
+        }, {
+            value: "24"
+        }, {
+            value: "10"
+        }, {
+            value: "12"
+        }, {
+            value: "16"
+        }, {
+            value: "2"
+        }, {
+            value: "24"
+        }, {
+            value: "10"
+        }, {
+            value: "12"
+        }, {
+            value: "16"
+        }, {
+            value: "2"
+        }, {
+            value: "24"
+        }, {
+            value: "10"
+        }, {
+            value: "12"
+        }, {
+            value: "16"
+        }]
+    };
+
+    $scope.attrs = {
+        "caption": "Statistic for",
+        "subCaption": "showing the current 24 hours",
+        "numbersuffix": "°C",
+        "plotgradientcolor": "",
+        "bgcolor": "FFFFFF",
+        "showalternatehgridcolor": "0",
+        "divlinecolor": "CCCCCC",
+        "showvalues": "0",
+        "showcanvasborder": "0",
+        "canvasborderalpha": "0",
+        "canvasbordercolor": "CCCCCC",
+        "canvasborderthickness": "1",
+        "yaxismaxvalue": "35",
+        "captionpadding": "30",
+        "linethickness": "3",
+        "yaxisvaluespadding": "15",
+        "legendshadow": "0",
+        "legendborderalpha": "0",
+        "palettecolors": "#f8bd19,#008ee4,#33bdda,#e44a00,#6baa01,#583e78",
+        "showborder": "0"
+    };
+
+    $scope.categories = [{
+        "category": [{
+            "label": "00:00"
+        }, {
+            "label": "01:00"
+        }, {
+            "label": "02:00"
+        }, {
+            "label": "03:00"
+        }, {
+            "label": "04:00"
+        }, {
+            "label": "05:00"
+        }, {
+            "label": "06:00"
+        }, {
+            "label": "07:00"
+        }, {
+            "label": "08:00"
+        }, {
+            "label": "09:00"
+        }, {
+            "label": "10:00"
+        }, {
+            "label": "11:00"
+        }, {
+            "label": "12:00"
+        }, {
+            "label": "13:00"
+        }, {
+            "label": "14:00"
+        }, {
+            "label": "15:00"
+        }, {
+            "label": "16:00"
+        }, {
+            "label": "17:00"
+        }, {
+            "label": "18:00"
+        }, {
+            "label": "19:00"
+        }, {
+            "label": "20:00"
+        }, {
+            "label": "21:00"
+        }, {
+            "label": "22:00"
+        }, {
+            "label": "23:00"
+        },
+        ]
+    }];*/
+
+    $scope.attrs = {
+
+        "caption": "Sales Comparison: 2013 versus 2014",
+        "subCaption": "Harry’ s SuperMart",
+    "numberprefix": "$",
+    "plotgradientcolor": "",
+    "bgcolor": "FFFFFF",
+    "showalternatehgridcolor": "0",
+    "divlinecolor": "CCCCCC",
+    "showvalues": "0",
+    "showcanvasborder": "0",
+    "canvasborderalpha": "0",
+    "canvasbordercolor": "CCCCCC",
+    "canvasborderthickness": "1",
+    "yaxismaxvalue": "30000",
+    "captionpadding": "30",
+    "linethickness": "3",
+    "yaxisvaluespadding": "15",
+    "legendshadow": "0",
+    "legendborderalpha": "0",
+    "palettecolors": "#f8bd19,#008ee4,#33bdda,#e44a00,#6baa01,#583e78",
+    "showborder": "0"
+};
+
+$scope.categories = [{
+    "category": [{
+        "label": "Jan"
+    }, {
+        "label": "Feb"
+    }, {
+        "label": "Mar"
+    }, {
+        "label": "Apr"
+    }, {
+        "label": "May"
+    }, {
+        "label": "Jun"
+    }, {
+        "label": "Jul"
+    }, {
+        "label": "Aug"
+    }, {
+        "label": "Sep"
+    }, {
+        "label": "Oct"
+    }, {
+        "label": "Nov"
+    }, {
+        "label": "Dec"
+    }]
+}];
+
+$scope.dataset = [{
+    "seriesname": "2013",
+    "data": [{
+        "value": "22400"
+    }, {
+        "value": "24800"
+    }, {
+        "value": "21800"
+    }, {
+        "value": "21800"
+    }, {
+        "value": "24600"
+    }, {
+        "value": "27600"
+    }, {
+        "value": "26800"
+    }, {
+        "value": "27700"
+    }, {
+        "value": "23700"
+    }, {
+        "value": "25900"
+    }, {
+        "value": "26800"
+    }, {
+        "value": "24800"
+    }]
+},
+
+    {
+        "seriesname": "2012",
+        "data": [{
+            "value": "10000"
+        }, {
+            "value": "11500"
+        }, {
+            "value": "12500"
+        }, {
+            "value": "15000"
+        }, {
+            "value": "16000"
+        }, {
+            "value": "17600"
+        }, {
+            "value": "18800"
+        }, {
+            "value": "19700"
+        }, {
+            "value": "21700"
+        }, {
+            "value": "21900"
+        }, {
+            "value": "22900"
+        }, {
+            "value": "20800"
+        }]
+    }
+];
 
   $scope.newConfig;
   $scope.newCondition = {};

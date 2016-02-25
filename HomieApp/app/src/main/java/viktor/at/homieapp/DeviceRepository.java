@@ -66,10 +66,10 @@ public class DeviceRepository extends Observable implements Observer {
                         d.setType(object.getString("type"));
                         d.setName(object.getString("dname"));
                         deviceList.add(d);
-                        if(d.getType().equals("button")){
+                        /*if(d.getType().equals("button")){
                             WSClient.getInstance().registerDevice(d.getName()+"Button","sensor","button");
                             WSClient.getInstance().createConfigForButton(d.getName());
-                        }
+                        }*/
                         Log.d(TAG, "Device added: " + d.getName());
                     }
                     setDeviceList(new LinkedList<>(deviceList));

@@ -50,11 +50,13 @@ public class ButtonFragment extends BaseFragment {
         btToggleState.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HashMap<String,Object> map = new HashMap<String, Object>();
+                WSClient.getInstance().forceDeviceToExecuteCommand(getDeviceName(),!(Boolean)DeviceRepository.getInstance().getDevice(getDeviceName()).getValue());
+
+                /*HashMap<String,Object> map = new HashMap<String, Object>();
                 map.put("dname", getDeviceName());
                 Boolean data = !(Boolean)DeviceRepository.getInstance().getDevice(getDeviceName()).getValue();
                 map.put("data", data.toString());
-                WSClient.getInstance().sendMessage(map);
+                WSClient.getInstance().sendMessage(map);*/
             }
         });
         viewCreated = true;
