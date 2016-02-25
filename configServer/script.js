@@ -693,7 +693,6 @@ dataWSS.on('connection', function connection(ws) {
     //delets a configuration and sends the new list to the caller
     if (msg.event === "deleteConfiguration") {
       deleteConfiguration(msg.data.cname);
-
       var obj = {
         configurations: configurations
       }

@@ -92,13 +92,12 @@
     <div class="col-sm-4">
         <h1>Configurations</h1>
         <div ng-repeat="config in configurations track by $index">
-            <label>
                 Configuration name:
                 {{config.cname}}
                 Number of conditions:
                 {{config.conditions.length}}
                 <button ng-click="editConfiguration(config)">Edit</button>
-            </label>
+                <button ng-click="deleteConfiguration(config)">Delete</button>
             </br>
         </div>
         <button ng-click="setNewConfig()">New Configuration</button>

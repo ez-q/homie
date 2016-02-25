@@ -1,29 +1,51 @@
-[INFO][25-02-2016 10:16:17 PM]server started
-[INFO][25-02-2016 10:16:17 PM]created database for datahistory
-[INFO][25-02-2016 10:16:17 PM]loaded configurations file
-[INFO][25-02-2016 10:16:47 PM]connection on controllerWSS 127.0.0.1
-[INFO][25-02-2016 10:16:50 PM]added new device temperature1 to devices array
-[INFO][25-02-2016 10:17:14 PM]connection on controllerWSS 192.168.0.19
-[INFO][25-02-2016 10:17:20 PM]added new device button1 to devices array
-[ERROR][25-02-2016 10:17:27 PM]device temperature1 was manually disconnected from the server
-[ERROR][25-02-2016 10:17:27 PM]target device not found led_red
-[ERROR][25-02-2016 10:17:30 PM]target device not found led_red
-[ERROR][25-02-2016 10:17:32 PM]target device not found led_red
-[ERROR][25-02-2016 10:17:32 PM]target device not found led_red
-[ERROR][25-02-2016 10:17:35 PM]target device not found led_red
-[ERROR][25-02-2016 10:17:37 PM]target device not found led_red
-[ERROR][25-02-2016 10:17:37 PM]target device not found led_red
-[ERROR][25-02-2016 10:17:40 PM]target device not found led_red
-[ERROR][25-02-2016 10:17:42 PM]target device not found led_red
-[ERROR][25-02-2016 10:17:42 PM]target device not found led_red
-[ERROR][25-02-2016 10:17:45 PM]target device not found led_red
-[ERROR][25-02-2016 10:17:47 PM]target device not found led_red
-[ERROR][25-02-2016 10:17:47 PM]target device not found led_red
-[ERROR][25-02-2016 10:17:50 PM]target device not found led_red
-[ERROR][25-02-2016 10:17:52 PM]target device not found led_red
-[ERROR][25-02-2016 10:17:52 PM]target device not found led_red
-[ERROR][25-02-2016 10:17:57 PM]target device not found led_red
-[ERROR][25-02-2016 10:17:57 PM]target device not found led_red
-[ERROR][25-02-2016 10:17:59 PM]target device not found led_red
-[ERROR][25-02-2016 10:18:02 PM]target device not found led_red
-[ERROR][25-02-2016 10:18:02 PM]target device not found led_red
+[INFO][25-02-2016 10:22:53 PM]server started
+[INFO][25-02-2016 10:22:53 PM]created database for datahistory
+[INFO][25-02-2016 10:22:53 PM]loaded configurations file
+[INFO][25-02-2016 10:23:02 PM]connection on controllerWSS 192.168.0.19
+[INFO][25-02-2016 10:23:12 PM]connection on dataWSS 127.0.0.1
+[INFO][25-02-2016 10:23:12 PM]sent configurations to 127.0.0.1
+[INFO][25-02-2016 10:23:13 PM]added new device button1 to devices array
+[ERROR][25-02-2016 10:23:17 PM]target device not found led_red
+[ERROR][25-02-2016 10:23:18 PM]target device not found led_red
+[ERROR][25-02-2016 10:23:22 PM]target device not found led_red
+[ERROR][25-02-2016 10:23:23 PM]target device not found led_red
+[ERROR][25-02-2016 10:23:26 PM]target device not found led_red
+[ERROR][25-02-2016 10:23:28 PM]target device not found led_red
+[ERROR][25-02-2016 10:23:31 PM]target device not found led_red
+[ERROR][25-02-2016 10:23:33 PM]target device not found led_red
+[ERROR][25-02-2016 10:23:37 PM]target device not found led_red
+[ERROR][25-02-2016 10:23:38 PM]target device not found led_red
+[ERROR][25-02-2016 10:23:42 PM]target device not found led_red
+[ERROR][25-02-2016 10:23:43 PM]target device not found led_red
+[ERROR][25-02-2016 10:23:46 PM]target device not found led_red
+[ERROR][25-02-2016 10:23:48 PM]target device not found led_red
+[ERROR][25-02-2016 10:23:51 PM]target device not found led_red
+[ERROR][25-02-2016 10:23:53 PM]target device not found led_red
+[ERROR][25-02-2016 10:23:55 PM]target device not found led_red
+[ERROR][25-02-2016 10:23:58 PM]target device not found led_red
+[ERROR][25-02-2016 10:24:00 PM]target device not found led_red
+[ERROR][25-02-2016 10:24:03 PM]target device not found led_red
+[ERROR][25-02-2016 10:24:08 PM]target device not found led_red
+[ERROR][25-02-2016 10:24:08 PM]device button1 was manually disconnected from the server
+[INFO][25-02-2016 10:25:30 PM]connection on dataWSS 127.0.0.1
+[INFO][25-02-2016 10:25:30 PM]sent configurations to 127.0.0.1
+[INFO][25-02-2016 10:26:55 PM]server started
+[INFO][25-02-2016 10:26:55 PM]loaded configurations file
+[INFO][25-02-2016 10:26:56 PM]connection on dataWSS 127.0.0.1
+[INFO][25-02-2016 10:26:56 PM]sent configurations to 127.0.0.1
+[INFO][25-02-2016 10:27:00 PM]connection on dataWSS 127.0.0.1
+[INFO][25-02-2016 10:27:00 PM]sent configurations to 127.0.0.1
+[INFO][25-02-2016 10:27:27 PM]server started
+[INFO][25-02-2016 10:27:28 PM]loaded configurations file
+[INFO][25-02-2016 10:27:29 PM]connection on dataWSS 127.0.0.1
+[INFO][25-02-2016 10:27:29 PM]sent configurations to 127.0.0.1
+[INFO][25-02-2016 10:27:31 PM]connection on dataWSS 127.0.0.1
+[INFO][25-02-2016 10:27:31 PM]sent configurations to 127.0.0.1
+[INFO][25-02-2016 10:28:06 PM]server started
+[INFO][25-02-2016 10:28:06 PM]loaded configurations file
+[INFO][25-02-2016 10:28:07 PM]connection on dataWSS 127.0.0.1
+[INFO][25-02-2016 10:28:07 PM]sent configurations to 127.0.0.1
+[INFO][25-02-2016 10:28:09 PM]connection on dataWSS 127.0.0.1
+[INFO][25-02-2016 10:28:09 PM]sent configurations to 127.0.0.1
+[INFO][25-02-2016 10:28:11 PM]deleted configuration config1
+[INFO][25-02-2016 10:28:11 PM]wrote new configurations to file
