@@ -6,8 +6,8 @@
 
 
 
-const char* ssid     = "Liwest_af772c"; //name of your WiFi network
-const char* password = "scheinecker_w"; //password of your WiFi network, leave blank if no passwort
+const char* ssid     = "htlleonding-cisco-edv6"; //name of your WiFi network
+const char* password = ""; //password of your WiFi network, leave blank if no passwort
 
 //path is the directory for your WebSocket, in this case (a WebSocketServer with Java EE)
 //the Endpoint ('/') and the project name ('WSDemoESP8266') is put front of it -- MIND THE FRONTSLASHES!!
@@ -15,7 +15,7 @@ char path[] = "/";
 
 //host is the ip of the host computer ('172.16.6.110') with the port ('8080'), on which 
 //the WebSocketServer runs, concatinated after ':' -- NO FRONTSLASHES HERE!!
-char host[] = "192.168.0.12:50555";
+char host[] = "172.16.6.110:50555";
 
 WebSocketClient webSocketClient;
 
@@ -56,7 +56,7 @@ void setup() {
   //args:
   //      1. - ip address of the host (same as above)
   //      2. - port of the host (same as above)
-  if (client.connect("192.168.0.12", 50555)) {
+  if (client.connect("172.16.6.110", 50555)) {
     Serial.println("Connected");
   } else {
     Serial.println("Connection failed.");
@@ -81,7 +81,7 @@ void setup() {
   }
 
   String regString;
-  regString = "{\"event\":\"regDevice\",\"category\":\"sensor\",\"type\":\"button\",\"dname\":\"button1\",\"values\":\"[true,false]\"}";
+  regString = "{\"event\":\"regDevice\",\"category\":\"sensor\",\"type\":\"button\",\"dname\":\"ESPButton\",\"values\":\"[true,false]\"}";
   webSocketClient.sendData(regString);
 
 }
@@ -96,11 +96,11 @@ void captureAndSendButtonData(){
   
     if(data == "1"){
       //send data to the WebSocketServer, in this case the value of analog pin 1
-      toSend = "{\"dname\":\"button1\",\"data\":true}";
+      toSend = "{\"dname\":\"ESPButton\",\"data\":true}";
       
     }
     else{
-      toSend = "{\"dname\":\"button1\",\"data\":false}";
+      toSend = "{\"dname\":\"ESPButton\",\"data\":false}";
     }
     webSocketClient.sendData(toSend);
 }

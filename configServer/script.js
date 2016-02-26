@@ -397,11 +397,7 @@ var sendHistoryDataToClientByDname = function(dname, ip) {
       function(err, rows) {
         rows.forEach(function(row) {
           var tmp = row;
-          if (tmp.VALUE == 1) {
-            tmp.value = true;
-          } else {
-            tmp.value = false;
-          }
+          tmp.value = tmp.VALUE;
           delete tmp.VALUE;
 
           tmp.date = tmp.DATE;

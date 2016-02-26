@@ -8,6 +8,7 @@ app.run(function($rootScope, $websocket) {
 
 
   $rootScope.x = "bla";
+  $rootScope.tempHistData;
 
   var ws = $websocket.$new({
     url: 'ws://localhost:50556',
@@ -51,10 +52,16 @@ app.run(function($rootScope, $websocket) {
         console.log("actors, sensors: $d $d", $rootScope.actors.length,
           $rootScope.sensors.length);
       }
-
+      console.log(JSON.stringify($rootScope.sensors));
       $rootScope.$apply();
     }
 
+    if ('historyData' in jdata) {
+      $rootScope.tempHistData = jdata;
+      $rootScope.$apply();
+      console.log("tempHistData " + JSON.stringify($rootScope.tempHistData));
+      $rootScope.setChartData($rootScope.tempHistData, jdata.dname);
+    }
 
     if ('configurations' in jdata) {
 
@@ -88,50 +95,60 @@ app.run(function($rootScope, $websocket) {
 
 
 
-app.controller('MainCtrl', ['$scope', function($scope) {
+app.controller('MainCtrl', ['$scope', '$rootScope', function($scope, $rootScope) {
 
-    //$scope.devices=[];
+  //$scope.devices=[];
 
-    $scope.sensors = [];
+  //$scope.sensors = [];
 
 
   //$scope.toSend = "test to send";
 
-    //alert('jaja');
+  //alert('jaja');
 
-    $scope.tempHistData = {
-        "dname": "button1",
-        "historyData":
-          [
-            { "value": 10, "date": "1456176227162.0" },
-            { "value": 15, "date": "1456176231889.0" },
-            { "value": 20, "date": "1456176234578.0" },
-            { "value": 15, "date": "1456176231889.0" },
-            { "value": 20, "date": "1456186234578.0" }
-          ]
-    };
+  /*$scope.tempHistData = {
+    "dname": "button1",
+    "historyData": [{
+      "value": 10,
+      "date": "1456176227162.0"
+    }, {
+      "value": 15,
+      "date": "1456176231889.0"
+    }, {
+      "value": 20,
+      "date": "1456176234578.0"
+    }, {
+      "value": 15,
+      "date": "1456176231889.0"
+    }, {
+      "value": 20,
+      "date": "1456186234578.0"
+    }]
+  };*/
 
-    $scope.chartDataSource = {
-        "chart":{"caption": "Placeholder",
-            "numbersuffix": " C",
-            "plotgradientcolor": "",
-            "bgcolor": "FFFFFF",
-            "showalternatehgridcolor": "0",
-            "divlinecolor": "CCCCCC",
-            "showvalues": "0",
-            "showcanvasborder": "0",
-            "canvasborderalpha": "0",
-            "canvasbordercolor": "CCCCCC",
-            "canvasborderthickness": "1",
-            "yaxismaxvalue": "35",
-            "captionpadding": "30",
-            "linethickness": "3",
-            "yaxisvaluespadding": "15",
-            "legendshadow": "0",
-            "legendborderalpha": "0",
-            "palettecolors": "#f8bd19,#008ee4,#33bdda,#e44a00,#6baa01,#583e78",
-            "showborder": "0"},
-      data: []
+  $scope.chartDataSource = {
+    "chart": {
+      "caption": "Placeholder",
+      "numbersuffix": " C",
+      "plotgradientcolor": "",
+      "bgcolor": "FFFFFF",
+      "showalternatehgridcolor": "0",
+      "divlinecolor": "CCCCCC",
+      "showvalues": "0",
+      "showcanvasborder": "0",
+      "canvasborderalpha": "0",
+      "canvasbordercolor": "CCCCCC",
+      "canvasborderthickness": "1",
+      "yaxismaxvalue": "35",
+      "captionpadding": "30",
+      "linethickness": "3",
+      "yaxisvaluespadding": "15",
+      "legendshadow": "0",
+      "legendborderalpha": "0",
+      "palettecolors": "#f8bd19,#008ee4,#33bdda,#e44a00,#6baa01,#583e78",
+      "showborder": "0"
+    },
+    data: []
   };
 
 
@@ -175,22 +192,28 @@ app.controller('MainCtrl', ['$scope', function($scope) {
 
   };
 
-  $scope.setChartData = function (history, device) {
-      $scope.chartDataSource.chart.caption = "History for " + device.dname;
-      $scope.chartDataSource.data.splice(0, $scope.chartDataSource.data.length);
-      if (device.type === "temperature") {
-          $scope.chartDataSource.chart.suffix = " C";
-          for (var i = 0; i < history.historyData.length; i++) {
-              var dat = new Date();
-              dat.setTime(history.historyData[i].date);
-              $scope.chartDataSource.data.push({ "value": history.historyData[i].value, "label": dat.getHours().toString() + ":" + dat.getMinutes().toString() });
-          }
-      }
+  $rootScope.setChartData = function(history, device) {
+    $scope.chartDataSource.chart.caption = "History for " + device;
+    $scope.chartDataSource.data.splice(0, $scope.chartDataSource.data.length);
+    //if (device.type === "temperature") {
+    $scope.chartDataSource.chart.suffix = " C";
+    for (var i = 0; i < history.historyData.length; i++) {
+      var dat = new Date();
+      dat.setTime(history.historyData[i].date);
+      $scope.chartDataSource.data.push({
+        "value": history.historyData[i].value,
+        "label": dat.getHours().toString() + ":" + dat.getMinutes()
+          .toString()
+      });
+      //}
+    }
   }
 
-  $scope.show = function (device) {
-      $scope.showStat = true;
-      $scope.setChartData($scope.tempHistData, device);
+  $scope.show = function(device) {
+    $scope.sendToServer("getHistoryDataByDname", {
+      dname: device.dname
+    });
+    $scope.showStat = true;
   }
 
   $scope.setDevice = function() {
@@ -249,10 +272,10 @@ app.controller('MainCtrl', ['$scope', function($scope) {
       $scope.getDevices();*/
 
   //$scope.test='not connected...';
-  $scope.sensors.push({
+  /*$scope.sensors.push({
       "type": "temperature",
       "category": "sensor",
       "dname": "button1",
-  });
+  });*/
 
 }]);
