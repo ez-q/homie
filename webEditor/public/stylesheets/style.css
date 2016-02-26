@@ -6,3 +6,20 @@ body {
 a {
   color: #00B7FF;
 }
+
+.marginLeftBottom{
+    margin-left:10px;
+    margin-bottom: 10px;
+}
+
+.marginAll{
+    margin-left:10px;
+    margin-bottom: 10px;
+    margin-right:10px;
+    margin-top: 10px;
+}
+
+.marginRightTop{
+    margin-right:10px;
+    margin-top: 10px;
+}
