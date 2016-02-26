@@ -103,20 +103,16 @@ void loop() {
 
     //check if data is received, if yes: display it on the serial monitor
     webSocketClient.getData(data);
-    Serial.print("Received data: ");
-    Serial.println(data);
     JsonObject& root = jsonBuffer.parseObject(data);
 
 
     if(!root.success()){
-      Serial.println("parseObject() failed");
     }
     else{
       String event = root["event"].asString();
       boolean data = root["data"];
       
       if(event == "sendData"){
-         Serial.println("sendData CALLED!!!!!!!");
          webSocketClient.sendData("{\"dname\":\"led_red\",\"data\":\"\"}");
       }
       
@@ -124,7 +120,7 @@ void loop() {
         if(data == true){
           digitalWrite(2, HIGH);
         }
-        else{
+        else{ 
           digitalWrite(2, LOW);
         }
       }

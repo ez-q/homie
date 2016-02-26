@@ -1,1 +1,1 @@
-[]
+[{"conditions":[{"dname":"button1","value":true},{"dname":"time","value":"22:00","mod":"greater"}],"cname":"config1","dname":"led_red","action":"on","logicalOperator":"and"}]
