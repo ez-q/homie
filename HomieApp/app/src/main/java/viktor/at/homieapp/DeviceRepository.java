@@ -6,6 +6,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Observable;
@@ -56,15 +58,16 @@ public class DeviceRepository extends Observable implements Observer {
         JSONObject message = (JSONObject)data;
         Log.d(TAG, "got message: " + message.toString());
         try {
-            switch(message.getString("type").toLowerCase()){
-                case "devices":
-                    List<Device> deviceList = new LinkedList<>();
-                    Log.d(TAG, "got devices list length = " + message.getJSONArray("devices").length());
-                    for(int i = 0; i < message.getJSONArray("devices").length();i++){
-                        JSONObject object = message.getJSONArray("devices").getJSONObject(i);
+            if(message.has("devices")){
+                List<Device> deviceList = new LinkedList<>();
+                Log.d(TAG, "got devices list length = " + message.getJSONArray("devices").length());
+                for(int i = 0; i < message.getJSONArray("devices").length();i++){
+                    JSONObject object = message.getJSONArray("devices").getJSONObject(i);
+                    if(object.get("type").equals("button") ||object.get("type").equals("temperature")) {
                         Device d = new Device();
                         d.setType(object.getString("type"));
                         d.setName(object.getString("dname"));
+                        d.setValue(object.getString("latestValue"));
                         deviceList.add(d);
                         /*if(d.getType().equals("button")){
                             WSClient.getInstance().registerDevice(d.getName()+"Button","sensor","button");
@@ -72,29 +75,50 @@ public class DeviceRepository extends Observable implements Observer {
                         }*/
                         Log.d(TAG, "Device added: " + d.getName());
                     }
-                    setDeviceList(new LinkedList<>(deviceList));
-                    setChanged();
-                    notifyObservers(message.getString("type"));
-                    break;
-                case "value":
-                    for(Device dev : getDeviceList()){
-                        if(message.getString("dname").equals(dev.getName())){
-                            switch(dev.getType()){
-                                case "temperature":
-                                    dev.setValue(message.getInt("value"));
-                                    Log.d(TAG, "Value " + message.getInt("value") + " for device " + dev.getName());
-                                    break;
-                                case "button":
-                                    dev.setValue(message.getBoolean("value"));
-                                    Log.d(TAG, "Value " + message.getBoolean("value") + " for device " + dev.getName());
-                                    break;
-                            }
-                            setChanged();
-                            notifyObservers(message.getString("type"));
-                            break;
+                }
+                setDeviceList(new LinkedList<>(deviceList));
+                setChanged();
+                notifyObservers("devices");
+            } else if(message.has("data")){
+                for(Device dev : getDeviceList()){
+                    if(message.getString("dname").equals(dev.getName())){
+                        switch(dev.getType()){
+                            case "temperature":
+                                dev.setValue(message.getDouble("data"));
+                                Log.d(TAG, "Value " + message.getDouble("data") + " for device " + dev.getName());
+                                break;
+                            case "button":
+                                dev.setValue(message.getBoolean("data"));
+                                Log.d(TAG, "Value " + message.getBoolean("data") + " for device " + dev.getName());
+                                break;
                         }
+                        setChanged();
+                        notifyObservers("data");
+                        break;
                     }
-                    break;
+                }
+            } else if(message.has("historyData")){
+                for(Device dev : getDeviceList()){
+                    if(message.getString("dname").equals(dev.getName())){
+                        HashMap<Date, Object> map = new HashMap<>();
+                        switch(dev.getType()){
+                            case "temperature":
+                                for (int i = 0; i < message.getJSONArray("historyData").length(); i++){
+                                    map.put(new Date(Long.parseLong(message.getJSONArray("historyData").getJSONObject(i).getString("date"))),message.getJSONArray("historyData").getJSONObject(i).getDouble("value"));
+                                }
+                                Log.d(TAG, "Got historydata for device " + dev.getName());
+                                break;
+                            case "button":
+                                for (int i = 0; i < message.getJSONArray("historyData").length(); i++){
+                                    map.put(new Date(Long.parseLong(message.getJSONArray("historyData").getJSONObject(i).getString("date"))),message.getJSONArray("historyData").getJSONObject(i).getBoolean("value"));
+                                }
+                                Log.d(TAG, "Got historydata for device " + dev.getName());
+                                break;
+                        }
+                        dev.setHistory(map);
+                    }
+                }
+                notifyObservers("historyData");
             }
         } catch (JSONException e) {
 

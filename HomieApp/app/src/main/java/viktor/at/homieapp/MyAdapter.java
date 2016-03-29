@@ -12,9 +12,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-/**
- * Created by Viktor on 24.02.2016.
- */
+
 public class MyAdapter extends BaseAdapter {
 
     private Activity activity;

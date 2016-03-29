@@ -14,9 +14,6 @@ import viktor.at.homieapp.DeviceRepository;
 import viktor.at.homieapp.R;
 import viktor.at.homieapp.WSClient;
 
-/**
- * Created by Viktor on 22.02.2016.
- */
 public class ButtonFragment extends BaseFragment {
     private TextView tvValues;
     private TextView tv;
@@ -68,5 +65,10 @@ public class ButtonFragment extends BaseFragment {
     public void updateValue() {
         if(viewCreated && tvValues != null)
             tvValues.setText(DeviceRepository.getInstance().getDevice(getDeviceName()).getValue().toString());
+    }
+
+    @Override
+    public void updateChart() {
+
     }
 }

@@ -1,6 +1,7 @@
 package viktor.at.homieapp;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -48,14 +49,26 @@ public class WSClient extends Observable {
                 @Override
                 public void onOpen() {
                     Log.d(TAG, "Status: Connected to " + wsuri);
-                    HashMap<String,Object> map = new HashMap<String, Object>();
+                    /*HashMap<String,Object> map = new HashMap<String, Object>();
                     map.put("event","regDevice");
                     map.put("category","sensor");
                     map.put("type","button");
-                    map.put("name","androidDevice");
+                    map.put("name", "androidDevice");
                     //map.put("values","boolean");
-                    JSONObject connectObject = new JSONObject(map);
-                    mConnection.sendTextMessage(connectObject.toString());
+                    JSONObject json = new JSONObject(map);
+                    mConnection.sendTextMessage(json.toString());*/
+
+                    HashMap<String,Object> deviceRequest = new HashMap<>();
+                    deviceRequest.put("event","getDevices");
+                    deviceRequest.put("data","");
+                    JSONObject json = new JSONObject(deviceRequest);
+                    mConnection.sendTextMessage(json.toString());
+
+                    /*HashMap<String,Object> subscribe = new HashMap<>();
+                    deviceRequest.put("event","subscribeLatestData");
+                    deviceRequest.put("data","");
+                    json = new JSONObject(deviceRequest);
+                    mConnection.sendTextMessage(json.toString());*/
                 }
 
                 @Override
@@ -64,9 +77,10 @@ public class WSClient extends Observable {
                         JSONObject message = new JSONObject(payload);
                         setChanged();
                         notifyObservers(message);
-
                     } catch (JSONException e) {
+                        Log.d(TAG,payload);
                         Log.d(TAG,"not a JSON string");
+
                     }
                 }
 
@@ -115,6 +129,16 @@ public class WSClient extends Observable {
             innerMap.put("dname", dName);
             innerMap.put("action", action);
             map.put("data", innerMap);
+            JSONObject object = new JSONObject(map);
+            mConnection.sendTextMessage(object.toString());
+        }
+    }
+
+    public void setDataType(String dName){
+        if(mConnection.isConnected()){
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("event", "setDevice");
+            map.put("data", dName);
             JSONObject object = new JSONObject(map);
             mConnection.sendTextMessage(object.toString());
         }

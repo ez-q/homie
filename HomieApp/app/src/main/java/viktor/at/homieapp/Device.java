@@ -1,5 +1,7 @@
 package viktor.at.homieapp;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -7,6 +9,7 @@ public class Device {
     private String name;
     private Object value;
     private String type;
+    private HashMap<Date, Object> history;
 
     public Device(String name, Object value){
         this.name = name;
@@ -14,7 +17,13 @@ public class Device {
 
     public Device(){}
 
+    public HashMap<Date, Object> getHistory() {
+        return history;
+    }
 
+    public void setHistory(HashMap<Date, Object> history) {
+        this.history = history;
+    }
 
     public String getName() {
         return name;

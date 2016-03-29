@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+
 import java.util.Observable;
 import java.util.Observer;
 
@@ -57,6 +59,8 @@ public class DeviceDetailActivity extends FragmentActivity implements Observer {
                     break;
             }
 
+            WSClient.getInstance().setDataType(d.getName());
+
             if(fragment != null) {
                 transaction.replace(R.id.mainContainer, fragment);
                 transaction.commit();
@@ -66,8 +70,10 @@ public class DeviceDetailActivity extends FragmentActivity implements Observer {
 
     @Override
     public void update(Observable observable, Object data) {
-        if(((String)data).equals("value") && fragment != null){
+        if (((String) data).equals("data") && fragment != null) {
             fragment.updateValue();
+        } else if(((String)data).equals("historyData")){
+            fragment.updateChart();
         }
     }
 }

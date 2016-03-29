@@ -1,10 +1,8 @@
 package viktor.at.homieapp.Fragments;
 
 import android.support.v4.app.Fragment;;
-/**
- * Created by Viktor on 21.02.2016.
- */
-public class BaseFragment extends Fragment {
+
+public abstract class BaseFragment extends Fragment {
     public String getDeviceName() {
         return deviceName;
     }
@@ -17,6 +15,6 @@ public class BaseFragment extends Fragment {
 
     public boolean viewCreated = false;
 
-    public void updateValue() {
-    }
+    public abstract void updateValue();
+    public abstract void updateChart();
 }

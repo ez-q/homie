@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.charts.LineChart;
+
 import viktor.at.homieapp.DeviceRepository;
 import viktor.at.homieapp.R;
 import viktor.at.homieapp.WSClient;
@@ -18,6 +20,7 @@ public class TemperatureFragment extends BaseFragment{
     private TextView tvValues;
     private TextView tv;
     private Button btCurrentState;
+    private LineChart chart;
 
 
     public boolean viewCreated = false;
@@ -33,7 +36,11 @@ public class TemperatureFragment extends BaseFragment{
 
         tvValues = (TextView) view.findViewById(R.id.tvValuesTemp);
         System.out.println(DeviceRepository.getInstance().getDevice(getDeviceName()));
-        tvValues.setText(DeviceRepository.getInstance().getDevice(getDeviceName()).getValue().toString());
+        Object value = DeviceRepository.getInstance().getDevice(getDeviceName()).getValue();
+        if(value != null)
+            tvValues.setText(value.toString());
+        else
+            tvValues.setText("no values");
 
         btCurrentState = (Button) view.findViewById(R.id.btCurrentStateTemp);
         btCurrentState.setOnClickListener(new View.OnClickListener() {
@@ -43,6 +50,7 @@ public class TemperatureFragment extends BaseFragment{
             }
         });
 
+        chart = (LineChart) view.findViewById(R.id.lineChart);
         viewCreated = true;
         Log.d("Fragment", "View is created");
         return view;
@@ -52,5 +60,10 @@ public class TemperatureFragment extends BaseFragment{
     public void updateValue() {
         if(viewCreated && tvValues != null)
             tvValues.setText(DeviceRepository.getInstance().getDevice(getDeviceName()).getValue().toString());
+    }
+
+    @Override
+    public void updateChart() {
+
     }
 }

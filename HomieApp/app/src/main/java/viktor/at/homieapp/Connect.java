@@ -26,7 +26,7 @@ public class Connect extends AppCompatActivity {
         setSupportActionBar(toolbar);*/
 
         etHost = (EditText) findViewById(R.id.etHostAddress);
-        etHost.setText("ws://10.0.2.2:50555");
+        etHost.setText("ws://172.16.6.110:50556");
         btConnect = (Button) findViewById(R.id.btConnect);
         btExit = (Button) findViewById(R.id.btExit);
         wsClient = WSClient.getInstance();

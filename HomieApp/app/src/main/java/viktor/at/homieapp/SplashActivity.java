@@ -4,9 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-/**
- * Created by Viktor on 25.02.2016.
- */
+
 public class SplashActivity extends Activity  {
 
     @Override
@@ -20,7 +18,7 @@ public class SplashActivity extends Activity  {
             public void run() {
                 try {
                     super.run();
-                    sleep(5000);  //Delay of 10 seconds
+                    sleep(5000);
                 } catch (Exception e) {
 
                 } finally {
