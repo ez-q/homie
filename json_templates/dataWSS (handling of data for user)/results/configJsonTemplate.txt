@@ -2,24 +2,39 @@
 //To: Client
 //Invoked By: getConfigs
 
-[{
-  "cname":"config1",
-  "dname":"wstestclient1",
-  "action":"on",
+[
+
+{
+  "cname":"<config_name>",
+  "dname":"<target_device_name>",
+  "action":"<action>",
   "conditions": [
       {
-        "dname":"time",
-        "value":"10:00",
-        "mod":"greater"
+        "dname":"<dname_for_condition>",
+        "value":"<value>",
+        "mod":"<greater/lesser>"
       },
       {
-        "dname":"button1",
-        "value":true,
-        "mod":null
-      }
+      "dname":"<dname_for_condition>",
+      "value":"<value>",
+      "mod":"<greater/lesser>"
+      },
+      "dname":"<dname_for_condition>",
+      "value":"<value>",
+      "mod":"<greater/lesser>"
+      },
+      "dname":"<dname_for_condition>",
+      "value":"<value>",
+      "mod":"<greater/lesser>"
+      },
+      ....
   ],
-  "logicalOperator":"and"
-},
+  "logicalOperator":"<and/or>"
+}
+
+
+
+,
 {
   "cname":"config2",
   "dname":"wstestclient2",

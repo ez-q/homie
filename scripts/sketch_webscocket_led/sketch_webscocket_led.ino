@@ -13,7 +13,7 @@ char path[] = "/";
 
 //host is the ip of the host computer ('172.16.6.110') with the port ('8080'), on which 
 //the WebSocketServer runs, concatinated after ':' -- NO FRONTSLASHES HERE!!
-char host[] = "172.16.6.110:50555";
+char host[] = "172.16.5.1:50555";
 
 WebSocketClient webSocketClient;
 
@@ -56,7 +56,7 @@ void setup() {
   //args:
   //      1. - ip address of the host (same as above)
   //      2. - port of the host (same as above)
-  if (client.connect("172.16.6.110", 50555)) {
+  if (client.connect("172.16.5.1", 50555)) {
     Serial.println("Connected");
   } else {
     Serial.println("Connection failed.");
@@ -72,7 +72,7 @@ void setup() {
   
   if (webSocketClient.handshake(client)) {
     Serial.println("Handshake successful");
-    
+   
     digitalWrite(BUILTIN_LED, LOW);
   } else {
     Serial.println("Handshake failed.");
@@ -92,16 +92,17 @@ void loop() {
   String data;
   String toSend;
   String action;
-  StaticJsonBuffer<200> jsonBuffer;
+  int led_val;
 
 
   
   //run as long as the client is connected
   
   if (client.connected()) {
-   
 
-    //check if data is received, if yes: display it on the serial monitor
+       
+    StaticJsonBuffer<150> jsonBuffer;
+   
     webSocketClient.getData(data);
     JsonObject& root = jsonBuffer.parseObject(data);
 
@@ -110,18 +111,22 @@ void loop() {
     }
     else{
       String event = root["event"].asString();
-      boolean data = root["data"];
+      String data = root["data"].asString();
       
       if(event == "sendData"){
          webSocketClient.sendData("{\"dname\":\"ESPLED\",\"data\":\"\"}");
       }
       
       if(event == "action"){
-        if(data == true){
-          digitalWrite(2, HIGH);
+        if(data == "on" && led_val != HIGH){
+          Serial.println("action on");
+          led_val = HIGH;
+          digitalWrite(2, led_val);
         }
-        else{ 
-          digitalWrite(2, LOW);
+        if(data == "off" && led_val != LOW){ 
+          Serial.println("action off");
+          led_val = LOW;
+          digitalWrite(2, led_val);
         }
       }
     }
@@ -136,5 +141,5 @@ void loop() {
   }
   
   // wait to fully let the client disconnect
-  delay(2000);
+  delay(1000);
 } 

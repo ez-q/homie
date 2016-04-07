@@ -1,7 +1,7 @@
 {
   "event":"regDevice",
   "category":"actor/sensor",
-  "type":"button/temperature",
-  "dname":"button1/buttonLivingRoom/TemperatureOutside",
-  "values":"true/false/Celcius"
+  "type":"button/temperature/...",
+  "dname":"button1/buttonLivingRoom/TemperatureOutside/...",
+  "takes":["on","off"]/"text"
 }

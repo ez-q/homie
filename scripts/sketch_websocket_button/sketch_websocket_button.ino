@@ -15,7 +15,7 @@ char path[] = "/";
 
 //host is the ip of the host computer ('172.16.6.110') with the port ('8080'), on which 
 //the WebSocketServer runs, concatinated after ':' -- NO FRONTSLASHES HERE!!
-char host[] = "172.16.6.110:50555";
+char host[] = "172.16.5.1:50555";
 
 WebSocketClient webSocketClient;
 
@@ -56,7 +56,7 @@ void setup() {
   //args:
   //      1. - ip address of the host (same as above)
   //      2. - port of the host (same as above)
-  if (client.connect("172.16.6.110", 50555)) {
+  if (client.connect("172.16.5.1", 50555)) {
     Serial.println("Connected");
   } else {
     Serial.println("Connection failed.");
@@ -88,16 +88,11 @@ void setup() {
 
 
 void captureAndSendButtonData(){
-  pinMode(2, INPUT);
+    pinMode(2, INPUT);
     String data = String(digitalRead(2));
     String toSend;
-    
-    Serial.println("read data: " + data);
-  
     if(data == "1"){
-      //send data to the WebSocketServer, in this case the value of analog pin 1
       toSend = "{\"dname\":\"ESPButton\",\"data\":true}";
-      
     }
     else{
       toSend = "{\"dname\":\"ESPButton\",\"data\":false}";

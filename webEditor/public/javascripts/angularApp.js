@@ -177,10 +177,12 @@ app.controller('MainCtrl', ['$scope', '$rootScope', function($scope, $rootScope)
 
   $scope.saveConfiguration = function() {
     if ($scope.newConfig.conditions.length <= 0) return;
-    if ($scope.newConfig.action === "true" || $scope.newConfig.action ===
+    /*if ($scope.newConfig.action === "true" || $scope.newConfig.action ===
       "on") $scope.newCondition.value = true;
     if ($scope.newConfig.action === "false" || $scope.newConfig.action ===
-      "off") $scope.newCondition.value = false;
+      "off") $scope.newCondition.value = false;*/
+
+
     if ($scope.newMode) {
       $scope.sendToServer("newConfiguration", $scope.newConfig);
       $scope.newConfig = {};
@@ -249,16 +251,20 @@ app.controller('MainCtrl', ['$scope', '$rootScope', function($scope, $rootScope)
   $scope.sendOnCommand = function(actor) {
     $scope.sendToServer("forceDeviceToExecuteCommand", {
       dname: actor.dname,
-      action: true
+      action: "on"
     });
   };
 
   $scope.sendOffCommand = function(actor) {
     $scope.sendToServer("forceDeviceToExecuteCommand", {
       dname: actor.dname,
-      action: false
+      action: "off"
     });
   };
+
+  /*$scope.targetChanged = function(tdevice) {
+    console.log("target changed " + JSON.stringify($tdevice))
+  };*/
 
   /*
 

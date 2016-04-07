@@ -133,7 +133,11 @@
                     <div class="form-group marginRightTop">
                         <label class="control-label col-sm-4">Action:</label>
                         <div class="col-sm-8">
-                            <input class="form-control marginRightTop" type="text" name="action" ng-model="newConfig.action" required>
+                            <!--<input class="form-control marginRightTop" type="text" name="action" ng-model="newConfig.action" required>-->
+                            <select class="marginRightTop" name="dnameSelect" ng-model="newConfig.action">
+                                <option value="on">on</option>
+                                <option value="off">off</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">

@@ -1,0 +1,872 @@
+[INFO][29-02-2016 09:29:44 AM]server started
+[INFO][29-02-2016 09:29:45 AM]created database for datahistory
+[INFO][29-02-2016 09:29:45 AM]loaded configurations file
+[INFO][29-02-2016 09:30:46 AM]connection on controllerWSS 172.16.1.35
+[INFO][29-02-2016 09:30:51 AM]added new device ESPLED to devices array
+[INFO][29-02-2016 09:31:04 AM]connection on dataWSS 127.0.0.1
+[ERROR][29-02-2016 09:31:07 AM]device ESPLED was manually disconnected from the server
+[INFO][29-02-2016 09:31:38 AM]connection on controllerWSS 172.16.1.35
+[INFO][29-02-2016 09:31:44 AM]added new device ESPLED to devices array
+[INFO][29-02-2016 09:33:13 AM]forced device ESPLED to execute command true
+[ERROR][29-02-2016 09:33:36 AM]device ESPLED was manually disconnected from the server
+[INFO][29-02-2016 09:33:50 AM]connection on controllerWSS 172.16.1.35
+[INFO][29-02-2016 09:33:56 AM]added new device ESPLED to devices array
+[INFO][29-02-2016 09:34:23 AM]connection on dataWSS 127.0.0.1
+[INFO][29-02-2016 09:34:24 AM]forced device ESPLED to execute command true
+[INFO][29-02-2016 09:34:50 AM]forced device ESPLED to execute command false
+[ERROR][29-02-2016 09:35:00 AM]device ESPLED was manually disconnected from the server
+[INFO][29-02-2016 09:35:11 AM]connection on controllerWSS 172.16.1.35
+[INFO][29-02-2016 09:35:16 AM]added new device ESPLED to devices array
+[ERROR][29-02-2016 09:37:14 AM]device ESPLED was manually disconnected from the server
+[INFO][29-02-2016 09:37:41 AM]connection on controllerWSS 172.16.1.35
+[INFO][29-02-2016 09:37:47 AM]added new device ESPLED to devices array
+[INFO][29-02-2016 09:37:48 AM]forced device ESPLED to execute command true
+[INFO][29-02-2016 09:38:04 AM]forced device ESPLED to execute command true
+[ERROR][29-02-2016 09:39:01 AM]device ESPLED was manually disconnected from the server
+[ERROR][29-02-2016 09:39:30 AM]couldn't find deviceESPLED to force execute command
+[INFO][29-02-2016 09:39:31 AM]connection on controllerWSS 172.16.1.35
+[ERROR][29-02-2016 09:39:37 AM]couldn't find deviceESPLED to force execute command
+[INFO][29-02-2016 09:39:37 AM]added new device ESPLED to devices array
+[INFO][29-02-2016 09:39:42 AM]connection on dataWSS 127.0.0.1
+[INFO][29-02-2016 09:39:43 AM]forced device ESPLED to execute command true
+[ERROR][29-02-2016 09:40:36 AM]device ESPLED was manually disconnected from the server
+[INFO][29-02-2016 09:40:52 AM]connection on dataWSS 127.0.0.1
+[ERROR][29-02-2016 09:40:53 AM]couldn't find deviceESPLED to force execute command
+[INFO][29-02-2016 09:41:03 AM]connection on controllerWSS 172.16.1.35
+[INFO][29-02-2016 09:41:08 AM]added new device ESPLED to devices array
+[INFO][29-02-2016 09:42:10 AM]forced device ESPLED to execute command true
+[INFO][29-02-2016 09:42:18 AM]forced device ESPLED to execute command true
+[ERROR][29-02-2016 09:45:26 AM]device ESPLED was manually disconnected from the server
+[INFO][29-02-2016 09:45:50 AM]connection on controllerWSS 172.16.1.35
+[INFO][29-02-2016 09:45:56 AM]added new device ESPLED to devices array
+[INFO][29-02-2016 09:48:04 AM]forced device ESPLED to execute command true
+[INFO][29-02-2016 09:49:00 AM]forced device ESPLED to execute command true
+[INFO][29-02-2016 09:49:10 AM]forced device ESPLED to execute command false
+[ERROR][29-02-2016 09:49:17 AM]device ESPLED was manually disconnected from the server
+[INFO][29-02-2016 09:49:30 AM]connection on controllerWSS 172.16.1.35
+[INFO][29-02-2016 09:49:35 AM]added new device ESPLED to devices array
+[ERROR][29-02-2016 09:55:26 AM]device ESPLED was manually disconnected from the server
+[INFO][29-02-2016 09:55:53 AM]connection on controllerWSS 172.16.1.35
+[INFO][29-02-2016 09:55:58 AM]added new device ESPLED to devices array
+[INFO][29-02-2016 09:56:24 AM]forced device ESPLED to execute command false
+[ERROR][29-02-2016 09:56:30 AM]device ESPLED was manually disconnected from the server
+[INFO][29-02-2016 09:56:42 AM]connection on controllerWSS 172.16.1.35
+[INFO][29-02-2016 09:56:48 AM]added new device ESPLED to devices array
+[ERROR][29-02-2016 10:00:11 AM]device ESPLED was manually disconnected from the server
+[ERROR][29-02-2016 10:00:27 AM]couldn't find deviceESPLED to force execute command
+[ERROR][29-02-2016 10:00:36 AM]couldn't find deviceESPLED to force execute command
+[INFO][29-02-2016 10:00:38 AM]connection on controllerWSS 172.16.1.35
+[INFO][29-02-2016 10:00:44 AM]added new device ESPLED to devices array
+[INFO][29-02-2016 10:00:44 AM]forced device ESPLED to execute command true
+[INFO][29-02-2016 10:00:50 AM]forced device ESPLED to execute command true
+[INFO][29-02-2016 10:01:00 AM]forced device ESPLED to execute command true
+[INFO][29-02-2016 10:05:13 AM]forced device ESPLED to execute command false
+[ERROR][29-02-2016 10:05:19 AM]device ESPLED was manually disconnected from the server
+[INFO][29-02-2016 10:05:36 AM]connection on controllerWSS 172.16.1.35
+[INFO][29-02-2016 10:05:41 AM]added new device ESPLED to devices array
+[ERROR][29-02-2016 10:18:39 AM]device ESPLED was manually disconnected from the server
+[INFO][29-02-2016 10:19:08 AM]connection on controllerWSS 172.16.1.35
+[INFO][29-02-2016 10:19:13 AM]added new device ESPLED to devices array
+[INFO][29-02-2016 10:19:27 AM]forced device ESPLED to execute command false
+[ERROR][29-02-2016 10:19:31 AM]device ESPLED was manually disconnected from the server
+[INFO][29-02-2016 10:19:44 AM]connection on controllerWSS 172.16.1.35
+[INFO][29-02-2016 10:19:49 AM]added new device ESPLED to devices array
+[ERROR][29-02-2016 10:20:51 AM]device ESPLED was manually disconnected from the server
+[INFO][29-02-2016 10:21:18 AM]connection on controllerWSS 172.16.1.35
+[INFO][29-02-2016 10:21:23 AM]added new device ESPLED to devices array
+[INFO][29-02-2016 10:21:44 AM]forced device ESPLED to execute command on
+[INFO][29-02-2016 10:21:53 AM]forced device ESPLED to execute command off
+[INFO][29-02-2016 10:22:03 AM]forced device ESPLED to execute command off
+[INFO][29-02-2016 10:22:10 AM]forced device ESPLED to execute command off
+[INFO][29-02-2016 10:22:18 AM]forced device ESPLED to execute command on
+[ERROR][29-02-2016 10:26:26 AM]device ESPLED was manually disconnected from the server
+[INFO][29-02-2016 10:26:38 AM]connection on controllerWSS 172.16.1.35
+[INFO][29-02-2016 10:26:44 AM]added new device ESPLED to devices array
+[INFO][29-02-2016 10:26:47 AM]forced device ESPLED to execute command on
+[INFO][29-02-2016 10:33:58 AM]connection on dataWSS 127.0.0.1
+[INFO][29-02-2016 10:33:58 AM]sent configurations to 127.0.0.1
+[INFO][29-02-2016 10:34:01 AM]deleted configuration led_on
+[INFO][29-02-2016 10:34:01 AM]wrote new configurations to file
+[INFO][29-02-2016 10:34:49 AM]added configuration config
+[INFO][29-02-2016 10:34:49 AM]wrote new configurations to file
+[INFO][29-02-2016 10:35:09 AM]sent historyData to 127.0.0.1
+[ERROR][29-02-2016 10:38:38 AM]device ESPLED was manually disconnected from the server
+[INFO][29-02-2016 10:39:14 AM]connection on controllerWSS 172.16.1.35
+[INFO][29-02-2016 10:39:19 AM]added new device ESPLED to devices array
+[INFO][29-02-2016 10:41:55 AM]connection on dataWSS 127.0.0.1
+[INFO][29-02-2016 10:41:55 AM]sent configurations to 127.0.0.1
+[INFO][29-02-2016 10:43:25 AM]connection on dataWSS 127.0.0.1
+[INFO][29-02-2016 10:43:25 AM]sent configurations to 127.0.0.1
+[INFO][29-02-2016 10:43:33 AM]connection on dataWSS 127.0.0.1
+[INFO][29-02-2016 10:43:33 AM]sent configurations to 127.0.0.1
+[INFO][29-02-2016 10:47:26 AM]connection on dataWSS 127.0.0.1
+[INFO][29-02-2016 10:47:26 AM]sent configurations to 127.0.0.1
+[INFO][29-02-2016 10:48:03 AM]connection on dataWSS 127.0.0.1
+[INFO][29-02-2016 10:48:04 AM]sent configurations to 127.0.0.1
+[INFO][29-02-2016 10:48:32 AM]deleted configuration config
+[INFO][29-02-2016 10:48:32 AM]wrote new configurations to file
+[INFO][29-02-2016 10:49:04 AM]forced device ESPLED to execute command on
+[INFO][29-02-2016 10:56:55 AM]connection on dataWSS 127.0.0.1
+[INFO][29-02-2016 10:56:55 AM]sent configurations to 127.0.0.1
+[INFO][29-02-2016 10:57:17 AM]connection on dataWSS 127.0.0.1
+[INFO][29-02-2016 10:57:17 AM]sent configurations to 127.0.0.1
+[INFO][29-02-2016 11:00:19 AM]added configuration config1
+[INFO][29-02-2016 11:00:19 AM]wrote new configurations to file
+[INFO][29-02-2016 11:00:45 AM]connection on dataWSS 127.0.0.1
+[INFO][29-02-2016 11:00:45 AM]sent configurations to 127.0.0.1
+[INFO][29-02-2016 11:01:00 AM]configuration edited: config1
+[INFO][29-02-2016 11:01:00 AM]wrote new configurations to file
+[INFO][29-02-2016 11:06:47 AM]configuration edited: config1
+[INFO][29-02-2016 11:06:47 AM]wrote new configurations to file
+[INFO][29-02-2016 11:06:50 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:06:55 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:07:00 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:07:05 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:07:10 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:07:15 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:07:16 AM]configuration edited: config1
+[INFO][29-02-2016 11:07:16 AM]wrote new configurations to file
+[INFO][29-02-2016 11:07:20 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:07:25 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:07:30 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:07:35 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:07:40 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:07:45 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:07:50 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:07:55 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:08:00 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:08:05 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:08:10 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:08:15 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:08:20 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:08:25 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:08:30 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:08:35 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:08:40 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:08:45 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:08:50 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:08:55 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:09:00 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:09:05 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:09:10 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:09:15 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:09:20 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:09:25 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:09:30 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:09:35 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:09:40 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:09:45 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:09:50 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:09:55 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:10:00 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:10:05 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:10:05 AM]configuration edited: config1
+[INFO][29-02-2016 11:10:05 AM]wrote new configurations to file
+[INFO][29-02-2016 11:10:10 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:10:15 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:10:20 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:10:25 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:10:30 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:10:35 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:10:40 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:10:45 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:10:50 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:10:55 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:11:00 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:11:05 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:11:10 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:11:15 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:11:20 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:11:25 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:11:30 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:11:35 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:11:40 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:11:45 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:11:50 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:11:55 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:12:00 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:12:05 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:12:10 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:12:15 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:12:20 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:12:25 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:12:30 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:12:35 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:12:40 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:12:45 AM]sent action off to 172.16.1.35
+[ERROR][29-02-2016 11:12:48 AM]device ESPLED was manually disconnected from the server
+[ERROR][29-02-2016 11:12:50 AM]target device not found ESPLED
+[ERROR][29-02-2016 11:12:55 AM]target device not found ESPLED
+[ERROR][29-02-2016 11:13:00 AM]target device not found ESPLED
+[INFO][29-02-2016 11:13:01 AM]connection on controllerWSS 172.16.1.35
+[ERROR][29-02-2016 11:13:05 AM]target device not found ESPLED
+[INFO][29-02-2016 11:13:07 AM]added new device ESPLED to devices array
+[INFO][29-02-2016 11:13:10 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:13:15 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:13:20 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:13:25 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:13:30 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:13:35 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:13:40 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:13:45 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:13:50 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:13:55 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:14:00 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:14:05 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:14:10 AM]sent action off to 172.16.1.35
+[ERROR][29-02-2016 11:14:14 AM]device ESPLED was manually disconnected from the server
+[ERROR][29-02-2016 11:14:15 AM]target device not found ESPLED
+[ERROR][29-02-2016 11:14:20 AM]target device not found ESPLED
+[ERROR][29-02-2016 11:14:25 AM]target device not found ESPLED
+[ERROR][29-02-2016 11:14:30 AM]target device not found ESPLED
+[ERROR][29-02-2016 11:14:35 AM]target device not found ESPLED
+[ERROR][29-02-2016 11:14:40 AM]target device not found ESPLED
+[INFO][29-02-2016 11:14:44 AM]connection on controllerWSS 172.16.1.35
+[ERROR][29-02-2016 11:14:45 AM]target device not found ESPLED
+[INFO][29-02-2016 11:14:50 AM]added new device ESPLED to devices array
+[INFO][29-02-2016 11:14:50 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:14:55 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:15:00 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:15:05 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:15:10 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:15:15 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:15:20 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:15:25 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:15:30 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:15:35 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:15:40 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:15:45 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:15:50 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:15:55 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:16:00 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:16:05 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:16:10 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:16:15 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:16:20 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:16:25 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:16:30 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:16:35 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:16:40 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:16:45 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:16:50 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:16:55 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:17:00 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:17:05 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:17:10 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:17:15 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:17:20 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:17:25 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:17:30 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:17:35 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:17:40 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:17:45 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:17:50 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:17:55 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:18:00 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:18:05 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:18:10 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:18:15 AM]sent action off to 172.16.1.35
+[ERROR][29-02-2016 11:18:17 AM]device ESPLED was manually disconnected from the server
+[ERROR][29-02-2016 11:18:20 AM]target device not found ESPLED
+[ERROR][29-02-2016 11:18:25 AM]target device not found ESPLED
+[ERROR][29-02-2016 11:18:30 AM]target device not found ESPLED
+[ERROR][29-02-2016 11:18:35 AM]target device not found ESPLED
+[ERROR][29-02-2016 11:18:40 AM]target device not found ESPLED
+[ERROR][29-02-2016 11:18:45 AM]target device not found ESPLED
+[ERROR][29-02-2016 11:18:50 AM]target device not found ESPLED
+[ERROR][29-02-2016 11:18:55 AM]target device not found ESPLED
+[INFO][29-02-2016 11:18:58 AM]connection on controllerWSS 172.16.1.35
+[ERROR][29-02-2016 11:19:00 AM]target device not found ESPLED
+[ERROR][29-02-2016 11:19:05 AM]target device not found ESPLED
+[INFO][29-02-2016 11:19:10 AM]added new device ESPLED to devices array
+[INFO][29-02-2016 11:19:10 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:19:15 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:19:20 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:19:25 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:19:30 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:19:35 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:19:40 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:19:45 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:19:50 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:19:55 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:20:00 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:20:05 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:20:10 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:20:15 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:20:20 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:20:25 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:20:30 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:20:35 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:20:40 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:20:45 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:20:50 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:20:55 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:21:00 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:21:05 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:21:10 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:21:15 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:21:20 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:21:25 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:21:30 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:21:35 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:21:40 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:21:45 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:21:50 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:21:55 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:22:00 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:22:05 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:22:10 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:22:15 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:22:20 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:22:25 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:22:30 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:22:35 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:22:40 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:22:45 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:22:50 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:22:55 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:23:00 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:23:05 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:23:10 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:23:15 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:23:20 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:23:25 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:23:30 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:23:35 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:23:40 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:23:45 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:23:50 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:23:55 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:24:00 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:24:05 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:24:10 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:24:15 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:24:20 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:24:25 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:24:30 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:24:35 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:24:40 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:24:45 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:24:50 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:24:55 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:25:00 AM]sent action off to 172.16.1.35
+[INFO][29-02-2016 11:25:05 AM]configuration edited: config1
+[INFO][29-02-2016 11:25:05 AM]wrote new configurations to file
+[INFO][29-02-2016 11:25:05 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:25:10 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:25:15 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:25:20 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:25:25 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:25:30 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:25:35 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:25:40 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:25:45 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:25:50 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:25:55 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:26:00 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:26:05 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:26:10 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:26:15 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:26:20 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:26:25 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:26:30 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:26:35 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:26:40 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:26:45 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:26:50 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:26:55 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:27:00 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:27:05 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:27:10 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:27:15 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:27:20 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:27:25 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:27:30 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:27:35 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:27:40 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:27:45 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:27:50 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:27:55 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:28:00 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:28:05 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:28:10 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:28:15 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:28:20 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:28:25 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:28:30 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:28:35 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:28:40 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:28:45 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:28:50 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:28:55 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:29:00 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:29:05 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:29:10 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:29:15 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:29:20 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:29:25 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:29:30 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:29:35 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:29:40 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:29:45 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:29:50 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:29:55 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:30:00 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:30:05 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:30:10 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:30:15 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:30:20 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:30:25 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:30:30 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:30:35 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:30:40 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:30:45 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:30:50 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:30:55 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:31:00 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:31:05 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:31:10 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:31:15 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:31:20 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:31:25 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:31:30 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:31:35 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:31:40 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:31:45 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:31:50 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:31:55 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:32:00 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:32:05 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:32:10 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:32:15 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:32:20 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:32:25 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:32:30 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:32:35 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:32:40 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:32:45 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:32:50 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:32:55 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:33:00 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:33:05 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:33:10 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:33:15 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:33:20 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:33:25 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:33:30 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:33:35 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:33:40 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:33:45 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:33:50 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:33:55 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:34:00 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:34:05 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:34:10 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:34:15 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:34:20 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:34:25 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:34:31 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:34:36 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:34:41 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:34:46 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:34:51 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:34:56 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:35:01 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:35:06 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:35:11 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:35:16 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:35:21 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:35:26 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:35:31 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:35:36 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:35:41 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:35:46 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:35:51 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:35:56 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:36:01 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:36:06 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:36:11 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:36:16 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:36:21 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:36:26 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:36:31 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:36:36 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:36:41 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:36:46 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:36:51 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:36:56 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:37:01 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:37:06 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:37:11 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:37:16 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:37:21 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:37:26 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:37:31 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:37:36 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:37:41 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:37:46 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:37:51 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:37:56 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:38:01 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:38:06 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:38:11 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:38:16 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:38:21 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:38:26 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:38:31 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:38:36 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:38:41 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:38:46 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:38:51 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:38:56 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:39:01 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:39:06 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:39:11 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:39:16 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:39:21 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:39:26 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:39:31 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:39:36 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:39:41 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:39:46 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:39:51 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:39:56 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:40:01 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:40:06 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:40:11 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:40:16 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:40:21 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:40:26 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:40:31 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:40:36 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:40:41 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:40:46 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:40:51 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:40:56 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:41:01 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:41:06 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:41:11 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:41:16 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:41:21 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:41:26 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:41:31 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:41:36 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:41:41 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:41:46 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:41:51 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:41:56 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:42:01 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:42:06 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:42:11 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:42:16 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:42:21 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:42:26 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:42:31 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:42:36 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:42:41 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:42:46 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:42:51 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:42:56 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:43:01 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:43:06 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:43:11 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:43:16 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:43:21 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:43:26 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:43:31 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:43:36 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:43:41 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:43:46 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:43:51 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:43:56 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:44:01 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:44:06 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:44:11 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:44:16 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:44:21 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:44:26 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:44:31 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:44:36 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:44:41 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:44:46 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:44:51 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:44:56 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:45:01 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:45:06 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:45:11 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:45:16 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:45:21 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:45:26 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:45:31 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:45:36 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:45:41 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:45:46 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:45:51 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:45:56 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:46:01 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:46:06 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:46:11 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:46:16 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:46:21 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:46:26 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:46:31 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:46:36 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:46:41 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:46:46 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:46:51 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:46:56 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:47:01 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:47:06 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:47:11 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:47:16 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:47:21 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:47:26 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:47:31 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:47:36 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:47:41 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:47:46 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:47:51 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:47:56 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:48:01 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:48:06 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:48:11 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:48:16 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:48:21 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:48:26 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:48:31 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:48:36 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:48:41 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:48:46 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:48:51 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:48:56 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:49:01 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:49:06 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:49:11 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:49:16 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:49:21 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:49:26 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:49:31 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:49:36 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:49:41 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:49:46 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:49:51 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:49:56 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:50:01 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:50:06 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:50:11 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:50:16 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:50:21 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:50:26 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:50:31 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:50:36 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:50:41 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:50:46 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:50:51 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:50:56 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:51:01 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:51:06 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:51:11 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:51:16 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:51:21 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:51:26 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:51:31 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:51:36 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:51:41 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:51:46 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:51:51 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:51:56 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:52:01 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:52:06 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:52:11 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:52:16 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:52:21 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:52:26 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:52:31 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:52:36 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:52:41 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:52:46 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:52:51 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:52:56 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:53:01 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:53:06 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:53:11 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:53:16 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:53:21 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:53:26 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:53:31 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:53:36 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:53:41 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:53:46 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:53:51 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:53:56 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:54:01 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:54:06 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:54:11 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:54:16 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:54:21 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:54:26 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:54:31 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:54:36 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:54:41 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:54:46 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:54:51 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:54:56 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:55:01 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:55:06 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:55:11 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:55:16 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:55:21 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:55:26 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:55:31 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:55:36 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:55:41 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:55:46 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:55:51 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:55:56 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:56:01 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:56:06 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:56:11 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:56:16 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:56:21 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:56:26 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:56:31 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:56:36 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:56:41 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:56:46 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:56:51 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:56:56 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:57:01 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:57:06 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:57:11 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:57:16 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:57:21 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:57:26 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:57:31 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:57:36 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:57:41 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:57:46 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:57:51 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:57:56 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:58:01 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:58:06 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:58:11 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:58:16 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:58:21 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:58:26 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:58:31 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:58:36 AM]sent action on to 172.16.1.35
+[ERROR][29-02-2016 11:58:38 AM]device ESPLED was manually disconnected from the server
+[ERROR][29-02-2016 11:58:41 AM]target device not found ESPLED
+[ERROR][29-02-2016 11:58:46 AM]target device not found ESPLED
+[INFO][29-02-2016 11:58:51 AM]connection on controllerWSS 172.16.1.35
+[ERROR][29-02-2016 11:58:51 AM]target device not found ESPLED
+[ERROR][29-02-2016 11:58:56 AM]target device not found ESPLED
+[INFO][29-02-2016 11:58:58 AM]added new device ESPLED to devices array
+[INFO][29-02-2016 11:59:01 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:59:06 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:59:11 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:59:16 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:59:21 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:59:26 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:59:31 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:59:36 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:59:41 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 11:59:56 AM]sent action on to 172.16.1.35
+[INFO][29-02-2016 12:00:01 PM]sent action on to 172.16.1.35
+[INFO][29-02-2016 12:00:06 PM]sent action on to 172.16.1.35
+[INFO][29-02-2016 12:00:11 PM]sent action on to 172.16.1.35
+[INFO][29-02-2016 12:00:16 PM]sent action on to 172.16.1.35
+[INFO][29-02-2016 12:00:21 PM]sent action on to 172.16.1.35
+[INFO][29-02-2016 12:00:26 PM]sent action on to 172.16.1.35
+[INFO][29-02-2016 12:00:31 PM]sent action on to 172.16.1.35
+[INFO][29-02-2016 12:00:36 PM]sent action on to 172.16.1.35
+[INFO][29-02-2016 12:00:41 PM]sent action on to 172.16.1.35
+[INFO][29-02-2016 12:00:46 PM]sent action on to 172.16.1.35
+[INFO][29-02-2016 12:00:51 PM]sent action on to 172.16.1.35
+[INFO][29-02-2016 12:00:56 PM]sent action on to 172.16.1.35
+[INFO][29-02-2016 12:01:01 PM]sent action on to 172.16.1.35
+[INFO][29-02-2016 12:01:06 PM]sent action on to 172.16.1.35
+[INFO][29-02-2016 12:28:16 PM]sent action on to 172.16.1.35
+[ERROR][29-02-2016 12:28:16 PM]device ESPLED was automatically timed out
+[ERROR][29-02-2016 12:28:21 PM]target device not found ESPLED
+[ERROR][29-02-2016 12:28:26 PM]target device not found ESPLED
+[ERROR][29-02-2016 12:28:31 PM]target device not found ESPLED
+[ERROR][29-02-2016 12:28:35 PM]device -1 was manually disconnected from the server
+[ERROR][29-02-2016 12:28:36 PM]target device not found ESPLED
+[ERROR][29-02-2016 12:28:41 PM]target device not found ESPLED
+[ERROR][29-02-2016 12:28:46 PM]target device not found ESPLED
+[ERROR][29-02-2016 12:28:51 PM]target device not found ESPLED
+[ERROR][29-02-2016 12:28:56 PM]target device not found ESPLED
+[ERROR][29-02-2016 12:29:01 PM]target device not found ESPLED
+[ERROR][29-02-2016 12:29:06 PM]target device not found ESPLED
+[ERROR][29-02-2016 12:29:11 PM]target device not found ESPLED
+[ERROR][29-02-2016 12:29:16 PM]target device not found ESPLED
+[ERROR][29-02-2016 12:29:21 PM]target device not found ESPLED
+[ERROR][29-02-2016 12:29:26 PM]target device not found ESPLED
+[ERROR][29-02-2016 12:29:31 PM]target device not found ESPLED
+[ERROR][29-02-2016 12:29:36 PM]target device not found ESPLED
+[ERROR][29-02-2016 12:29:41 PM]target device not found ESPLED
+[ERROR][29-02-2016 12:29:46 PM]target device not found ESPLED
+[ERROR][29-02-2016 12:29:51 PM]target device not found ESPLED
+[ERROR][29-02-2016 12:29:56 PM]target device not found ESPLED
+[ERROR][29-02-2016 12:30:01 PM]target device not found ESPLED
+[ERROR][29-02-2016 12:30:06 PM]target device not found ESPLED
+[ERROR][29-02-2016 12:30:11 PM]target device not found ESPLED
+[ERROR][29-02-2016 12:30:16 PM]target device not found ESPLED
+[ERROR][29-02-2016 12:30:21 PM]target device not found ESPLED
+[ERROR][29-02-2016 12:30:26 PM]target device not found ESPLED
+[ERROR][29-02-2016 12:30:31 PM]target device not found ESPLED
+[ERROR][29-02-2016 12:30:36 PM]target device not found ESPLED
+[ERROR][29-02-2016 12:30:41 PM]target device not found ESPLED
+[ERROR][29-02-2016 12:30:46 PM]target device not found ESPLED
+[ERROR][29-02-2016 12:30:51 PM]target device not found ESPLED
+[ERROR][29-02-2016 12:30:56 PM]target device not found ESPLED
+[ERROR][29-02-2016 12:31:01 PM]target device not found ESPLED
+[ERROR][29-02-2016 12:31:06 PM]target device not found ESPLED
+[ERROR][29-02-2016 12:31:11 PM]target device not found ESPLED
+[ERROR][29-02-2016 12:31:16 PM]target device not found ESPLED
+[INFO][02-03-2016 10:27:55 AM]server started
+[INFO][02-03-2016 10:27:55 AM]loaded configurations file
+[ERROR][02-03-2016 10:28:00 AM]target device not found ESPLED
+[ERROR][02-03-2016 10:28:05 AM]target device not found ESPLED
+[ERROR][02-03-2016 10:28:10 AM]target device not found ESPLED
+[INFO][02-03-2016 10:28:13 AM]connection on dataWSS 127.0.0.1
+[INFO][02-03-2016 10:28:13 AM]sent configurations to 127.0.0.1
+[ERROR][02-03-2016 10:28:15 AM]target device not found ESPLED
+[ERROR][02-03-2016 10:28:20 AM]target device not found ESPLED
+[ERROR][02-03-2016 10:28:25 AM]target device not found ESPLED
+[ERROR][02-03-2016 10:28:30 AM]target device not found ESPLED
+[INFO][02-03-2016 10:28:34 AM]connection on controllerWSS 127.0.0.1
+[ERROR][02-03-2016 10:28:35 AM]target device not found ESPLED
+[ERROR][02-03-2016 10:28:40 AM]target device not found ESPLED
+[ERROR][02-03-2016 10:28:45 AM]target device not found ESPLED
+[INFO][02-03-2016 10:28:48 AM]added new device temperature1 to devices array
+[ERROR][02-03-2016 10:28:50 AM]target device not found ESPLED
+[ERROR][02-03-2016 10:28:55 AM]target device not found ESPLED
+[ERROR][02-03-2016 10:29:00 AM]target device not found ESPLED
+[ERROR][02-03-2016 10:29:03 AM]target device not found ESPLED
+[ERROR][02-03-2016 10:29:05 AM]target device not found ESPLED
+[INFO][02-03-2016 10:29:07 AM]sent historyData to 127.0.0.1
+[ERROR][02-03-2016 10:29:10 AM]target device not found ESPLED
+[ERROR][02-03-2016 10:29:15 AM]target device not found ESPLED
+[ERROR][02-03-2016 10:29:20 AM]target device not found ESPLED
+[ERROR][02-03-2016 10:29:25 AM]target device not found ESPLED
+[ERROR][02-03-2016 10:29:30 AM]target device not found ESPLED
+[ERROR][02-03-2016 10:29:35 AM]target device not found ESPLED
+[ERROR][02-03-2016 10:29:40 AM]target device not found ESPLED
+[ERROR][02-03-2016 10:29:45 AM]target device not found ESPLED
+[ERROR][02-03-2016 10:29:50 AM]target device not found ESPLED
+[ERROR][02-03-2016 10:29:55 AM]target device not found ESPLED
+[ERROR][02-03-2016 10:30:00 AM]target device not found ESPLED
+[ERROR][02-03-2016 10:30:03 AM]device temperature1 was manually disconnected from the server
+[INFO][17-03-2016 08:10:35 PM]server started
+[INFO][17-03-2016 08:10:35 PM]loaded configurations file
+[INFO][17-03-2016 08:10:36 PM]connection on dataWSS 127.0.0.1
+[INFO][17-03-2016 08:10:36 PM]sent configurations to 127.0.0.1
+[INFO][17-03-2016 08:10:41 PM]connection on dataWSS 127.0.0.1
+[INFO][17-03-2016 08:10:41 PM]sent configurations to 127.0.0.1
+[INFO][17-03-2016 08:11:01 PM]connection on controllerWSS 127.0.0.1
+[INFO][17-03-2016 08:11:43 PM]added new device TemperatureOutside to devices array
+[INFO][17-03-2016 08:12:15 PM]added new device LightLivingroom to devices array
+[INFO][17-03-2016 08:12:22 PM]connection on dataWSS 127.0.0.1
+[INFO][17-03-2016 08:12:22 PM]sent configurations to 127.0.0.1

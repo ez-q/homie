@@ -1,1 +1,1 @@
-[{"conditions":[{"value":"12:19","dname":"time","mod":"greater"}],"cname":"led_on","dname":"ESPLED","action":"on","logicalOperator":"or"}]
+[{"conditions":[{"dname":"time","value":"16:00","mod":"lesser"}],"action":"on","dname":"ESPLED","cname":"config1","logicalOperator":"and"}]

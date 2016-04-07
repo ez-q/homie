@@ -494,10 +494,10 @@ var processCommand = function(cmd) {
         type: cmd.type,
         category: cmd.category,
         dname: cmd.dname,
-        values: cmd.values,
+        takes: cmd.takes,
         ip: cmd.from,
         latestValue: null,
-        timestamp: new Date()
+        timestamp: new Date(),
       });
       flog('added new device ' + cmd.dname + ' to devices array', 'INFO');
     }
@@ -611,10 +611,6 @@ var checkConfigurations = function() {
             config.dname),
           "INFO");
         var act = config.action;
-        if (act === "on")
-          act = true;
-        if (act === "off")
-          act = false;
         var obj = {
           event: "action",
           data: act
