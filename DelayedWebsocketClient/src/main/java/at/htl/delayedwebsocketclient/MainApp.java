@@ -7,6 +7,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * The startup class for the fxml project
+ * @author Viktor
+ */
 
 public class MainApp extends Application {
 

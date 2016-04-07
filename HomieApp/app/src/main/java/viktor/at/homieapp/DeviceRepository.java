@@ -13,7 +13,11 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-
+/*
+    Created By: Viktor Bär
+    This class manages all the devices. It is both an Observable and an Observer so it can get data from the
+    websocket class, process that data and notify the DeviceList and DeviceDetail activities.
+ */
 public class DeviceRepository extends Observable implements Observer {
     private static DeviceRepository INSTANCE = null;
     List<Device> deviceList;
@@ -53,21 +57,30 @@ public class DeviceRepository extends Observable implements Observer {
         return null;
     }
 
+    /**
+     * If the websocket client gets new data it will be forwarded here. This method checks for specific name occurrences in
+     * the JSONObject and acts accordingly.
+     * @param observable
+     * @param data
+     */
     @Override
     public void update(Observable observable, Object data) {
         JSONObject message = (JSONObject)data;
         Log.d(TAG, "got message: " + message.toString());
         try {
+            //If the JSONObject contains "devices" it means that the data sent is the current connected device list.
+            //The devices are saved in a JSONArray. The current devices are replaced.
             if(message.has("devices")){
                 List<Device> deviceList = new LinkedList<>();
                 Log.d(TAG, "got devices list length = " + message.getJSONArray("devices").length());
                 for(int i = 0; i < message.getJSONArray("devices").length();i++){
                     JSONObject object = message.getJSONArray("devices").getJSONObject(i);
-                    if(object.get("type").equals("button") ||object.get("type").equals("temperature")) {
+                    if(!object.get("type").equals("time")) {
                         Device d = new Device();
                         d.setType(object.getString("type"));
                         d.setName(object.getString("dname"));
                         d.setValue(object.getString("latestValue"));
+                        d.setCategory(object.getString("category"));
                         deviceList.add(d);
                         /*if(d.getType().equals("button")){
                             WSClient.getInstance().registerDevice(d.getName()+"Button","sensor","button");
@@ -79,7 +92,7 @@ public class DeviceRepository extends Observable implements Observer {
                 setDeviceList(new LinkedList<>(deviceList));
                 setChanged();
                 notifyObservers("devices");
-            } else if(message.has("data")){
+            } else if(message.has("data")){                                     //If the JSONObject contains "data" it means that the sent data is a new value for a device
                 for(Device dev : getDeviceList()){
                     if(message.getString("dname").equals(dev.getName())){
                         switch(dev.getType()){
@@ -97,8 +110,8 @@ public class DeviceRepository extends Observable implements Observer {
                         break;
                     }
                 }
-            } else if(message.has("historyData")){
-                for(Device dev : getDeviceList()){
+            } else if(message.has("historyData")){                              //If the JSONObject contains "historyData" it means that the sent data is the history for a device
+                for(Device dev : getDeviceList()){                              // The date is saved in a JSONArray and contains the date in milliseconds from 1970 and the value (i.e. temperature)
                     if(message.getString("dname").equals(dev.getName())){
                         HashMap<Date, Object> map = new HashMap<>();
                         switch(dev.getType()){

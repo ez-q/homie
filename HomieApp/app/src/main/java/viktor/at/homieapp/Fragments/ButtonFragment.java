@@ -10,18 +10,30 @@ import android.widget.TextView;
 
 import java.util.HashMap;
 
+import viktor.at.homieapp.Device;
 import viktor.at.homieapp.DeviceRepository;
 import viktor.at.homieapp.R;
 import viktor.at.homieapp.WSClient;
+/*
+    Created by: Viktor Bär
+ */
 
 public class ButtonFragment extends BaseFragment {
     private TextView tvValues;
     private TextView tv;
     private Button btCurrentState;
-    private Button btToggleState;
+    private Button btToggleStateOn;
+    private Button btToggleStateOff;
 
     public boolean viewCreated = false;
 
+    /**
+     * When the fragment is created all UI-objects are retrieved from the layout so the values and the listener can be set.
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -33,8 +45,11 @@ public class ButtonFragment extends BaseFragment {
 
         tvValues = (TextView) view.findViewById(R.id.tvValuesButton);
 
-        tvValues.setText(DeviceRepository.getInstance().getDevice(getDeviceName()).getValue().toString());
+        //Retrieving the current value for the device from the DeviceRepository
+        if(DeviceRepository.getInstance().getDevice(getDeviceName()) != null)
+            tvValues.setText(DeviceRepository.getInstance().getDevice(getDeviceName()).getValue().toString());
 
+        //Setting all the listener
         btCurrentState = (Button) view.findViewById(R.id.btCurrentStateButton);
         btCurrentState.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,17 +58,22 @@ public class ButtonFragment extends BaseFragment {
             }
         });
 
-        btToggleState = (Button) view.findViewById(R.id.btToggleStateButton);
-        btToggleState.setOnClickListener(new View.OnClickListener() {
+        btToggleStateOn = (Button) view.findViewById(R.id.btToggleStateButtonOn);
+        btToggleStateOn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WSClient.getInstance().forceDeviceToExecuteCommand(getDeviceName(),!(Boolean)DeviceRepository.getInstance().getDevice(getDeviceName()).getValue());
-
-                /*HashMap<String,Object> map = new HashMap<String, Object>();
-                map.put("dname", getDeviceName());
-                Boolean data = !(Boolean)DeviceRepository.getInstance().getDevice(getDeviceName()).getValue();
-                map.put("data", data.toString());
-                WSClient.getInstance().sendMessage(map);*/
+                if(DeviceRepository.getInstance().getDevice(getDeviceName()) != null) {
+                    WSClient.getInstance().forceDeviceToExecuteCommand(getDeviceName(), true);
+                }
+            }
+        });
+        btToggleStateOff = (Button) view.findViewById(R.id.btToggleStateButtonOff);
+        btToggleStateOff.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(DeviceRepository.getInstance().getDevice(getDeviceName()) != null) {
+                    WSClient.getInstance().forceDeviceToExecuteCommand(getDeviceName(), false);
+                }
             }
         });
         viewCreated = true;
@@ -61,10 +81,14 @@ public class ButtonFragment extends BaseFragment {
         return view;
     }
 
+    /**
+     * An implementation of the method from the class BaseFragment.
+     */
     @Override
     public void updateValue() {
-        if(viewCreated && tvValues != null)
-            tvValues.setText(DeviceRepository.getInstance().getDevice(getDeviceName()).getValue().toString());
+        if(viewCreated && tvValues != null && DeviceRepository.getInstance().getDevice(getDeviceName()) != null)
+            tvValues.setText(DeviceRepository.getInstance().getDevice(getDeviceName())
+                    .getValue().toString());
     }
 
     @Override

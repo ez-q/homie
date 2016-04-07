@@ -57,11 +57,20 @@
             android:layout_height="wrap_content"
             android:text="@string/getCurrentState"
             android:id="@+id/btCurrentStateButton"/>
-
-        <Button
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/toggleState"
-            android:id="@+id/btToggleStateButton"/>
+            android:layout_height="wrap_content">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/stateOn"
+                android:id="@+id/btToggleStateButtonOn"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/stateOff"
+                android:id="@+id/btToggleStateButtonOff"/>
+        </LinearLayout>
+
     </LinearLayout>
 </FrameLayout>

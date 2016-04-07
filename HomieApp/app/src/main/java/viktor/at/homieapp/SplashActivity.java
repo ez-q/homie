@@ -4,7 +4,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-
+/*
+    Created by: Viktor Bär
+    This is a splash activity. It is the startup activity and shows a screen with the logo on the start before the
+    connection activity is called. It was decided to not use it because it had no real use but look good.
+ */
 public class SplashActivity extends Activity  {
 
     @Override

@@ -28,6 +28,11 @@ import javafx.util.Duration;
 import org.eclipse.jetty.websocket.client.ClientUpgradeRequest;
 import org.eclipse.jetty.websocket.client.WebSocketClient;
 
+/**
+ * The main logic behind the fxml project.
+ * @author Viktor
+ */
+
 public class FXMLController implements Initializable, Observer {
 
     @FXML
@@ -46,7 +51,13 @@ public class FXMLController implements Initializable, Observer {
     private TextField tfDelay;
 
     SimpleSocket socket = null;
-
+    
+    /**
+     * This method is called when the program is started. It sets the onAction listener for the button in which the connection to the server
+     * is attempted.
+     * @param url
+     * @param rb 
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -64,7 +75,11 @@ public class FXMLController implements Initializable, Observer {
                 Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
-
+        
+        /*
+            The specified messages in the text area are put in a string array.
+            Afterwards the messages are queued and sent to the server with a specified interval.
+        */
         btSend.setOnAction((event) -> {
 
             String[] stringQueue = taInput.getText().split("\n");
@@ -90,7 +105,10 @@ public class FXMLController implements Initializable, Observer {
         });
 
     }
-
+    
+    /*
+        Called when the Client class gets a message and appends it to the text area.
+    */
     @Override
     public void update(Observable o, Object arg) {
         Platform.runLater(() -> {

@@ -4,12 +4,24 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-
+/*
+    Created By: Viktor Bär
+    This Class describes the devices that are connected to the server.
+ */
 public class Device {
     private String name;
     private Object value;
     private String type;
     private HashMap<Date, Object> history;
+    private String category;
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
     public Device(String name, Object value){
         this.name = name;

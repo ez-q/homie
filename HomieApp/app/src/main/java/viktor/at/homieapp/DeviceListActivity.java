@@ -20,7 +20,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Observer;
-
+/*
+    Created by: Viktor Bär
+ */
 public class DeviceListActivity extends ListActivity implements Observer {
 
     private static final String TAG = "at.viktor.WSClientTest";
@@ -30,14 +32,22 @@ public class DeviceListActivity extends ListActivity implements Observer {
     MyAdapter myAdapter;
     Button btReturn;
 
+    /**
+     * Called when the activity is created from the Connect activity. This Activity displays all connected Devices.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_list);
 
+        //Adding this class as an observer to the DeviceRepository, so you get notified when an change occurs and the device list gets updated.
         DeviceRepository.getInstance().deleteObserver(this);
         DeviceRepository.getInstance().addObserver(this);
 
+        /*
+            Finishes the activity and returns to the Connect activity
+         */
         btReturn = (Button)findViewById(R.id.btReturnLv);
         btReturn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +56,9 @@ public class DeviceListActivity extends ListActivity implements Observer {
             }
         });
 
+        /*
+            Setting a custom list adapter because then you can control the list item design.
+         */
         myAdapter = new MyAdapter(this, devices);
         setListAdapter(myAdapter);
         getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -62,19 +75,29 @@ public class DeviceListActivity extends ListActivity implements Observer {
         }
     }
 
-
-
-    public void addItem(Device d){
-        devices.add(d);
+    /**
+     * Adds an device to the current device list
+     * @param device
+     */
+    public void addItem(Device device){
+        devices.add(device);
         myAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * Clears the current device list and gets the current list from the DeviceRepository
+     */
     public void updateDevices(){
         this.devices.clear();
         this.devices.addAll(DeviceRepository.getInstance().getDeviceList());
         myAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * Is called when an changed in the DeviceRepository occurs. First it checks if the change is relevant and updates the devices if so.
+     * @param observable
+     * @param data
+     */
     @Override
     public void update(Observable observable, Object data) {
         if(((String)data).equals("devices")){

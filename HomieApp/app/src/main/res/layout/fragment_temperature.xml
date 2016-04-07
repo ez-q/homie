@@ -59,10 +59,6 @@
             android:text="@string/getCurrentState"
             android:id="@+id/btCurrentStateTemp"/>
 
-        <com.github.mikephil.charting.charts.LineChart
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/lineChart"/>
     </LinearLayout>
 
 </FrameLayout>

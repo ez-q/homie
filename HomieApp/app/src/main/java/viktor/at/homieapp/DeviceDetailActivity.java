@@ -16,11 +16,19 @@ import java.util.Observer;
 import viktor.at.homieapp.Fragments.BaseFragment;
 import viktor.at.homieapp.Fragments.ButtonFragment;
 import viktor.at.homieapp.Fragments.TemperatureFragment;
-
+/*
+    Created By: Viktor Bär
+ */
 public class DeviceDetailActivity extends FragmentActivity implements Observer {
     BaseFragment fragment = null;
     Button btReturn;
 
+    /**
+     * Called when the activity is created in the DeviceList activity. This activity displays the
+     * corresponding fragment for the selected device. The fragment usually displays the current values
+     * or offers buttons to send commands to the server.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,9 +38,12 @@ public class DeviceDetailActivity extends FragmentActivity implements Observer {
             if (savedInstanceState != null) {
                 return;
             }
+            //Here this class is added as an observer to the DeviceRepository. As a result i will be notified when a change occurs.
             DeviceRepository.getInstance().addObserver(this);
 
             Intent i = getIntent();
+
+            //Retrieving the correct device from the DeviceRepository
             Device d = DeviceRepository.getInstance().getDevice(i.getStringExtra(DeviceListActivity.DEVICENAME));
 
             btReturn = (Button) findViewById(R.id.btReturn);
@@ -44,12 +55,15 @@ public class DeviceDetailActivity extends FragmentActivity implements Observer {
                 }
             });
 
-
+            /*
+                The FragmentManager allows dynamic creation of fragments at runtime.
+                 First it checks what type the device is and then the correct fragment is called.
+             */
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction transaction = fragmentManager.beginTransaction();
 
             switch (d.getType().toLowerCase()) {
-                case "button":
+                case "button":case "led":
                     fragment = new ButtonFragment();
                     fragment.setDeviceName(d.getName());
                     break;
@@ -68,6 +82,11 @@ public class DeviceDetailActivity extends FragmentActivity implements Observer {
         }
     }
 
+    /**
+     * Is called when an changed in the DeviceRepository occurs. First it checks if the change is relevant then it updates the Values.
+     * @param observable
+     * @param data
+     */
     @Override
     public void update(Observable observable, Object data) {
         if (((String) data).equals("data") && fragment != null) {

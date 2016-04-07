@@ -12,7 +12,10 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
+/*
+    Created By: Viktor Bär
+    This class is just to tell how every single ListView item should look like depending on its content.
+ */
 public class MyAdapter extends BaseAdapter {
 
     private Activity activity;
@@ -40,6 +43,13 @@ public class MyAdapter extends BaseAdapter {
         return position;
     }
 
+    /**
+     * Here the main part happens. It is decided what picture is chosen depending on the type of the device stored.
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
@@ -51,8 +61,8 @@ public class MyAdapter extends BaseAdapter {
         ImageView v = (ImageView)view.findViewById(R.id.list_image);
         switch(devices.get(position).getType()) {
             case "temperature":
-            v.setImageResource(R.drawable.temperature); break;
-            case "button":
+                v.setImageResource(R.drawable.temperature); break;
+            case "button":case "led":
                 v.setImageResource(R.drawable.button); break;
             default:break;
         }
